@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/<your-repo-name>/', // ⚠️ Critical for GitHub Pages
+  base: '/cognitioplus.github.io/LMS/', 
 });
