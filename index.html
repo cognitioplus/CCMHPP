@@ -27,9 +27,731 @@
     <meta property="twitter:title" content="Cognitio+ Paraprofessional Certification">
     <meta property="twitter:description" content="Train as a mental health paraprofessional in the Philippines. WHO & DOH-aligned.">
     <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/132303904?v=4">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <title>Cognitio+ Paraprofessional Certification Course Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Phosphor Icons (for Unicode-like replacements) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Fonts: Montserrat, Poppins, Roboto Condensed -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght<600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Magenta (#c80ec9), Purple-Accent (#b425aa), Gold-Accent (#D4AF3) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            600: '#57534e',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        // New Primary Accent: #c80ec9
+                        magenta: {
+                            50: '#fef3fe',
+                            600: '#c80ec9', 
+                            700: '#b425aa', // Secondary Accent for deeper shadow/hover
+                            900: '#8b0c8b',
+                        },
+                        // New Secondary Accent: #D4AF3 (Used for high-level highlights, replacing previous Amber)
+                        gold: {
+                            50: '#fffbf5',
+                            500: '#d4af37',
+                            600: '#c59d33',
+                        },
+                        // Crisis/Danger color remains strong red
+                        red: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    fontFamily: {
+                        // Montserrat Classic (sans)
+                        sans: ['Montserrat', 'sans-serif'], 
+                        // Poppins Semi-bold (used for headers)
+                        heading: ['Poppins', 'sans-serif'], 
+                        // Roboto Condensed (used for secondary/serif)
+                        serif: ['Roboto Condensed', 'sans-serif'], 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAFAF9; /* stone-50 */
+            color: #1C1917; /* stone-900 */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; /* Poppins Semi-bold/Bold */
+        }
+        
+        /* Chart Container Styling - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Default height */
+            max-height: 400px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px; /* Smaller height for mobile */
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-active {
+            border-bottom: 2px solid #c80ec9;
+            color: #c80ec9;
+            font-weight: 600;
+        }
+    </style>
+    <!-- Application Structure Plan: 
+         1. Header: Brand and simple global navigation.
+         2. Hero Section: Brief intro to the certification.
+         3. Dashboard Grid (The Core):
+            - Left Column (Tracker): Focus on the "Revised" Pre-requisites (Navigator, Pre-test).
+            - Right Column (Curriculum): Interactive Modules 0-7 Time Distribution Chart.
+         4. Learning Lab (Interactive Visuals):
+            - PFA Flow (HTML Interactive Look-Listen-Link)
+            - Listening Levels (Interactive Tabs for Scharmer's 4 Levels)
+         5. Footer: References.
+         
+         Logic: Users first need to see what they *must* do (Assessment), then explore what they *will* learn (Curriculum).
+    -->
+    
+    <!-- Visualization & Content Choices:
+         1. Pre-Requisite Tracker: Interactive Checklist. Goal: Clearly show the new requirements from the revised outline.
+         2. Module Breakdown: Time Investment Bar Chart. Goal: Show effort distribution. Library: Chart.js.
+         3. PFA Framework: Flow Diagram. Goal: Visualize Look-Listen-Link. Method: Styled HTML Blocks with hover detail.
+         4. Listening Levels: Interactive Step Visual. Goal: Explain Scharmer's model. Method: HTML/CSS + JS switching.
+         
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <!-- Logo/Icon Implementation -->
+                    <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" alt="Cognitio+ Logo" class="w-8 h-8 rounded-full">
+                    <span class="font-heading font-bold text-xl tracking-tight text-stone-800">Cognitio+ <span class="font-sans font-normal text-sm uppercase tracking-wide text-magenta-600">Certification Hub</span></span>
+                </div>
+                <nav class="hidden md:flex gap-6">
+                    <button onclick="scrollToSection('dashboard')" class="text-stone-600 hover:text-magenta-600 transition-colors">Dashboard</button>
+                    <button onclick="scrollToSection('curriculum')" class="text-stone-600 hover:text-magenta-600 transition-colors">Curriculum</button>
+                    <button onclick="scrollToSection('visuals')" class="text-stone-600 hover:text-magenta-600 transition-colors">Visual Frameworks</button>
+                </nav>
+                <div class="md:hidden">
+                    <!-- Mobile menu button placeholder -->
+                    <button class="text-stone-600"><i class="ph ph-list text-2xl"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="bg-white border-b border-stone-200 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-3xl md:text-4xl font-heading font-bold text-stone-900 mb-4">Mental Health & Well-Being Paraprofessional</h1>
+                <p class="text-lg text-stone-600 max-w-2xl mx-auto mb-6">
+                    Equipping you with essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support.
+                </p>
+                <div class="flex justify-center gap-4 text-sm font-medium text-stone-500">
+                    <span class="flex items-center gap-1"><i class="ph ph-certificate text-magenta-600"></i> WHO Aligned</span>
+                    <span class="flex items-center gap-1"><i class="ph ph-users-three text-magenta-600"></i> Peer-Based</span>
+                    <span class="flex items-center gap-1"><i class="ph ph-shield-check text-magenta-600"></i> Rights-Based</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard: Assessment & Tracker (Source: Revised Course Outline) -->
+        <section id="dashboard" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <!-- Context Intro -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-heading font-bold text-stone-800 mb-2">Part I & II: Assessment & Readiness</h2>
+                <p class="text-stone-600">
+                    Before engaging with the core curriculum, you must complete the pre-course requirements. 
+                    This dashboard tracks your readiness status based on the revised course outline. 
+                    Note: <span class="font-semibold text-gold-600">Resilience Profiling has been removed from Module 0</span> and replaced with the mandatory 
+                    <span class="font-semibold">Resilience Navigator</span> assessment.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left: Pre-Requisite Tracker -->
+                <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-6 lg:col-span-1 h-fit">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="p-2 bg-gold-50 rounded-lg text-gold-600">
+                            <i class="ph ph-check-square-offset text-xl"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg">Pre-Course Checklist</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Item 1 -->
+                        <div class="flex gap-3 items-start p-3 bg-stone-50 rounded-lg border border-stone-100">
+                            <div class="mt-1 text-stone-400"><i class="ph ph-circle"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-sm">Pre-Test Assessment</h4>
+                                <p class="text-xs text-stone-500 mt-1">General knowledge baseline check. Does not affect certification.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: Resilience Navigator (Highlight) -->
+                        <div class="flex gap-3 items-start p-3 bg-magenta-50 rounded-lg border border-magenta-100 ring-1 ring-magenta-200">
+                            <div class="mt-1 text-magenta-600"><i class="ph ph-star-fill"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-sm text-magenta-900">Resilience Navigator</h4>
+                                <p class="text-xs text-magenta-700 mt-1">Mandatory self-assessment for personal readiness.</p>
+                                <a href="https://cognitioplus.aiwaapp.live/resilience-navigator" target="_blank" class="mt-2 inline-flex items-center gap-1 text-xs font-bold text-magenta-700 hover:text-magenta-900 bg-white px-2 py-1 rounded border border-magenta-200 shadow-sm transition-all hover:shadow">
+                                    Launch Tool <i class="ph ph-arrow-square-out"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Confidentiality -->
+                        <div class="flex gap-3 items-start p-3 bg-stone-50 rounded-lg border border-stone-100">
+                            <div class="mt-1 text-stone-400"><i class="ph ph-circle"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-sm">Statement of Confidentiality</h4>
+                                <p class="text-xs text-stone-500 mt-1">Sign the agreement adhering to the <a href="https://cognitioplus.aiwaapp.live/privacy-policy" target="_blank" class="text-blue-600 hover:underline">Privacy Policy</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-6 border-t border-stone-100">
+                        <div class="flex justify-between items-center text-sm mb-2">
+                            <span class="text-stone-500">Readiness Status</span>
+                            <span class="font-bold text-gold-600">Pending</span>
+                        </div>
+                        <div class="w-full bg-stone-200 rounded-full h-2">
+                            <div class="bg-magenta-600 h-2 rounded-full" style="width: 15%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Module Overview & Stats -->
+                <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-6 lg:col-span-2">
+                    <h3 class="font-heading font-bold text-lg mb-4">Course Composition</h3>
+                    <p class="text-sm text-stone-500 mb-6">
+                        The course is divided into 8 modules (0-7). The chart below visualizes the estimated time investment required for each section, highlighting where the deepest learning (Core Skills) takes place.
+                    </p>
+                    
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="courseTimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Explorer -->
+        <section id="curriculum" class="bg-stone-50 border-t border-stone-200 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-10 text-center">
+                    <h2 class="text-2xl font-heading font-bold text-stone-900">Interactive Curriculum Map</h2>
+                    <p class="text-stone-600 mt-2 max-w-2xl mx-auto">
+                        Explore the modules below. Click on any card to reveal specific objectives and key concepts derived from the course manual. 
+                        Note the updated scope of Module 0.
+                    </p>
+                </div>
+
+                <!-- Module Navigation Tabs (Mobile: Horizontal Scroll, Desktop: Grid) -->
+                <div class="flex overflow-x-auto pb-4 gap-2 mb-6 md:justify-center" id="moduleTabs">
+                    <!-- Buttons injected via JS -->
+                </div>
+
+                <!-- Active Module Content -->
+                <div id="moduleContent" class="bg-white rounded-2xl shadow-lg border border-stone-200 p-8 min-h-[400px] transition-all duration-300">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Frameworks Section -->
+        <section id="visuals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="mb-12">
+                <h2 class="text-2xl font-heading font-bold text-stone-900">Key Visual Frameworks</h2>
+                <p class="text-stone-600 mt-2">
+                    Interactive tools to help you understand the core methodologies of the course: Psychological First Aid (PFA) and Deep Listening.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- PFA Interactive Flow -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-heading font-bold text-lg text-stone-800">PFA Model: Look, Listen, Link</h3>
+                        <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Module 3</span>
+                    </div>
+                    
+                    <p class="text-sm text-stone-500 mb-6 mt-4">
+                        Hover over each stage to understand your specific responsibilities during a crisis interaction. PFA is a non-intrusive approach to support.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <!-- Step 1 -->
+                        <div class="group relative cursor-pointer">
+                            <div class="flex items-center gap-4 bg-red-50 p-4 rounded-lg border border-red-100 group-hover:bg-red-100 transition-colors">
+                                <div class="bg-red-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">1</div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-red-900">LOOK</h4>
+                                    <p class="text-xs text-red-700">Check for safety & urgent needs.</p>
+                                </div>
+                                <div class="ml-auto text-red-400"><i class="ph ph-caret-down"></i></div>
+                            </div>
+                            <!-- Dropdown Content -->
+                            <div class="hidden group-hover:block bg-white border border-stone-200 p-4 rounded-lg mt-2 shadow-lg absolute z-10 w-full animate-fadeIn">
+                                <ul class="list-disc list-inside text-sm text-stone-600 space-y-1">
+                                    <li>Check for safety (environment & person).</li>
+                                    <li>Check for obvious urgent basic needs.</li>
+                                    <li>Check for serious distress reactions.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="group relative cursor-pointer">
+                            <div class="flex items-center gap-4 bg-gold-50 p-4 rounded-lg border border-gold-100 group-hover:bg-gold-100 transition-colors">
+                                <div class="bg-gold-600 text-stone-900 w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">2</div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-gold-900">LISTEN</h4>
+                                    <p class="text-xs text-gold-700">Offer support & calm.</p>
+                                </div>
+                                <div class="ml-auto text-gold-400"><i class="ph ph-caret-down"></i></div>
+                            </div>
+                            <div class="hidden group-hover:block bg-white border border-stone-200 p-4 rounded-lg mt-2 shadow-lg absolute z-10 w-full animate-fadeIn">
+                                <ul class="list-disc list-inside text-sm text-stone-600 space-y-1">
+                                    <li>Approach people who may need support.</li>
+                                    <li>Ask about needs and concerns.</li>
+                                    <li>Listen and help them feel calm.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="group relative cursor-pointer">
+                            <div class="flex items-center gap-4 bg-magenta-50 p-4 rounded-lg border border-magenta-100 group-hover:bg-magenta-100 transition-colors">
+                                <div class="bg-magenta-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">3</div>
+                                <div>
+                                    <h4 class="font-heading font-bold text-magenta-900">LINK</h4>
+                                    <p class="text-xs text-magenta-700">Connect to services.</p>
+                                </div>
+                                <div class="ml-auto text-magenta-400"><i class="ph ph-caret-down"></i></div>
+                            </div>
+                            <div class="hidden group-hover:block bg-white border border-stone-200 p-4 rounded-lg mt-2 shadow-lg absolute z-10 w-full animate-fadeIn">
+                                <ul class="list-disc list-inside text-sm text-stone-600 space-y-1">
+                                    <li>Help address basic needs/services.</li>
+                                    <li>Give information.</li>
+                                    <li>Connect with loved ones and social support.</li>
+                                    <li><strong>Warm Handoff:</strong> Call resource with client present.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scharmer's Listening Levels -->
+                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-heading font-bold text-lg text-stone-800">4 Levels of Listening</h3>
+                        <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Module 4</span>
+                    </div>
+                    
+                    <p class="text-sm text-stone-500 mb-6 mt-4">
+                        Select a level to understand the depth of engagement required for Generative Listening (Level 4), a crucial core skill for paraprofessionals.
+                    </p>
+
+                    <div class="flex gap-1 mb-4">
+                        <button onclick="setListeningLevel(1)" id="btn-lvl-1" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L1</button>
+                        <button onclick="setListeningLevel(2)" id="btn-lvl-2" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L2</button>
+                        <button onclick="setListeningLevel(3)" id="btn-lvl-3" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L3</button>
+                        <button onclick="setListeningLevel(4)" id="btn-lvl-4" class="flex-1 py-2 text-xs font-bold rounded bg-magenta-600 text-white shadow-md transition">L4</button>
+                    </div>
+
+                    <div id="listening-content" class="bg-stone-50 p-6 rounded-xl border border-stone-100 flex-grow flex flex-col justify-center text-center fade-in">
+                        <!-- Content injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-stone-900 text-stone-400 py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <p class="mb-2 font-serif text-stone-200">Cognitio+ Certification</p>
+                <p class="text-sm">Aligned with WHO mhGAP & PCMH Frameworks.</p>
+                <div class="mt-4 text-xs">
+                    <p>Source Material: CCMHP-Course Manual | Revised Outline</p>
+                    <p class="mt-2">Disclaimer: This tool is for educational purposes only.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATA STORE ---
+        const modules = [
+            {
+                id: 0,
+                title: "Orientation & Readiness",
+                duration: "1 hr",
+                hours: 1,
+                color: "bg-stone-100 text-stone-800",
+                desc: "Administrative, ethical, and foundational readiness for the course.",
+                content: {
+                    intro: "Focuses on getting you technically and ethically ready for the course. The central goal is to equip you with essential knowledge and skills to provide safe, ethical, and compassionate peer-based psychosocial support.",
+                    topics: ["Course Goal and Philosophy", "WHO mhGAP Alignment (Closing the Treatment Gap)", "WHO QualityRights Initiative (Dignity & Rights)", "PCMH Strategic Framework (Workforce & Collaboration)", "Readiness Check (Pre-Test & Navigator)"],
+                    keyTakeaway: "Preparation is key. Your primary role is non-clinical: to listen, hold space, and connect others to professional help, not to diagnose or advise."
+                }
+            },
+            {
+                id: 1,
+                title: "Foundations of Mental Health",
+                duration: "3 hrs",
+                hours: 3,
+                color: "bg-magenta-50 text-magenta-800",
+                desc: "Definitions, the legal context in the Philippines, and the boundaries of your role.",
+                content: {
+                    intro: "Establishes the core WHO definition of Mental Health, the legal basis for practice (RA 11036), and the strict boundaries of your non-clinical role (Support, Normalize, Link).",
+                    topics: ["WHO Definition of Mental Health", "Mental Health Act (RA 11036) Provisions", "Biopsychosocial Determinants", "Stigma & Person-First Language", "The Non-Clinical Role: Support, Normalize, Link"],
+                    keyTakeaway: "Mental health is more than the absence of illness; it is a state of well-being. Your core role is non-clinical and mandated by the Philippine Mental Health Act to counter the service gap."
+                }
+            },
+            {
+                id: 2,
+                title: "Ethics & Boundaries",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-purple-50 text-purple-800",
+                desc: "Data privacy, informed consent, and maintaining professional boundaries.",
+                content: {
+                    intro: "Covers the four core ethical principles (Autonomy, Beneficence, Non-maleficence, Justice) and the strict legal requirements of the Data Privacy Act (RA 10173) for digital support.",
+                    topics: ["Autonomy, Beneficence, Non-maleficence, Justice", "Data Privacy Act (RA 10173) & Sensitive Personal Information", "Informed Consent Requirements (Voluntary, Informed, Specific)", "Limits of Confidentiality (Duty to Warn)", "Professional Boundary Violations (Dual Relationships)"],
+                    keyTakeaway: "We cannot promise absolute secrecy. Non-maleficence requires you to stay strictly within your paraprofessional scope. Confidentiality must be broken in cases of imminent risk of harm or court orders."
+                }
+            },
+            {
+                id: 3,
+                title: "Psychological First Aid",
+                duration: "3 hrs",
+                hours: 3,
+                color: "bg-gold-50 text-gold-800",
+                desc: "The core PFA model: Look, Listen, Link, and its five essential principles.",
+                content: {
+                    intro: "Details the five essential principles of PFA (Safety, Calmness, Connectedness, Self-Efficacy, Hope) and how to implement the Look-Listen-Link action plan in a supportive, non-intrusive way.",
+                    topics: ["5 Core PFA Principles", "LOOK: Observation and Assessment of Safety & Needs", "LISTEN: Engagement and Active Listening", "LINK: Connecting to Resources (Practical, Social, Professional)", "PFA is NOT: Counseling, Forced Debriefing, or Diagnosis"],
+                    keyTakeaway: "PFA is a humane, supportive, and practical response to serious stress; it is immediate, temporary, and non-clinical. Always prioritize promoting safety and dignity."
+                }
+            },
+            {
+                id: 4,
+                title: "Core Support Skills",
+                duration: "6 hrs",
+                hours: 6,
+                color: "bg-red-50 text-red-800", // Using a strong color as it's the longest/most critical
+                desc: "Communication, Empathy, Generative Listening, and basic coping mechanisms.",
+                content: {
+                    intro: "The longest module, focusing on the eight core communication skills (e.g., Building Rapport, Reflecting, Identifying Strengths) and the deepest level of engagement: Generative Listening.",
+                    topics: ["8 Core Communication Skills (Building Rapport, Labeling Emotions, etc.)", "Deep Dive: Generative Listening (Scharmer's 4 Levels)", "Listening from the Emerging Future & Co-creation", "Teaching Stabilizing Techniques (Belly Breathing, 5-4-3-2-1 Grounding)"],
+                    keyTakeaway: "Generative Listening (Level 4) is the deepest form of engagement. It requires suspending judgment and listening with an 'Open Will' to co-create new possibilities for the client's future."
+                }
+            },
+            {
+                id: 5,
+                title: "Crisis Response",
+                duration: "4 hrs",
+                hours: 4,
+                color: "bg-red-50 text-red-800",
+                desc: "Recognizing acute emergencies, the 4-Step Protocol, and safe referrals.",
+                content: {
+                    intro: "Focuses on recognizing acute mental health emergencies (Level 3 Care) and making safe, appropriate referrals using the 4-Step Crisis Protocol and the critical Seamless Care Process.",
+                    topics: ["Crisis Indicators (Suicide Risk, Psychosis, Aggression)", "4-Step Crisis Response Protocol (Stay Calm, Listen, Remove Means, Connect)", "Safe Referrals: Level 1, 2, and 3 Pathways", "The Seamless Care Process and Warm Handoff Technique"],
+                    keyTakeaway: "Stay calm, ensure safety, and never handle a high-risk crisis alone. Use a 'Warm Handoff' to call the professional resource while the client is present to ensure a seamless transition of care."
+                }
+            },
+            {
+                id: 6,
+                title: "Cultural Sensitivity",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-amber-50 text-amber-800", // Re-using amber for variety
+                desc: "Cultural humility, key Filipino values, and inclusive practice.",
+                content: {
+                    intro: "Adapting support to the Philippine context by practicing cultural humility and understanding how key Filipino values (e.g., Hiya, Family-Centered Healing) influence help-seeking behaviors.",
+                    topics: ["Cultural Humility: Self-Reflection and Continuous Learning", "Hiya (Shame) and Pakikisama (Harmony) in Help-Seeking", "Family-Centered Healing Approach", "Inclusive Practice (LGBTQIA+, PWDs, Indigenous Communities)"],
+                    keyTakeaway: "Cultural humility allows us to support the person within their own context, honoring their values while gently empowering them to prioritize their well-being."
+                }
+            },
+            {
+                id: 7,
+                title: "Self-Care & Resilience",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-sky-50 text-sky-800", // Using a light blue for self-care/calmness
+                desc: "Preventing compassion fatigue and utilizing digital resilience tools.",
+                content: {
+                    intro: "Understanding the difference between Compassion Fatigue and Burnout, and developing sustainable self-care habits across four dimensions (Physical, Emotional, Social, Spiritual).",
+                    topics: ["Compassion Fatigue vs Burnout", "4 Dimensions of Self-Care", "Boundary Setting and Peer Supervision", "Cognitio+ Digital Resilience Tools (Well-Be, Oasis, Navigator)"],
+                    keyTakeaway: "Self-care is an ethical imperative. You must actively manage your well-being across all dimensions to prevent fatigue and ensure Non-maleficence in your work. You cannot pour from an empty cup."
+                }
+            }
+        ];
+
+        const listeningLevels = [
+            {
+                level: 1,
+                title: "Downloading",
+                desc: "Hearing only what you already know. Confirming old habits and judgments, maintaining the status quo. The conversation is contained within your own previous assumptions.",
+                icon: "ph-download-simple"
+            },
+            {
+                level: 2,
+                title: "Factual Listening",
+                desc: "Noticing differences. Listening for data that disconfirms your beliefs. Operating with an 'Open Mind'. You are focused on the facts presented and surface-level observations.",
+                icon: "ph-info"
+            },
+            {
+                level: 3,
+                title: "Empathic Listening",
+                desc: "Seeing through the other person's eyes. Emotional connection. Operating with an 'Open Heart'. The conversation shifts to their emotional experience, allowing you to deeply connect with their pain or joy.",
+                icon: "ph-heart"
+            },
+            {
+                level: 4,
+                title: "Generative Listening",
+                desc: "Listening from the emerging future. Co-creating potential. Operating with an 'Open Will'. Essential for deep support, as it allows new possibilities and shared meaning to emerge.",
+                icon: "ph-sparkle"
+            }
+        ];
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initCharts();
+                renderModuleTabs();
+                loadModule(0); // Load Module 0 by default
+                setListeningLevel(4); // Default to highest level
+            } catch (error) {
+                console.error("An error occurred during initialization:", error);
+            }
+        });
+
+        // --- NAVIGATION ---
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- MODULE LOGIC ---
+        function renderModuleTabs() {
+            const container = document.getElementById('moduleTabs');
+            container.innerHTML = modules.map(m => `
+                <button onclick="loadModule(${m.id})" id="tab-${m.id}" 
+                    class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all border border-stone-200 hover:border-magenta-400 bg-white text-stone-600 hover:text-magenta-600 shadow-sm flex-shrink-0">
+                    Mod ${m.id}
+                </button>
+            `).join('');
+        }
+
+        function loadModule(id) {
+            const module = modules.find(m => m.id === id);
+            const contentDiv = document.getElementById('moduleContent');
+            
+            if (!module || !contentDiv) return; // Defensive check
+
+            // Update Tab Styles
+            modules.forEach(m => {
+                const tab = document.getElementById(`tab-${m.id}`);
+                if(tab) {
+                    if(m.id === id) {
+                        tab.classList.add('bg-magenta-600', 'text-white', 'border-magenta-600');
+                        tab.classList.remove('bg-white', 'text-stone-600');
+                    } else {
+                        tab.classList.remove('bg-magenta-600', 'text-white', 'border-magenta-600');
+                        tab.classList.add('bg-white', 'text-stone-600');
+                    }
+                }
+            });
+
+            // Animate Content Swap
+            contentDiv.style.opacity = '0';
+            
+            setTimeout(() => {
+                contentDiv.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3">
+                            <div class="${module.color} px-4 py-2 rounded-lg inline-block text-xs font-bold uppercase tracking-wider mb-3">
+                                ${module.duration} Duration
+                            </div>
+                            <h3 class="text-3xl font-heading font-bold text-stone-900 mb-2">${module.title}</h3>
+                            <p class="text-lg font-serif text-stone-600 italic mb-6">${module.desc}</p>
+                            
+                            <div class="bg-stone-50 p-4 rounded-lg border border-stone-100">
+                                <h4 class="font-heading font-bold text-sm text-stone-800 mb-2">Key Takeaway</h4>
+                                <p class="text-sm text-stone-600">"${module.content.keyTakeaway}"</p>
+                            </div>
+                        </div>
+
+                        <div class="md:w-2/3 border-t md:border-t-0 md:border-l border-stone-200 pt-6 md:pt-0 md:pl-8">
+                            <h4 class="font-heading font-bold text-lg text-magenta-700 mb-4 flex items-center gap-2">
+                                <i class="ph ph-book-open"></i> Module Scope
+                            </h4>
+                            <p class="text-stone-700 mb-6 leading-relaxed">
+                                ${module.content.intro}
+                            </p>
+
+                            <h4 class="font-heading font-bold text-sm text-stone-800 mb-3 uppercase tracking-wide">Topics Covered</h4>
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                ${module.content.topics.map(t => `
+                                    <li class="flex items-center gap-2 text-stone-600 text-sm p-2 bg-white rounded border border-stone-100 shadow-sm">
+                                        <i class="ph ph-check text-magenta-500"></i> ${t}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                contentDiv.style.opacity = '1';
+            }, 200);
+        }
+
+        // --- LISTENING LEVELS LOGIC ---
+        function setListeningLevel(level) {
+            const data = listeningLevels.find(l => l.level === level);
+            const container = document.getElementById('listening-content');
+            
+            if (!data || !container) return; // Defensive check
+
+            // Update Buttons
+            [1,2,3,4].forEach(l => {
+                const btn = document.getElementById(`btn-lvl-${l}`);
+                if(btn) {
+                    if (l === level) {
+                        btn.classList.add('bg-magenta-600', 'text-white', 'shadow-md');
+                        btn.classList.remove('bg-stone-100', 'text-stone-500');
+                    } else {
+                        btn.classList.remove('bg-magenta-600', 'text-white', 'shadow-md');
+                        btn.classList.add('bg-stone-100', 'text-stone-500');
+                    }
+                }
+            });
+
+            // Render Content
+            container.innerHTML = `
+                <div class="mb-4">
+                    <i class="ph ${data.icon} text-5xl text-magenta-600"></i>
+                </div>
+                <h4 class="text-xl font-heading font-bold text-stone-800 mb-2">Level ${data.level}: ${data.title}</h4>
+                <p class="text-stone-600">${data.desc}</p>
+            `;
+            
+            // Re-trigger fade
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // trigger reflow
+            container.classList.add('fade-in');
+        }
+
+        // --- CHARTS ---
+        function initCharts() {
+            const chartCanvas = document.getElementById('courseTimeChart');
+            if (!chartCanvas) {
+                console.error("Chart canvas element not found.");
+                return; // Stop if element is missing
+            }
+
+            const ctx = chartCanvas.getContext('2d');
+            
+            // Data derived from modules array
+            const labels = modules.map(m => `Mod ${m.id}`);
+            const data = modules.map(m => m.hours);
+            const colors = modules.map(m => {
+                if(m.id === 4) return '#c80ec9'; // Highlight Core Skills (Magenta)
+                if(m.id === 5) return '#ef4444'; // Crisis (Red)
+                return '#e7e5e4'; // Others (Stone)
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Hours Duration',
+                        data: data,
+                        backgroundColor: colors,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (ctx) => modules[ctx[0].dataIndex].title
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Hours' },
+                            grid: { display: false }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
 </html>
