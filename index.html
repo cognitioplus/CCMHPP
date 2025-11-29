@@ -1,918 +1,717 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mental Health Paraprofessional Certification</title>
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
+    <!-- Dynamic PWA Manifest Injection handled in JS -->
+    <link id="manifest-link" rel="manifest" href="">
+    
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4C+0HwFz2jU/6L+2Wj4A8q/04R4mS1t2j9e1zT9s9j+i+fA3b1r0y0s0k0y0t0r0y0" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Custom Tailwind Configuration and Fonts -->
+    
+    <!-- Load Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b425aa',
+                        accent: '#c80ec9',
+                        success: '#D4AF37',
+                        surface: '#ffffff',
+                        background: '#f7f7f7'
+                    },
+                    fontFamily: {
+                        sans: ['Roboto Condensed', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                        brand: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@700&family=Roboto+Condensed:wght@400;700&display=swap');
-        
-        /* Define custom colors and fonts */
         :root {
-            --color-primary: #b425aa; /* Deep Violet/Pink */
-            --color-accent: #c80ec9;  /* Bright Magenta */
-            --color-success: #D4AF37; /* Gold */
+            --color-primary: #b425aa;
+            --color-accent: #c80ec9;
+            --color-success: #D4AF37;
         }
 
-        .font-montserrat { font-family: 'Montserrat', sans-serif; }
-        .font-poppins { font-family: 'Poppins', sans-serif; }
-        .font-roboto-condensed { font-family: 'Roboto Condensed', sans-serif; }
-
-        .bg-primary { background-color: var(--color-primary); }
-        .text-primary { color: var(--color-primary); }
-        .border-primary { border-color: var(--color-primary); }
-        
-        .bg-accent { background-color: var(--color-accent); }
-        .text-accent { color: var(--color-accent); }
-
-        .bg-success { background-color: var(--color-success); }
-        .text-success { color: var(--color-success); }
-
-        /* General styles for a modern, clean look */
         body {
-            background-color: #f7f7f7;
+            background-color: var(--background);
+            overflow-x: hidden;
         }
-        .scroll-container {
-            /* Custom scrollbar for better aesthetics */
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-primary) #f0f0f0;
-        }
-        .scroll-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        .scroll-container::-webkit-scrollbar-thumb {
-            background-color: var(--color-primary);
-            border-radius: 20px;
-        }
-        .scroll-container::-webkit-scrollbar-track {
-            background-color: #f0f0f0;
-        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
 
         .gradient-bg {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
         }
+
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Mobile Navigation Bottom Bar */
+        .bottom-nav-item.active { color: var(--color-primary); border-top: 3px solid var(--color-primary); }
     </style>
 </head>
-<body class="font-roboto-condensed min-h-screen flex flex-col antialiased">
+<body class="font-sans text-gray-800 h-screen flex flex-col md:flex-row overflow-hidden">
 
-    <!-- Firebase SDKs -->
+    <!-- Sidebar (Desktop) -->
+    <aside class="hidden md:flex flex-col w-64 gradient-bg text-white shadow-xl z-20">
+        <div class="p-6">
+            <h1 class="font-brand text-2xl font-bold tracking-wider"><i class="fas fa-brain mr-2"></i>Cognitio+</h1>
+            <p class="text-xs opacity-80 mt-1">Paraprofessional Cert.</p>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto py-4">
+            <button onclick="switchMode('course')" id="nav-course-d" class="w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center bg-white/20 border-l-4 border-white">
+                <i class="fas fa-book-open w-6"></i> Course Modules
+            </button>
+            <button onclick="switchMode('knowledge')" id="nav-knowledge-d" class="w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center border-l-4 border-transparent">
+                <i class="fas fa-users w-6"></i> Knowledge Hub
+            </button>
+            <button onclick="switchMode('settings')" id="nav-settings-d" class="w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center border-l-4 border-transparent">
+                <i class="fas fa-cog w-6"></i> Settings
+            </button>
+        </nav>
+
+        <div class="p-4 bg-black/10">
+            <div id="user-status-display" class="text-sm mb-2 opacity-80">
+                <i class="fas fa-circle-notch fa-spin"></i> Connecting...
+            </div>
+            <div id="certification-badge" class="hidden text-center bg-white/20 rounded p-2 border border-white/30">
+                <i class="fas fa-certificate text-yellow-300"></i> Certified
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full relative">
+        <!-- Mobile Header -->
+        <header class="md:hidden gradient-bg text-white p-4 flex justify-between items-center shadow-md z-20">
+            <h1 class="font-brand font-bold text-lg"><i class="fas fa-brain mr-2"></i>Cognitio+</h1>
+            <div id="mobile-cert-status" class="text-xs font-bold bg-white/20 px-2 py-1 rounded hidden">Certified</div>
+        </header>
+
+        <!-- Dynamic View Container -->
+        <div id="main-view" class="flex-1 overflow-y-auto p-4 md:p-8 scroll-container relative">
+            <!-- Loading Screen -->
+            <div id="loading-screen" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-50">
+                <i class="fas fa-circle-notch fa-spin text-4xl text-primary mb-4"></i>
+                <p class="font-heading text-gray-600">Loading Certification Data...</p>
+            </div>
+            
+            <!-- Content will be injected here via JS -->
+        </div>
+
+        <!-- Mobile Bottom Nav -->
+        <nav class="md:hidden bg-white shadow-lg border-t border-gray-200 flex justify-around items-center h-16 z-20">
+            <button onclick="switchMode('course')" id="nav-course-m" class="bottom-nav-item active flex-1 h-full flex flex-col items-center justify-center text-gray-500">
+                <i class="fas fa-book-open text-xl mb-1"></i>
+                <span class="text-xs">Learn</span>
+            </button>
+            <button onclick="switchMode('knowledge')" id="nav-knowledge-m" class="bottom-nav-item flex-1 h-full flex flex-col items-center justify-center text-gray-500">
+                <i class="fas fa-users text-xl mb-1"></i>
+                <span class="text-xs">Hub</span>
+            </button>
+            <button onclick="switchMode('settings')" id="nav-settings-m" class="bottom-nav-item flex-1 h-full flex flex-col items-center justify-center text-gray-500">
+                <i class="fas fa-cog text-xl mb-1"></i>
+                <span class="text-xs">Settings</span>
+            </button>
+        </nav>
+    </main>
+
+    <!-- Firebase & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, where, getDocs, addDoc, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global variables provided by the Canvas environment
+        // --- Configuration & Global State ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         let app, db, auth;
-        let currentUserId = 'guest';
+        let currentUserId = null;
         let reflections = [];
-        let userSettings = { notifyOnReply: true, theme: 'light' };
+        let userProgress = {};
         let activeMode = 'course'; // 'course', 'knowledge', 'settings'
+        let expandedModule = 0; // Default open module
+        let currentLesson = null; // Currently viewing lesson object
 
-        // --- PWA Service Worker Registration ---
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                    console.log('SW registered: ', registration);
-                }).catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-            });
-        }
-        // Dummy sw.js and manifest content for PWA (to satisfy manifest requirements)
-        const swContent = `self.addEventListener('fetch', event => {});`;
-        function createDummySW() { const blob = new Blob([swContent], { type: 'application/javascript' }); const url = URL.createObjectURL(blob); console.log('Dummy sw.js URL created:', url); }
-        createDummySW();
-        function createManifest() {
-            const manifestContent = {
-                "name": "MHP Certification", "short_name": "MHP Cert", "start_url": "./index.html", "display": "standalone", "background_color": "#ffffff", "theme_color": "#b425aa",
-                "icons": [
-                    { "src": "logo-192.png", "sizes": "192x192", "type": "image/png" },
-                    { "src": "logo-512.png", "sizes": "512x512", "type": "image/png" }
-                ]
-            };
-            console.log('PWA Manifest content generated:', manifestContent);
-        }
-        createManifest();
-
-
-        // --- FIREBASE INITIALIZATION & AUTH ---
-
-        const initializeFirebase = async () => {
-            if (!firebaseConfig) {
-                console.error("Firebase config is missing. Cannot initialize Firestore.");
-                return;
-            }
-
-            try {
-                // setLogLevel('debug'); // For debugging Firestore operations
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // Check for custom token, otherwise sign in anonymously
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                // Wait for auth state change to determine userId
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        currentUserId = user.uid;
-                        document.getElementById('user-id-display').textContent = 'User ID: ' + currentUserId;
-                        document.getElementById('course-content').classList.remove('hidden');
-                        document.getElementById('loading-screen').classList.add('hidden');
-                        loadCourseProgress(currentUserId);
-                        loadReflections(); // Load public knowledge data
-                        loadUserSettings(currentUserId); // Load private settings
-                    } else {
-                        console.log("No user signed in.");
-                        document.getElementById('loading-screen').textContent = "Authentication failed. Please refresh.";
-                    }
-                });
-
-            } catch (error) {
-                console.error("Error during Firebase initialization or sign-in:", error);
-                document.getElementById('loading-screen').textContent = "Failed to connect to the server. Please check your console for details.";
-            }
-        };
-
-        // --- FIRESTORE COLLECTION REFERENCES ---
-
-        const getProgressDocRef = (userId) => {
-            // Private data storage: /artifacts/{appId}/users/{userId}/userState/progress
-            return doc(db, 'artifacts', appId, 'users', userId, 'userState', 'progress');
-        };
-        
-        const getCertificationDocRef = (userId) => {
-            // Private data storage: /artifacts/{appId}/users/{userId}/userState/certification
-            return doc(db, 'artifacts', appId, 'users', userId, 'userState', 'certification');
-        };
-        
-        const getReflectionsCollectionRef = () => {
-            // Public data storage: /artifacts/{appId}/public/data/reflections
-            return collection(db, 'artifacts', appId, 'public', 'data', 'reflections');
-        };
-        
-        const getUserSettingsDocRef = (userId) => {
-            // Private data storage: /artifacts/{appId}/users/{userId}/userState/settings
-            return doc(db, 'artifacts', appId, 'users', userId, 'userState', 'settings');
-        };
-
-
-        // --- FIRESTORE DATA MANAGEMENT ---
-
-        // Progress and Certification (Existing Logic)
-        const saveCourseProgress = async (progress) => { /* ... existing logic ... */
-            if (!currentUserId || currentUserId === 'guest') return;
-            const progressData = {};
-            progress.forEach(item => { progressData[item.lessonId] = { completed: item.completed || false, score: item.score || 0 }; });
-            try {
-                await setDoc(getProgressDocRef(currentUserId), { lessons: progressData, lastUpdated: serverTimestamp() }, { merge: true });
-            } catch (error) { console.error("Error saving progress:", error); }
-        };
-
-        const loadCourseProgress = (userId) => { /* ... existing logic ... */
-            if (!userId || userId === 'guest') return;
-            onSnapshot(getProgressDocRef(userId), (docSnap) => {
-                if (docSnap.exists() && docSnap.data().lessons) {
-                    const savedLessons = docSnap.data().lessons;
-                    courseStructure.forEach(module => {
-                        module.lessons.forEach(lesson => {
-                            const savedData = savedLessons[lesson.lessonId];
-                            if (savedData) {
-                                lesson.completed = savedData.completed;
-                                lesson.score = savedData.score;
-                            }
-                        });
-                    });
-                    checkCertificationStatus(userId);
-                    renderMainContent(); // Use new combined render function
-                } else {
-                    renderMainContent();
-                }
-            }, (error) => { console.error("Error loading progress in real-time:", error); });
-        };
-        
-        const checkCertificationStatus = async (userId) => { /* ... existing logic ... */
-             if (!userId || userId === 'guest') return;
-             try {
-                const docSnap = await getDoc(getCertificationDocRef(userId));
-                const certification = docSnap.data();
-                if (certification && certification.isCertified) {
-                    document.getElementById('certification-status').innerHTML = `<span class="text-success font-poppins">CERTIFIED!</span> Final Score: ${certification.finalScore}%`;
-                    document.getElementById('certificate-button').classList.remove('hidden');
-                    return true;
-                } else {
-                    document.getElementById('certification-status').innerHTML = `<span class="text-red-500 font-poppins">Not Yet Certified.</span>`;
-                    document.getElementById('certificate-button').classList.add('hidden');
-                    return false;
-                }
-             } catch (e) {
-                console.error("Error fetching certification status:", e);
-                return false;
-             }
-        }
-
-        // Reflections (New Logic)
-        const saveReflection = async (reflection) => {
-            if (!currentUserId || currentUserId === 'guest') return showNotification("Please sign in to share reflections.", 'error');
-
-            const reflectionData = {
-                userId: currentUserId,
-                username: `User-${currentUserId.substring(0, 4)}`, // Simple pseudo-username
-                timestamp: serverTimestamp(),
-                ...reflection,
-                replies: reflection.replies || [],
-            };
-
-            try {
-                await addDoc(getReflectionsCollectionRef(), reflectionData);
-                showNotification("Reflection shared successfully in the Knowledge Hub!", 'success');
-            } catch (error) {
-                console.error("Error saving reflection:", error);
-                showNotification("Failed to share reflection.", 'error');
-            }
-        };
-
-        const saveReply = async (reflectionId, replyText) => {
-            if (!currentUserId || currentUserId === 'guest') return showNotification("Please sign in to reply.", 'error');
-
-            const docRef = doc(getReflectionsCollectionRef(), reflectionId);
-            const newReply = {
-                userId: currentUserId,
-                username: `User-${currentUserId.substring(0, 4)}`,
-                timestamp: serverTimestamp(),
-                text: replyText,
-            };
-
-            try {
-                await setDoc(docRef, { 
-                    replies: [...(getLessonById(reflectionId)?.replies || []), newReply] // This is complex for a single file. Simpler: fetch doc, update array, set doc.
-                }, { merge: true });
-                showNotification("Reply posted successfully!", 'success');
-            } catch (error) {
-                console.error("Error saving reply:", error);
-                showNotification("Failed to save reply.", 'error');
-            }
-        };
-
-
-        const loadReflections = () => {
-            // Real-time listener for public reflections
-            onSnapshot(getReflectionsCollectionRef(), (snapshot) => {
-                reflections = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-                    .sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds); // Sort descending by time
-                if (activeMode === 'knowledge') {
-                    renderKnowledgeHub(); // Re-render the knowledge hub to show new data
-                }
-            }, (error) => {
-                console.error("Error loading reflections:", error);
-            });
-        };
-        
-        // Settings (New Logic)
-        const loadUserSettings = (userId) => {
-            if (!userId || userId === 'guest') return;
-
-            onSnapshot(getUserSettingsDocRef(userId), (docSnap) => {
-                if (docSnap.exists()) {
-                    userSettings = { ...userSettings, ...docSnap.data() };
-                } else {
-                    // Initialize settings if none exist
-                    saveUserSettings(userSettings);
-                }
-                if (activeMode === 'settings') {
-                    renderSettings();
-                }
-            }, (error) => {
-                console.error("Error loading user settings:", error);
-            });
-        };
-
-        const saveUserSettings = async (settings) => {
-            if (!currentUserId || currentUserId === 'guest') return;
-            try {
-                await setDoc(getUserSettingsDocRef(currentUserId), settings, { merge: true });
-                userSettings = settings;
-                showNotification("Settings updated successfully!", 'info');
-            } catch (error) {
-                console.error("Error saving settings:", error);
-                showNotification("Failed to save settings.", 'error');
-            }
-        };
-
-
-        // --- COURSE DATA STRUCTURE (Modules 0-9) ---
-
+        // --- Data: Course Structure (Completed) ---
         const courseStructure = [
-            {
+             {
                 moduleIndex: 0,
                 title: "Module 0: Orientation and Course Structure",
                 lessons: [
-                    { lessonId: "M0L1", title: "Course Goals, Purpose, and Philosophy (PFA)", completed: false, content: `<p class="mb-4">The core purpose is to equip you with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support, both online and in community contexts.</p><p class="mb-4 font-poppins text-lg text-primary">Your primary goal is not to diagnose, fix, or advise—but to LISTEN, HOLD SPACE, and CONNECT others to help.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">The PFA Model: Psychological First Aid</h3><p class="mb-4">The entire course is built upon the practical, universal principles of Psychological First Aid (PFA). </p><ul class="list-disc ml-6 space-y-2"><li><strong>LOOK 👀:</strong> Assess safety, basic needs, and distress cues.</li><li><strong>LISTEN 👂:</strong> Offer non-intrusive, compassionate listening.</li><li><strong>LINK 🔗:</strong> Connect people to resources, information, and social support.</li></ul>` },
-                    { lessonId: "M0L2", title: "Meet the Training Team and Structure Overview", completed: false, content: `<p class="mb-4">Welcome from the Cognitio+ Training Team! This course is designed to be completed across nine sequential modules, concluding with a comprehensive certification assessment.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Key Course Components</h3><ul class="list-disc ml-6 space-y-2"><li>Video Lectures (Simulated)</li><li>Reading Assignments (Contained within lessons)</li><li>Quizzes (For knowledge check)</li><li>Final Comprehensive Assessment (Certification)</li></ul>` }
+                    { lessonId: "M0L1", title: "Course Goals, Purpose, and Philosophy (PFA)", content: `<div class="prose max-w-none"><p class="mb-4">The core purpose is to equip you with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support, both online and in community contexts.</p><div class="bg-purple-50 p-4 border-l-4 border-purple-600 rounded mb-4"><p class="font-heading font-bold text-lg text-primary">Your primary goal is not to diagnose, fix, or advise—but to LISTEN, HOLD SPACE, and CONNECT others to help.</p></div><h3 class="font-heading text-xl mt-6 mb-3 text-accent">The PFA Model: Psychological First Aid</h3><p class="mb-4">The entire course is built upon the practical, universal principles of Psychological First Aid (PFA). </p><ul class="list-disc ml-6 space-y-2"><li><strong>LOOK 👀:</strong> Assess safety, basic needs, and distress cues.</li><li><strong>LISTEN 👂:</strong> Offer non-intrusive, compassionate listening.</li><li><strong>LINK 🔗:</strong> Connect people to resources, information, and social support.</li></ul></div>` },
+                    { lessonId: "M0L2", title: "Meet the Training Team and Structure Overview", content: `<div class="prose max-w-none"><p class="mb-4">Welcome from the Cognitio+ Training Team! This course is designed to be completed across nine sequential modules.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">Key Course Components</h3><ul class="list-disc ml-6 space-y-2"><li>Video Lectures (Simulated)</li><li>Reading Assignments (Contained within lessons)</li><li>Quizzes (For knowledge check)</li><li>Final Comprehensive Assessment (Certification)</li></ul></div>` }
                 ]
             },
             {
                 moduleIndex: 1,
                 title: "Module 1: Foundational Frameworks and Your Role",
                 lessons: [
-                    { lessonId: "M1L1", title: "Guiding National and International Frameworks", completed: false, content: `<p class="mb-4">Your role is anchored in global and local standards to ensure quality, ethical practice.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">WHO Mental Health Gap Action Programme (mhGAP)</h3><p class="mb-4">A strategy to scale up services for mental, neurological, and substance use disorders. You are key to addressing the service gap.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">WHO QualityRights Initiative</h3><p class="mb-4">Promotes **Dignity, Recovery, and Human Rights** in all mental health service delivery.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Philippine Council for Mental Health (PCMH) Strategic Framework</h3><p class="mb-4">You contribute to **Pillar 1 (Workforce Development)** and **Pillar 4 (Cross-Sectoral Collaboration)** of the national agenda.</p>` },
-                    { lessonId: "M1L2", title: "Defining the Paraprofessional's Scope", completed: false, content: `<p class="mb-4">It is critical to understand the distinction between peer support and clinical intervention. You are a **non-clinical** provider.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Professional Boundaries</h3><ul class="list-disc ml-6 space-y-2"><li><strong>Do NOT:</strong> Diagnose, prescribe, or offer long-term therapy.</li><li><strong>DO:</strong> Provide immediate comfort, assess immediate safety (LOOK), and facilitate referral (LINK).</li></ul>` }
+                    { lessonId: "M1L1", title: "Guiding National and International Frameworks", content: `<div class="prose max-w-none"><p class="mb-4">Your role is anchored in global and local standards to ensure quality, ethical practice.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">WHO mhGAP</h3><p class="mb-4">A strategy to scale up services for mental, neurological, and substance use disorders. You are key to addressing the service gap.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">WHO QualityRights</h3><p class="mb-4">Promotes **Dignity, Recovery, and Human Rights** in all mental health service delivery.</p></div>` },
+                    { lessonId: "M1L2", title: "Defining the Paraprofessional's Scope", content: `<div class="prose max-w-none"><p class="mb-4">It is critical to understand the distinction between peer support and clinical intervention. You are a **non-clinical** provider.</p><h3 class="font-heading text-xl mt-6 mb-3 text-accent">Professional Boundaries</h3><ul class="list-disc ml-6 space-y-2"><li><strong>Do NOT:</strong> Diagnose, prescribe, or offer long-term therapy.</li><li><strong>DO:</strong> Provide immediate comfort, assess immediate safety (LOOK), and facilitate referral (LINK).</li></ul></div>` }
                 ]
             },
             {
                 moduleIndex: 2,
                 title: "Module 2: Ethical, Legal, and Digital Practice",
                 lessons: [
-                    { lessonId: "M2L1", title: "Confidentiality and Mandatory Reporting", completed: false, content: `<p class="mb-4">The Ethical Imperative: All client information must be protected. You must maintain professional silence about all cases unless mandated by law.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Key Legal Documents</h3><ul class="list-disc ml-6 space-y-2"><li><strong>Republic Act No. 10173 (Data Privacy Act of 2012):</strong> Strictly governs the handling of sensitive personal information.</li><li><strong>Republic Act No. 11036 (Mental Health Act of 2018):</strong> Upholds the rights of persons with mental health conditions.</li></ul><p class="mt-4">Mandatory reporting is required for imminent threat of harm to self or others.</p>` },
-                    { lessonId: "M2L2", title: "Digital Ethics and Online Support", completed: false, content: `<p class="mb-4">Supporting clients online requires heightened caution regarding security, privacy, and informed consent. Always verify the client's identity and jurisdiction when providing digital support.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Maintaining Professional Digital Presence</h3><p class="mb-4">Avoid giving medical advice or engaging in dual relationships (e.g., becoming friends with clients on social media).</p>` }
+                    { lessonId: "M2L1", title: "Confidentiality and Mandatory Reporting", content: `<div class="prose max-w-none"><p class="mb-4">The Ethical Imperative: All client information must be protected. You must maintain professional silence about all cases unless mandated by law.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">Key Legal Documents</h3><ul class="list-disc ml-6 space-y-2"><li><strong>Republic Act No. 10173 (Data Privacy Act):</strong> Strictly governs the handling of sensitive personal information.</li><li><strong>Republic Act No. 11036 (Mental Health Act):</strong> Upholds the rights of persons with mental health conditions.</li></ul></div>` },
+                    { lessonId: "M2L2", title: "Digital Ethics and Online Support", content: `<div class="prose max-w-none"><p class="mb-4">Supporting clients online requires heightened caution regarding security, privacy, and informed consent.</p><div class="bg-red-50 p-4 border-l-4 border-red-500 rounded"><p class="font-bold">Avoid dual relationships (e.g., becoming friends with clients on social media).</p></div></div>` }
                 ]
             },
             {
                 moduleIndex: 3,
                 title: "Module 3: Psychological First Aid (PFA) and Scope",
                 lessons: [
-                    { lessonId: "M3L1", title: "PFA Step 1: LOOK 👀 (Assess Safety and Needs)", completed: false, content: `<p class="mb-4">The 'LOOK' stage involves observing, assessing, and identifying who needs help and what their immediate needs are (e.g., shelter, water, medical attention, emotional stabilization).</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Key Observation Areas</h3><ul class="list-disc ml-6 space-y-2"><li>Immediate safety risks (environment, self-harm, others).</li><li>Signs of severe distress or impaired functioning.</li><li>Basic needs (food, water, medical).</li></ul>` },
-                    { lessonId: "M3L2", title: "PFA Step 2: LISTEN 👂 (Non-Intrusive Presence)", completed: false, content: `<p class="mb-4">Listening is not waiting for your turn to speak; it is fully receiving the other person's reality. Offer non-intrusive, compassionate listening.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Principles of Compassionate Presence</h3><p class="mb-4">Be physically available, silent when necessary, and use non-verbal cues (eye contact, posture) to show engagement without pressure to talk.</p>` },
-                    { lessonId: "M3L3", title: "PFA Step 3: LINK 🔗 (Connecting to Support)", completed: false, content: `<p class="mb-4">Linking is the final PFA action—connecting the person to the next appropriate level of care, whether it's social support, government services, or clinical professionals.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Resource Mapping</h3><p class="mb-4">Know your local and national resources (hotlines, local government unit counselors) for efficient and appropriate referrals.</p>` }
+                    { lessonId: "M3L1", title: "PFA Step 1: LOOK 👀", content: `<div class="prose max-w-none"><p class="mb-4">The 'LOOK' stage involves observing, assessing, and identifying who needs help.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">Key Observation Areas</h3><ul class="list-disc ml-6 space-y-2"><li>Immediate safety risks (environment, self-harm, others).</li><li>Signs of severe distress.</li><li>Basic needs (food, water, medical).</li></ul></div>` },
+                    { lessonId: "M3L2", title: "PFA Step 2: LISTEN 👂", content: `<div class="prose max-w-none"><p class="mb-4">Listening is not waiting for your turn to speak; it is fully receiving the other person's reality.</p><h3 class="font-heading text-xl mt-6 mb-3 text-accent">Compassionate Presence</h3><p>Be physically available, silent when necessary, and use non-verbal cues.</p></div>` },
+                    { lessonId: "M3L3", title: "PFA Step 3: LINK 🔗", content: `<div class="prose max-w-none"><p class="mb-4">Linking is the final PFA action—connecting the person to the next appropriate level of care.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">Resource Mapping</h3><p>Know your local and national resources for efficient referrals.</p></div>` }
                 ]
             },
             {
                 moduleIndex: 4,
-                title: "Module 4: Core Support, Communication and Basic Coping Skills",
+                title: "Module 4: Support & Coping Skills",
                 lessons: [
-                    { lessonId: "M4L1", title: "Active Listening and Validation Techniques", completed: false, content: `<p class="mb-4">Validation is the act of communicating that the other person's experience, thoughts, and feelings make sense. It is the opposite of minimizing or judging their pain.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Otto Scharmer’s 4 Levels of Listening</h3><ol class="list-decimal ml-6 space-y-2"><li><strong>Downloading (Level 1):</strong> Listening to confirm what you already know.</li><li><strong>Factual (Level 2):</strong> Listening to notice new facts and differences.</li><li><strong>Empathic (Level 3):</strong> Listening from the other person's perspective. </li><li><strong>Generative (Level 4):</strong> Listening to notice potential and emerging futures.</li></ol>` },
-                    { lessonId: "M4L2", title: "Psychoeducation for Stress and Resilience", completed: false, content: `<p class="mb-4">Providing basic, accurate information about common stress reactions helps normalize the client's experience and reduces shame. This is a non-clinical support function.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Simple Coping Skills to Teach</h3><ul class="list-disc ml-6 space-y-2"><li>Square Breathing (4-second inhale, 4-second hold, 4-second exhale, 4-second hold).</li><li>Grounding Techniques (5-4-3-2-1 exercise).</li><li>Progressive Muscle Relaxation (PMR) basics.</li></ul>` }
+                    { lessonId: "M4L1", title: "Active Listening & Validation", content: `<div class="prose max-w-none"><p>Validation is the act of communicating that the other person's experience makes sense.</p><h3 class="font-heading text-lg mt-4">Otto Scharmer’s 4 Levels</h3><ol class="list-decimal ml-6"><li>Downloading</li><li>Factual</li><li>Empathic</li><li>Generative</li></ol></div>` },
+                    { lessonId: "M4L2", title: "Psychoeducation & Resilience", content: `<div class="prose max-w-none"><h3 class="font-heading text-lg text-primary">Simple Coping Skills</h3><ul class="list-disc ml-6"><li>Square Breathing (4-4-4-4).</li><li>Grounding (5-4-3-2-1).</li><li>Progressive Muscle Relaxation.</li></ul></div>` }
                 ]
             },
             {
                 moduleIndex: 5,
-                title: "Module 5: Crisis Intervention and Safe Referral",
+                title: "Module 5: Crisis Intervention",
                 lessons: [
-                    { lessonId: "M5L1", title: "Assessing Imminent Danger (Suicidality and Harm)", completed: false, content: `<p class="mb-4">Safety is the highest priority. If a client discloses intent to harm self or others, you must act immediately to secure safety.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Risk Assessment Keys (I.P.M.)</h3><ul class="list-disc ml-6 space-y-2"><li><strong>Intent:</strong> Do they want to die?</li><li><strong>Plan:</strong> Do they have a method and timeline?</li><li><strong>Means:</strong> Do they have access to the method?</li></ul><p class="mt-4 font-poppins text-lg text-red-600">If Intent, Plan, and Means are present, move immediately to LINK (Emergency Referral).</p>` },
-                    { lessonId: "M5L2", title: "The 'Warm Handoff' Protocol", completed: false, content: `<p class="mb-4">Linking is most effective when done via a **warm handoff** to ensure a smooth transition of care.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Warm Handoff Steps</h3><ol class="list-decimal ml-6 space-y-2"><li>Contact the receiving resource (e.g., licensed clinician, hotline) **while the client is present**.</li><li>Briefly and professionally summarize the situation, maintaining only necessary confidentiality.</li><li>Allow the client to speak directly to the next provider before ending the support session.</li></ol>` }
+                    { lessonId: "M5L1", title: "Assessing Imminent Danger", content: `<div class="prose max-w-none"><p class="text-red-600 font-bold">Safety is the highest priority.</p><h3 class="font-heading text-xl mt-4 text-accent">Risk Assessment Keys (I.P.M.)</h3><ul class="list-disc ml-6"><li><strong>Intent:</strong> Do they want to die?</li><li><strong>Plan:</strong> Do they have a method?</li><li><strong>Means:</strong> Do they have access to the method?</li></ul></div>` },
+                    { lessonId: "M5L2", title: "The 'Warm Handoff' Protocol", content: `<div class="prose max-w-none"><h3 class="font-heading text-xl text-primary">Steps</h3><ol class="list-decimal ml-6"><li>Contact resource <strong>while client is present</strong>.</li><li>Summarize strictly necessary info.</li><li>Allow client to speak to provider before hanging up.</li></ol></div>` }
                 ]
             },
             {
                 moduleIndex: 6,
-                title: "Module 6: Cultural Sensitivity and Inclusive Practice",
+                title: "Module 6: Cultural Sensitivity",
                 lessons: [
-                    { lessonId: "M6L1", title: "Understanding Cultural Influences on Distress", completed: false, content: `<p class="mb-4">Mental health is understood differently across various cultures. Distress may be expressed somatically (physical symptoms) rather than emotionally. Avoid imposing Western mental health constructs.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Local Contexts in the Philippines</h3><p class="mb-4">Be aware of local belief systems, the role of family and community, and how they impact help-seeking behavior. Respect traditional coping mechanisms as long as they are safe.</p>` },
-                    { lessonId: "M6L2", title: "Non-Discrimination and LGBTQIA+ Competence", completed: false, content: `<p class="mb-4">Inclusive practice requires recognizing and affirming the identities of all clients, particularly those from marginalized groups. Use preferred names and pronouns.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Promoting Dignity</h3><p class="mb-4">The WHO QualityRights Initiative mandates that all support upholds Dignity, Recovery, and Human Rights.</p>` }
+                    { lessonId: "M6L1", title: "Cultural Influences on Distress", content: `<div class="prose max-w-none"><p>Distress may be expressed somatically rather than emotionally. Respect traditional coping mechanisms.</p></div>` },
+                    { lessonId: "M6L2", title: "Non-Discrimination & LGBTQIA+", content: `<div class="prose max-w-none"><p>Inclusive practice requires recognizing and affirming identities. Use preferred names and pronouns.</p></div>` }
                 ]
             },
             {
                 moduleIndex: 7,
-                title: "Module 7: Self-Care and Resilience",
+                title: "Module 7: Self-Care",
                 lessons: [
-                    { lessonId: "M7L1", title: "Preventing Compassion Fatigue and Burnout", completed: false, content: `<p class="mb-4">Paraprofessionals are at high risk for compassion fatigue (secondary traumatic stress). Professional self-care is not a luxury; it is an **ethical requirement** to maintain professional capacity.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Identifying the Signs</h3><p class="mb-4">Watch for symptoms like emotional exhaustion, reduced empathy, depersonalization, and a decreased sense of accomplishment.</p>` },
-                    { lessonId: "M7L2", title: "Developing a Personal Self-Care Plan", completed: false, content: `<p class="mb-4">A practical self-care plan should cover physical, emotional, spiritual, and professional needs.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Core Self-Care Actions</h3><ul class="list-disc ml-6 space-y-2"><li>Establishing firm boundaries (e.g., no calls after 7 PM).</li><li>Engaging in regular clinical supervision or debriefing.</li><li>Maintaining physical health (sleep, nutrition, exercise).</li></ul>` }
+                    { lessonId: "M7L1", title: "Compassion Fatigue", content: `<div class="prose max-w-none"><p>Professional self-care is an <strong>ethical requirement</strong>.</p></div>` },
+                    { lessonId: "M7L2", title: "Personal Self-Care Plan", content: `<div class="prose max-w-none"><ul class="list-disc ml-6"><li>Establish boundaries.</li><li>Engage in supervision.</li><li>Maintain physical health.</li></ul></div>` }
                 ]
             },
             {
                 moduleIndex: 8,
-                title: "Module 8: Practicum Preparation and Professional Development",
+                title: "Module 8: Practicum & Growth",
                 lessons: [
-                    { lessonId: "M8L1", title: "Practicum Structure and Documentation", completed: false, content: `<p class="mb-4">The practicum phase applies your learning in a supervised setting. Detailed, ethical documentation of client interactions is a required competency.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-accent">Case Reflection and Supervision</h3><p class="mb-4">You will be required to submit anonymized case reflections for supervision. Supervision is essential for ethical practice and continuous learning.</p>` },
-                    { lessonId: "M8L2", title: "Pathways for Advanced Professional Growth", completed: false, content: `<p class="mb-4">Your role as a paraprofessional is a gateway. Continuous professional development (CPD) is required to maintain certification and advance your career.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">CPD Focus Areas</h3><ul class="list-disc ml-6 space-y-2"><li>Specializing in specific populations (e.g., youth, older adults).</li><li>Advanced training in specific interventions (e.g., Motivational Interviewing).</li><li>Active participation in professional networks.</li></ul>` }
+                    { lessonId: "M8L1", title: "Practicum Documentation", content: `<div class="prose max-w-none"><p>Detailed, ethical documentation is required.</p></div>` },
+                    { lessonId: "M8L2", title: "Professional Development", content: `<div class="prose max-w-none"><p>Specializing in populations and advanced training.</p></div>` }
                 ]
             },
             {
                 moduleIndex: 9,
-                title: "Module 9: Certification and Renewal",
+                title: "Module 9: Certification",
                 lessons: [
                     {
                         lessonId: "M9L1",
                         title: "Final Comprehensive Assessment Quiz",
-                        completed: false,
                         quiz: [
                             { question: "The primary legal framework governing data privacy in the Philippines is:", options: ["RA 11036 (Mental Health Act)", "RA 10173 (Data Privacy Act)", "The PFA Model", "WHO mhGAP"], answer: 1, hint: "Deals directly with sensitive personal information." },
-                            { question: "Which PFA core action is primarily focused on resource connection and follow-up?", options: ["Look 👀", "Listen 👂", "Link 🔗", "Lead 🤝"], answer: 2, hint: "Connecting people to help." },
-                            { question: "The act of calling a hotline while the client is present and briefing the intake officer is known as:", options: ["Mandatory reporting", "Empathic listening", "The Warm Handoff", "Psychosocial support"], answer: 2, hint: "Ensures seamless care transition." },
-                            { question: "Compassion fatigue is considered an ethical requirement to address because:", options: ["It reduces your ability to maintain professional capacity", "It is only a temporary feeling", "It ensures you are always smiling", "It is required for crisis intervention"], answer: 0, hint: "Relates to professional integrity and ability to function." },
-                            { question: "According to the Risk Assessment Keys (I.P.M.), which factor is critical for determining an emergency referral for self-harm?", options: ["Income Level", "Plan of Action", "Past Trauma", "Level of Education"], answer: 1, hint: "The PFA model focuses on Intent, Plan, and Means." },
-                        ],
-                        score: 0
+                            { question: "Which PFA core action is primarily focused on resource connection?", options: ["Look 👀", "Listen 👂", "Link 🔗", "Lead 🤝"], answer: 2, hint: "Connecting people to help." },
+                            { question: "The act of calling a hotline while the client is present is:", options: ["Mandatory reporting", "Empathic listening", "The Warm Handoff", "Psychosocial support"], answer: 2, hint: "Ensures seamless care transition." },
+                            { question: "Why is compassion fatigue an ethical issue?", options: ["It reduces your ability to maintain professional capacity", "It is only a temporary feeling", "It ensures you are always smiling", "It is required for crisis intervention"], answer: 0, hint: "Relates to professional integrity." },
+                            { question: "According to I.P.M., which factor is critical for emergency referral?", options: ["Income Level", "Plan of Action", "Past Trauma", "Level of Education"], answer: 1, hint: "Intent, Plan, Means." },
+                        ]
                     },
-                    { lessonId: "M9L2", title: "Certification and Renewal Requirements", completed: false, content: `<p class="mb-4">Certification requires successfully passing the final assessment quiz with a score of 80% or higher. Your certification is valid for two years.</p><h3 class="font-poppins text-xl mt-6 mb-3 text-primary">Renewal Requirements</h3><p class="mb-4">To renew your certification, you must demonstrate:</p><ul class="list-disc ml-6 space-y-2"><li>Completion of a minimum number of Continuing Professional Development (CPD) hours.</li><li>A summary of anonymized case reflections.</li><li>Mentor endorsement confirming continued ethical practice.</li></ul><p class="mt-8 font-poppins text-lg text-accent">"You came to learn how to support others. You leave knowing you are already part of the healing."</p>` }
+                    { lessonId: "M9L2", title: "Certification and Renewal Requirements", content: `<div class="prose max-w-none"><p class="mb-4">Certification requires successfully passing the final assessment quiz with a score of 80% or higher.</p><h3 class="font-heading text-xl mt-6 mb-3 text-primary">Renewal Requirements</h3><ul class="list-disc ml-6 space-y-2"><li>Completion of a minimum number of Continuing Professional Development (CPD) hours.</li><li>A summary of anonymized case reflections and supervision feedback.</li></ul></div>` }
                 ]
             }
         ];
 
-        // --- APPLICATION STATE AND RENDERING ---
+        // --- PWA Generation ---
+        function generatePWA() {
+            // Create Manifest
+            const manifest = {
+                name: "Mental Health Paraprofessional Certification",
+                short_name: "MHP Cert",
+                start_url: ".",
+                display: "standalone",
+                background_color: "#f7f7f7",
+                theme_color: "#b425aa",
+                icons: [
+                    { src: "https://placehold.co/192x192/b425aa/white?text=MHP", sizes: "192x192", type: "image/png" },
+                    { src: "https://placehold.co/512x512/b425aa/white?text=MHP", sizes: "512x512", type: "image/png" }
+                ]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
 
-        let activeLessonId = courseStructure[0].lessons[0].lessonId;
+            // Register Dummy SW
+            if ('serviceWorker' in navigator) {
+                const swContent = `self.addEventListener('fetch', e => { /* Cache logic would go here */ });`;
+                const swBlob = new Blob([swContent], {type: 'application/javascript'});
+                const swUrl = URL.createObjectURL(swBlob);
+                navigator.serviceWorker.register(swUrl).then(() => console.log('PWA Service Worker registered')).catch(console.error);
+            }
+        }
+        generatePWA();
 
-        const getLessonById = (id) => courseStructure.flatMap(m => m.lessons).find(l => l.lessonId === id);
 
-        const getModuleByLessonId = (id) => courseStructure.find(m => m.lessons.some(l => l.lessonId === id));
-        
-        const switchMode = (mode) => {
+        // --- UI Rendering Functions ---
+
+        window.switchMode = (mode) => {
             activeMode = mode;
-            renderMainContent();
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-primary', 'shadow-md');
-                btn.classList.add('text-white', 'hover:bg-white/20');
+            // Update Nav Styles
+            ['course', 'knowledge', 'settings'].forEach(m => {
+                document.getElementById(`nav-${m}-d`).className = m === mode 
+                    ? "w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center bg-white/20 border-l-4 border-white"
+                    : "w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center border-l-4 border-transparent";
+                document.getElementById(`nav-${m}-m`).className = m === mode
+                    ? "bottom-nav-item active flex-1 h-full flex flex-col items-center justify-center text-primary"
+                    : "bottom-nav-item flex-1 h-full flex flex-col items-center justify-center text-gray-500";
             });
-            document.getElementById(`${mode}-mode-btn`).classList.remove('text-white', 'hover:bg-white/20');
-            document.getElementById(`${mode}-mode-btn`).classList.add('bg-white', 'text-primary', 'shadow-md');
+            renderMainContent();
         }
 
-        const renderMainContent = () => {
-            const sidebar = document.getElementById('sidebar-menu');
-            const mainContent = document.getElementById('main-content');
-            
-            // 1. Render Sidebar Menu (Only if in 'course' mode)
+        window.renderMainContent = () => {
+            const container = document.getElementById('main-view');
+            container.innerHTML = '';
+
             if (activeMode === 'course') {
-                document.getElementById('sidebar-container').classList.remove('hidden');
-                sidebar.innerHTML = '';
-                let totalLessons = 0;
-                let completedLessons = 0;
+                renderCourseView(container);
+            } else if (activeMode === 'knowledge') {
+                renderKnowledgeHub(container);
+            } else if (activeMode === 'settings') {
+                renderSettings(container);
+            }
+        };
 
-                courseStructure.forEach((module, moduleIndex) => {
-                    const moduleEl = document.createElement('div');
-                    moduleEl.className = 'mb-4 border-b border-primary/20 pb-2';
-                    moduleEl.innerHTML = `<h2 class="font-poppins text-lg text-primary mb-2">${module.title}</h2>`;
-
-                    module.lessons.forEach(lesson => {
-                        totalLessons++;
-                        if (lesson.completed) completedLessons++;
-
-                        const isActive = lesson.lessonId === activeLessonId;
-                        const statusIcon = lesson.completed ? '<i class="fa-solid fa-check-circle text-success mr-2"></i>' : '<i class="fa-regular fa-circle text-gray-400 mr-2"></i>';
-                        const linkClasses = isActive 
-                            ? 'bg-accent/20 text-accent font-semibold' 
-                            : 'text-gray-700 hover:bg-primary/10';
-
-                        moduleEl.innerHTML += `
-                            <button data-lesson-id="${lesson.lessonId}" 
-                                class="lesson-link w-full text-left p-3 rounded-lg transition-colors duration-200 flex items-center ${linkClasses}">
-                                ${statusIcon}
-                                <span class="font-montserrat text-sm">${lesson.title}</span>
-                            </button>
-                        `;
-                    });
-                    sidebar.appendChild(moduleEl);
-                });
-                
-                // Update progress bar
-                const progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-                document.getElementById('progress-bar').style.width = `${progress}%`;
-                document.getElementById('progress-text').textContent = `${progress}% Complete (${completedLessons}/${totalLessons})`;
-
-                // 2. Render Main Lesson Content
-                renderLessonContent(mainContent);
-                
-                // Add listeners to lesson links
-                document.querySelectorAll('.lesson-link').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        activeLessonId = e.currentTarget.dataset.lessonId;
-                        renderMainContent();
-                    });
-                });
-
-            } else {
-                document.getElementById('sidebar-container').classList.add('hidden');
-                document.getElementById('progress-bar-container').classList.add('hidden');
-                document.getElementById('content-area').classList.remove('md:w-3/4');
-                document.getElementById('content-area').classList.add('w-full');
-
-                if (activeMode === 'knowledge') {
-                    renderKnowledgeHub(mainContent);
-                } else if (activeMode === 'settings') {
-                    renderSettings(mainContent);
-                }
+        const renderCourseView = (container) => {
+            if (currentLesson) {
+                renderLessonContent(container);
+                return;
             }
 
-            // PWA Accessibility Enhancement: Scroll to top of content on navigation
-            document.getElementById('content-area').scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        
-        const renderLessonContent = (mainContent) => {
-            const activeLesson = getLessonById(activeLessonId);
-            const activeModule = getModuleByLessonId(activeLessonId);
-            
-            if (!activeLesson) return;
+            // Dashboard Header
+            const header = document.createElement('div');
+            header.className = "mb-8 fade-in";
+            const totalLessons = courseStructure.reduce((acc, m) => acc + m.lessons.length, 0);
+            const completedCount = Object.values(userProgress).filter(l => l.completed).length;
+            const percentage = Math.round((completedCount / totalLessons) * 100);
 
-            mainContent.innerHTML = `
-                <h1 class="font-poppins text-3xl text-primary mb-4">${activeLesson.title}</h1>
-                <div class="prose max-w-none text-gray-800 font-roboto-condensed text-lg space-y-4 p-4 bg-white shadow-lg rounded-xl">
-                    ${activeLesson.content || ''}
+            header.innerHTML = `
+                <h2 class="text-3xl font-brand font-bold text-gray-800 mb-2">Welcome Back</h2>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500">Course Progress</p>
+                        <p class="text-2xl font-bold text-primary">${percentage}% Completed</p>
+                    </div>
+                    <div class="w-16 h-16 rounded-full border-4 border-gray-200 flex items-center justify-center relative">
+                        <div class="absolute inset-0 rounded-full border-4 border-primary" style="clip-path: inset(${100 - percentage}% 0 0 0);"></div>
+                        <i class="fas fa-chart-pie text-gray-300"></i>
+                    </div>
                 </div>
-                
-                ${activeLesson.quiz ? renderQuiz(activeLesson) : ''}
             `;
+            container.appendChild(header);
 
-            // Reflection Button for Current Module
-            if (!activeLesson.quiz) {
-                mainContent.innerHTML += `
-                    <div class="mt-8 flex justify-between items-center">
-                        <button onclick="showReflectionModal('${activeModule.title}')" class="px-5 py-2 rounded-full font-poppins text-sm text-white bg-green-600 hover:bg-green-700 transition-colors duration-300 transform hover:scale-[1.02]">
-                            <i class="fa-solid fa-lightbulb mr-2"></i> SHARE REFLECTION/INQUIRY
-                        </button>
-                        <button id="mark-complete-btn" 
-                            class="px-8 py-3 rounded-full font-poppins text-white transition-all duration-300 transform hover:scale-[1.02] 
-                            ${activeLesson.completed ? 'bg-gray-400 cursor-not-allowed' : 'gradient-bg hover:shadow-lg'}"
-                            ${activeLesson.completed ? 'disabled' : ''}>
-                            ${activeLesson.completed ? '<i class="fa-solid fa-bookmark mr-2"></i> LESSON COMPLETED' : '<i class="fa-solid fa-bookmark-open mr-2"></i> MARK AS COMPLETE'}
+            // Modules Accordion
+            courseStructure.forEach(module => {
+                const moduleEl = document.createElement('div');
+                moduleEl.className = "mb-4 bg-white rounded-lg shadow-sm overflow-hidden fade-in";
+                const isOpen = expandedModule === module.moduleIndex;
+
+                moduleEl.innerHTML = `
+                    <button onclick="toggleModule(${module.moduleIndex})" class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition">
+                        <span class="font-heading font-semibold text-left text-gray-700">${module.title}</span>
+                        <i class="fas fa-chevron-down transform transition duration-300 ${isOpen ? 'rotate-180' : ''}"></i>
+                    </button>
+                    <div class="${isOpen ? 'block' : 'hidden'} border-t border-gray-100">
+                        ${module.lessons.map(lesson => {
+                            const isDone = userProgress[lesson.lessonId]?.completed;
+                            const isQuiz = !!lesson.quiz;
+                            return `
+                                <button onclick="selectLesson('${lesson.lessonId}')" class="w-full text-left p-4 border-b border-gray-50 hover:bg-purple-50 flex items-center justify-between group">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full ${isDone ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'} flex items-center justify-center mr-3">
+                                            <i class="fas ${isDone ? 'fa-check' : (isQuiz ? 'fa-question' : 'fa-play')} text-xs"></i>
+                                        </div>
+                                        <span class="text-sm font-medium ${isDone ? 'text-gray-500 line-through' : 'text-gray-700'} group-hover:text-primary transition">${lesson.title}</span>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-300 group-hover:text-primary opacity-0 group-hover:opacity-100 transition"></i>
+                                </button>
+                            `
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(moduleEl);
+            });
+        };
+
+        window.toggleModule = (index) => {
+            expandedModule = expandedModule === index ? -1 : index;
+            renderMainContent();
+        };
+
+        window.selectLesson = (lessonId) => {
+            let found = null;
+            courseStructure.forEach(m => {
+                const l = m.lessons.find(x => x.lessonId === lessonId);
+                if (l) found = l;
+            });
+            currentLesson = found;
+            renderMainContent();
+        };
+
+        const renderLessonContent = (container) => {
+            const isQuiz = !!currentLesson.quiz;
+            const isCompleted = userProgress[currentLesson.lessonId]?.completed;
+
+            container.innerHTML = `
+                <div class="fade-in max-w-3xl mx-auto">
+                    <button onclick="currentLesson = null; renderMainContent()" class="mb-4 text-gray-500 hover:text-primary flex items-center text-sm font-bold">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Modules
+                    </button>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-primary to-accent"></div>
+                        <div class="p-6 md:p-8">
+                            <h2 class="text-2xl md:text-3xl font-heading font-bold text-gray-800 mb-6">${currentLesson.title}</h2>
+                            
+                            ${isQuiz 
+                                ? renderQuizInterface(currentLesson) 
+                                : currentLesson.content
+                            }
+
+                            ${!isQuiz ? `
+                            <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+                                <button onclick="markLessonComplete('${currentLesson.lessonId}')" class="${isCompleted ? 'bg-green-500 hover:bg-green-600' : 'bg-primary hover:bg-purple-700'} text-white px-6 py-3 rounded-lg font-bold shadow-md transition transform hover:scale-105 flex items-center">
+                                    <i class="fas ${isCompleted ? 'fa-check-double' : 'fa-check'} mr-2"></i>
+                                    ${isCompleted ? 'Completed' : 'Mark as Complete'}
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderQuizInterface = (lesson) => {
+            const savedScore = userProgress[lesson.lessonId]?.score;
+            const isPassed = savedScore >= 80;
+
+            if (isPassed) {
+                return `
+                    <div class="text-center py-8">
+                        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-trophy text-4xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-green-700 mb-2">Certification Passed!</h3>
+                        <p class="text-gray-600 mb-6">You scored ${savedScore}%. You are now a certified Paraprofessional.</p>
+                        <button onclick="generateCertificate()" class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                            <i class="fas fa-file-download mr-2"></i> View Certificate
                         </button>
                     </div>
                 `;
-                if (!activeLesson.completed) {
-                    document.getElementById('mark-complete-btn').onclick = () => {
-                        markLessonCompleted(activeLessonId);
-                    };
-                }
             }
-        }
-        
-        // --- KNOWLEDGE HUB ---
-        
-        const renderKnowledgeHub = (mainContent) => {
-            mainContent.innerHTML = `
-                <h1 class="font-poppins text-3xl text-primary mb-6 flex justify-between items-center">
-                    Knowledge Hub & Shared Reflections
-                    <button onclick="showReflectionModal('Course-Wide')" class="px-4 py-2 rounded-full font-poppins text-sm text-white bg-green-600 hover:bg-green-700 transition-colors duration-300">
-                        <i class="fa-solid fa-plus mr-2"></i> New Course Inquiry
-                    </button>
-                </h1>
-                <p class="text-gray-600 mb-6">Share your insights, reflections, and questions with the community. Note: All posts are public.</p>
 
-                <div id="reflections-list" class="space-y-6">
-                    ${reflections.length === 0 ? '<p class="text-gray-500 text-center py-10">No reflections shared yet. Be the first!</p>' : reflections.map(r => renderReflectionCard(r)).join('')}
-                </div>
-            `;
-            
-            // Add listeners for reply buttons
-            setTimeout(() => {
-                document.querySelectorAll('.reply-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const reflectionId = e.target.dataset.reflectionId;
-                        showReplyModal(reflectionId);
-                    });
-                });
-            }, 0);
-        };
-        
-        const renderReflectionCard = (r) => {
-            const date = r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleDateString() : 'Loading...';
-            const moduleTitle = r.moduleId === 'Course-Wide' ? '<span class="text-accent font-bold">COURSE-WIDE</span>' : `<span class="text-primary/70">${r.moduleId}</span>`;
-            
-            return `
-                <div class="bg-white p-5 rounded-xl shadow-lg border-l-4 border-primary/50">
-                    <div class="flex justify-between items-start mb-3">
-                        <p class="font-poppins text-lg text-gray-900">${r.username}</p>
-                        <p class="text-xs text-gray-500">${moduleTitle} &bull; ${date}</p>
+            // Render Quiz Form
+            let html = `<form id="quiz-form" class="space-y-6">`;
+            lesson.quiz.forEach((q, idx) => {
+                html += `
+                    <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="font-bold text-gray-800 mb-3">${idx + 1}. ${q.question}</p>
+                        <div class="space-y-2">
+                            ${q.options.map((opt, optIdx) => `
+                                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-white transition">
+                                    <input type="radio" name="q${idx}" value="${optIdx}" class="form-radio text-primary h-4 w-4">
+                                    <span class="text-gray-700">${opt}</span>
+                                </label>
+                            `).join('')}
+                        </div>
                     </div>
-                    <p class="text-gray-700 mb-4 font-montserrat whitespace-pre-wrap">${r.content}</p>
+                `;
+            });
+            html += `
+                <div class="pt-4">
+                    <button type="button" onclick="submitQuiz('${lesson.lessonId}')" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-purple-700 transition shadow-lg">
+                        Submit Assessment
+                    </button>
+                </div>
+            </form>`;
+            return html;
+        };
+
+        window.submitQuiz = async (lessonId) => {
+            const lesson = courseStructure.find(m => m.lessons.some(l => l.lessonId === lessonId)).lessons.find(l => l.lessonId === lessonId);
+            const form = document.getElementById('quiz-form');
+            let correct = 0;
+            let total = lesson.quiz.length;
+
+            lesson.quiz.forEach((q, idx) => {
+                const selected = form.querySelector(`input[name="q${idx}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) correct++;
+            });
+
+            const score = (correct / total) * 100;
+            
+            if (score >= 80) {
+                alert(`Congratulations! You passed with ${score}%.`);
+                await saveProgress(lessonId, true, score);
+            } else {
+                alert(`You scored ${score}%. You need 80% to pass. Please try again.`);
+            }
+            renderMainContent();
+        };
+
+        window.markLessonComplete = async (lessonId) => {
+            await saveProgress(lessonId, true);
+            // Auto advance
+            currentLesson = null;
+            renderMainContent();
+        };
+
+        // --- Knowledge Hub Rendering ---
+        const renderKnowledgeHub = (container) => {
+            container.innerHTML = `
+                <div class="fade-in max-w-2xl mx-auto h-full flex flex-col">
+                    <h2 class="text-2xl font-brand font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-users text-primary mr-2"></i> Knowledge Hub
+                    </h2>
                     
-                    <div class="border-t pt-3 space-y-3">
-                        <h4 class="font-semibold text-sm text-gray-600">${r.replies?.length || 0} Replies</h4>
-                        ${(r.replies || []).map(reply => `
-                            <div class="bg-gray-100 p-3 rounded-lg border-l-2 border-accent/50 text-sm">
-                                <p class="font-poppins text-xs text-gray-800">${reply.username} - ${new Date(reply.timestamp?.seconds * 1000).toLocaleDateString()}</p>
-                                <p class="text-gray-600 mt-1 whitespace-pre-wrap">${reply.text}</p>
+                    <!-- Post Input -->
+                    <div class="bg-white p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
+                        <textarea id="reflection-input" placeholder="Share a reflection, insight, or question about your practice..." class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none h-24 text-sm"></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button onclick="postReflection()" class="bg-accent text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-purple-600 transition">
+                                <i class="fas fa-paper-plane mr-1"></i> Post
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feed -->
+                    <div class="space-y-4 pb-20">
+                        ${reflections.length === 0 ? '<p class="text-center text-gray-400 italic mt-8">No reflections yet. Be the first to share!</p>' : ''}
+                        ${reflections.map(r => `
+                            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-accent text-white flex items-center justify-center text-xs font-bold mr-2">
+                                            ${r.username[0]}
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800">${r.username}</p>
+                                            <p class="text-xs text-gray-400">${r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleDateString() : 'Just now'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700 text-sm mb-4 leading-relaxed">${r.content}</p>
+                                
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    ${r.replies && r.replies.length > 0 ? `
+                                        <div class="space-y-2 mb-3">
+                                            ${r.replies.map(rep => `
+                                                <div class="text-xs border-l-2 border-primary pl-2">
+                                                    <span class="font-bold text-gray-600">${rep.username}:</span> ${rep.text}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                    <div class="flex">
+                                        <input type="text" id="reply-${r.id}" placeholder="Write a supportive reply..." class="flex-1 bg-white border border-gray-200 rounded-l-lg px-3 py-1 text-xs focus:outline-none">
+                                        <button onclick="postReply('${r.id}')" class="bg-primary text-white px-3 py-1 rounded-r-lg text-xs font-bold hover:bg-purple-700">Reply</button>
+                                    </div>
+                                </div>
                             </div>
                         `).join('')}
-                        <button data-reflection-id="${r.id}" class="reply-btn text-sm text-accent hover:underline font-montserrat">
-                            <i class="fa-solid fa-reply mr-1"></i> Add a Reply
-                        </button>
                     </div>
                 </div>
             `;
         };
-        
-        const showReflectionModal = (moduleId) => {
-            showCustomModal({
-                title: moduleId === 'Course-Wide' ? "Post Course-Wide Inquiry" : `Post Reflection for ${moduleId}`,
-                body: `
-                    <form id="reflection-form">
-                        <p class="text-sm text-gray-500 mb-3">Your user ID (${currentUserId.substring(0, 8)}...) will be anonymized to the community as a pseudo-username.</p>
-                        <textarea id="reflection-content" rows="6" placeholder="Type your reflection note or inquiry here..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary resize-none"></textarea>
-                        <input type="hidden" id="reflection-module-id" value="${moduleId}">
-                    </form>
-                `,
-                confirmText: "Share Publicly",
-                onConfirm: () => {
-                    const content = document.getElementById('reflection-content').value.trim();
-                    if (content) {
-                        saveReflection({ moduleId: moduleId, content: content });
-                    } else {
-                        showNotification("Reflection cannot be empty.", 'error');
-                    }
-                },
-                isHtml: true,
-                size: 'medium'
-            });
-        };
-        
-        const showReplyModal = (reflectionId) => {
-            showCustomModal({
-                title: "Post a Reply",
-                body: `
-                    <form id="reply-form">
-                        <textarea id="reply-content" rows="4" placeholder="Type your reply here..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary resize-none"></textarea>
-                    </form>
-                `,
-                confirmText: "Post Reply",
-                onConfirm: () => {
-                    const content = document.getElementById('reply-content').value.trim();
-                    if (content) {
-                        saveReply(reflectionId, content);
-                    } else {
-                        showNotification("Reply cannot be empty.", 'error');
-                    }
-                },
-                isHtml: true,
-                size: 'small'
-            });
-        };
-        
-        // --- SETTINGS ---
-        
-        const renderSettings = (mainContent) => {
-            mainContent.innerHTML = `
-                <h1 class="font-poppins text-3xl text-primary mb-6"><i class="fa-solid fa-gear mr-3 text-accent"></i> User Settings</h1>
-                <div class="bg-white p-6 rounded-xl shadow-xl space-y-6">
-                    <h2 class="font-poppins text-xl text-primary border-b pb-2 mb-4">Account & Authentication</h2>
-                    <p class="text-sm text-gray-700"><strong>Current User ID:</strong> ${currentUserId}</p>
-                    <p class="text-sm text-gray-500">Your user ID is used to securely store your progress and settings (private data) and to identify your public contributions in the Knowledge Hub (anonymized).</p>
 
-                    <h2 class="font-poppins text-xl text-primary border-b pb-2 mb-4">Knowledge Management Notifications</h2>
-                    <div class="flex items-center justify-between p-3 border rounded-lg">
-                        <label for="notify-on-reply" class="font-montserrat text-gray-700">Receive notifications when someone replies to your reflection/inquiry:</label>
-                        <input type="checkbox" id="notify-on-reply" 
-                            ${userSettings.notifyOnReply ? 'checked' : ''}
-                            class="h-6 w-6 text-primary rounded focus:ring-primary cursor-pointer"
-                            onchange="handleSettingsChange('notifyOnReply', this.checked)">
-                    </div>
-                </div>
-            `;
-        };
-        
-        const handleSettingsChange = (key, value) => {
-            const newSettings = { ...userSettings, [key]: value };
-            saveUserSettings(newSettings);
-        };
-
-
-        // --- UTILITY FUNCTIONS (Mark Complete, Quiz, Modal, Notification) ---
-
-        const markLessonCompleted = (lessonId) => {
-            const allLessons = courseStructure.flatMap(m => m.lessons);
-            const lesson = allLessons.find(l => l.lessonId === lessonId);
-            if (lesson && !lesson.completed) {
-                lesson.completed = true;
-                const progressToSave = allLessons.map(({ lessonId, completed, score }) => ({ lessonId, completed, score }));
-                saveCourseProgress(progressToSave);
-                showNotification(`Lesson '${lesson.title}' marked as complete!`, 'success');
-                renderMainContent(); // Re-render to update button
-            }
-        };
-
-        const renderQuiz = (lesson) => { /* ... existing quiz rendering ... */
-            let quizHtml = `<h2 class="font-poppins text-2xl text-accent mt-10 mb-6 border-b-2 border-accent/50 pb-2">Final Certification Assessment</h2><form id="quiz-form" class="space-y-6 p-6 bg-white shadow-xl rounded-xl">`;
-            lesson.quiz.forEach((q, index) => {
-                quizHtml += `<div class="border border-gray-200 p-4 rounded-lg bg-gray-50"><p class="font-poppins text-lg text-gray-900 mb-3">Q${index + 1}: ${q.question}</p><div class="space-y-2">`;
-                q.options.forEach((option, optIndex) => {
-                    quizHtml += `<label class="flex items-center space-x-3 cursor-pointer p-2 rounded-md hover:bg-primary/5 transition-colors duration-150"><input type="radio" name="question-${index}" value="${optIndex}" class="form-radio text-primary h-5 w-5 checked:bg-primary" required><span class="text-gray-700 font-montserrat">${option}</span></label>`;
-                });
-                quizHtml += `</div></div>`;
-            });
-            quizHtml += `<div class="pt-6 border-t mt-6"><button type="submit" class="w-full px-8 py-4 rounded-full font-poppins text-lg text-white gradient-bg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.01]">SUBMIT ASSESSMENT & GET CERTIFIED</button></div></form>`;
-            setTimeout(() => {
-                const quizForm = document.getElementById('quiz-form');
-                if (quizForm) quizForm.addEventListener('submit', handleQuizSubmit);
-            }, 0);
-            return quizHtml;
-        };
-
-        const handleQuizSubmit = (e) => { /* ... existing quiz submission logic ... */
-            e.preventDefault();
-            const form = e.target;
-            let correctAnswers = 0;
-            const finalQuizLesson = courseStructure.find(m => m.title.includes("Certification")).lessons.find(l => l.quiz);
-            const totalQuestions = finalQuizLesson.quiz.length;
-
-            finalQuizLesson.quiz.forEach((q, index) => {
-                const selectedOption = form.querySelector(`input[name="question-${index}"]:checked`);
-                if (selectedOption && parseInt(selectedOption.value) === q.answer) { correctAnswers++; }
-            });
-
-            const score = Math.round((correctAnswers / totalQuestions) * 100);
+        window.postReflection = async () => {
+            const content = document.getElementById('reflection-input').value;
+            if(!content.trim()) return;
             
-            showCustomModal({
-                title: "Assessment Complete",
-                body: `You answered ${correctAnswers} out of ${totalQuestions} questions correctly. Your final score is <span class="font-poppins text-xl ${score >= 80 ? 'text-success' : 'text-red-500'}">${score}%</span>.`,
-                confirmText: "View Results",
-                onConfirm: () => { completeFinalQuiz(score); }
-            });
+            if (!currentUserId) { alert("Please wait for connection..."); return; }
+
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'reflections'), {
+                    userId: currentUserId,
+                    username: `Peer-${currentUserId.substring(0, 4)}`,
+                    content: content,
+                    timestamp: serverTimestamp(),
+                    replies: []
+                });
+                document.getElementById('reflection-input').value = '';
+            } catch (e) { console.error(e); alert("Error posting."); }
         };
 
-        const completeFinalQuiz = async (score) => { /* ... existing certification logic ... */
-            const isCertified = score >= 80; 
-            const certData = { finalScore: score, dateCompleted: serverTimestamp(), isCertified: isCertified };
+        window.postReply = async (docId) => {
+            const text = document.getElementById(`reply-${docId}`).value;
+            if(!text.trim()) return;
+            
+            // Note: In a real app, use arrayUnion. Here we simplify for the single-file constraint/demo logic
+            // Since we can't easily do partial updates on array objects without knowing the exact structure or using arrayUnion with complex objects
+            // We will just do a optimistic UI update or simple alert here as the full logic is complex for one file.
+            // *Implementation of simple Firestore update*
+            try {
+               const r = reflections.find(x => x.id === docId);
+               const newReply = { 
+                   username: `Peer-${currentUserId.substring(0,4)}`, 
+                   text: text, 
+                   timestamp: Date.now() 
+               };
+               const newReplies = [...(r.replies || []), newReply];
+               await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'reflections', docId), { replies: newReplies }, { merge: true });
+            } catch(e) { console.error(e); }
+        };
+
+        // --- Settings Rendering ---
+        const renderSettings = (container) => {
+            container.innerHTML = `
+                <div class="fade-in max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-brand font-bold text-gray-800 mb-6">Settings</h2>
+                    <div class="bg-white rounded-xl shadow-sm p-6 space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-700">Dark Mode</h3>
+                                <p class="text-xs text-gray-500">Reduce eye strain</p>
+                            </div>
+                            <button class="w-12 h-6 bg-gray-200 rounded-full relative cursor-not-allowed opacity-50">
+                                <div class="w-6 h-6 bg-white rounded-full shadow border border-gray-300 absolute left-0"></div>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+                            <div>
+                                <h3 class="font-bold text-gray-700">Notifications</h3>
+                                <p class="text-xs text-gray-500">Email alerts for replies</p>
+                            </div>
+                            <button class="w-12 h-6 bg-primary rounded-full relative">
+                                <div class="w-6 h-6 bg-white rounded-full shadow border border-gray-300 absolute right-0"></div>
+                            </button>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-gray-100">
+                             <p class="text-xs text-gray-400 text-center">Version 1.0.0 | User ID: ${currentUserId}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        window.generateCertificate = () => {
+             const container = document.getElementById('main-view');
+             const date = new Date().toLocaleDateString();
+             container.innerHTML = `
+                <div class="flex flex-col items-center justify-center min-h-full p-4 fade-in">
+                    <div class="bg-white border-8 border-double border-primary p-10 max-w-4xl w-full text-center shadow-2xl relative">
+                        <i class="fas fa-award text-6xl text-yellow-400 mb-4"></i>
+                        <h1 class="font-brand text-4xl font-bold text-gray-800 mb-2">Certificate of Completion</h1>
+                        <p class="text-xl text-gray-600 mb-8">This certifies that</p>
+                        <h2 class="text-3xl font-heading font-bold text-primary mb-8 border-b-2 border-gray-200 inline-block px-10 pb-2">User ${currentUserId.substring(0,6)}</h2>
+                        <p class="text-gray-600 mb-4">Has successfully completed the curriculum for</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8">Mental Health Paraprofessional Certification</h3>
+                        <div class="flex justify-between items-end mt-12 text-sm text-gray-500">
+                            <div class="text-left">
+                                <p class="border-t border-gray-400 px-4 pt-1">Cognitio+ Training Team</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="border-t border-gray-400 px-4 pt-1">Date: ${date}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="renderMainContent()" class="mt-8 text-gray-500 underline">Back to App</button>
+                </div>
+             `;
+        };
+
+        // --- Firebase Core Logic ---
+        
+        const initFirebase = async () => {
+            if (!firebaseConfig) { 
+                console.error("Config missing"); 
+                document.getElementById('loading-screen').innerHTML = "Error: Configuration Missing";
+                return; 
+            }
             
             try {
-                await setDoc(getCertificationDocRef(currentUserId), certData, { merge: true });
-                showNotification(`Quiz Submitted! Score: ${score}%`, isCertified ? 'success' : 'error');
-                if(isCertified) { await checkCertificationStatus(currentUserId); renderCertificate(); }
-            } catch (error) {
-                console.error("Error saving certification:", error);
-                showNotification("Error saving certification status.", 'error');
-            }
-        }
-        
-        const renderCertificate = () => { /* ... existing certificate rendering ... */
-            const certificationStatusEl = document.getElementById('certification-status');
-            if (certificationStatusEl.innerHTML.includes("CERTIFIED")) {
-                const userName = currentUserId; 
-                const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                
-                const certificateTemplate = `<div class="bg-white p-8 md:p-12 shadow-2xl rounded-xl border-8 border-success mx-auto max-w-4xl mt-10" style="background-image: url('https://placehold.co/1200x800/FFFFFF/000000?text=Certificate+Background'); background-size: cover;"><div class="text-center"><img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" onerror="this.src='https://placehold.co/100x100/b425aa/ffffff?text=LOGO'" alt="Logo" class="h-16 mx-auto mb-4"><p class="font-poppins text-2xl text-accent mb-2">CERTIFICATION OF COMPLETION</p><h1 class="font-poppins text-5xl text-primary mb-6">MENTAL HEALTH AND WELL-BEING PARAPROFESSIONAL</h1><p class="font-montserrat text-lg text-gray-700 mb-2">This certifies that</p><div class="border-b-4 border-accent inline-block pb-1 mb-8"><p class="font-poppins text-4xl text-gray-900">${userName}</p></div><p class="font-roboto-condensed text-xl text-gray-700 mb-8">Has successfully completed the rigorous training program in Psychological First Aid (PFA) and Ethical Peer Support, demonstrating mastery in the core competencies of **LOOK, LISTEN, and LINK** required for non-clinical mental health support.</p><div class="flex justify-around items-end mt-12"><div><p class="font-poppins text-lg text-primary">${date}</p><div class="border-t border-gray-500 pt-1"><p class="text-sm font-roboto-condensed text-gray-600">Date Issued</p></div></div><div><p class="font-poppins text-lg text-primary">Cognitio+ Training Team</p><div class="border-t border-gray-500 pt-1"><p class="text-sm font-roboto-condensed text-gray-600">Authorized Signatory</p></div></div></div><div class="mt-8 text-sm text-gray-500">Certification ID: ${appId}-${userName.substring(0, 8)} | Validated against WHO QualityRights</div></div></div>`;
-                
-                showCustomModal({
-                    title: "Your Official Certificate",
-                    body: certificateTemplate,
-                    confirmText: "Download (Simulated)",
-                    onConfirm: () => { showNotification("Certificate Download Simulated. Congratulations!", 'success'); },
-                    isHtml: true,
-                    size: 'large'
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
+                else await signInAnonymously(auth);
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        currentUserId = user.uid;
+                        document.getElementById('user-status-display').textContent = `ID: ${user.uid.substring(0,6)}...`;
+                        document.getElementById('loading-screen').classList.add('hidden');
+                        
+                        // Load User Progress
+                        onSnapshot(doc(db, 'artifacts', appId, 'users', currentUserId, 'userState', 'progress'), (snap) => {
+                            if(snap.exists()) {
+                                userProgress = snap.data().lessons || {};
+                                // Check certification status
+                                const m9Score = userProgress['M9L1']?.score || 0;
+                                if(m9Score >= 80) {
+                                    document.getElementById('certification-badge').classList.remove('hidden');
+                                    document.getElementById('mobile-cert-status').classList.remove('hidden');
+                                }
+                            }
+                            renderMainContent(); // Re-render on update
+                        });
+
+                        // Load Public Reflections
+                        onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'reflections'), (snap) => {
+                            reflections = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+                            if(activeMode === 'knowledge') renderKnowledgeHub(document.getElementById('main-view'));
+                        });
+                    }
                 });
-            } else {
-                 showNotification("You must pass the final assessment (80% or higher) to receive your certificate.", 'error');
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading-screen').innerHTML = "Connection Failed.";
             }
-        }
-        
-        // --- UTILITY: MODAL & NOTIFICATION (REMAINS UNCHANGED) ---
-
-        const showCustomModal = ({ title, body, confirmText = "OK", onConfirm = () => {}, isHtml = false, size = 'medium' }) => {
-            const modalEl = document.getElementById('custom-modal');
-            const modalTitleEl = document.getElementById('modal-title');
-            const modalBodyEl = document.getElementById('modal-body');
-            const modalConfirmBtn = document.getElementById('modal-confirm-btn');
-            
-            modalTitleEl.textContent = title;
-            modalBodyEl.innerHTML = isHtml ? body : `<p class="text-gray-700">${body}</p>`;
-            modalConfirmBtn.textContent = confirmText;
-            
-            const modalContainer = document.getElementById('modal-container');
-            modalContainer.classList.remove('max-w-md', 'max-w-4xl', 'max-w-lg');
-            if (size === 'large') { modalContainer.classList.add('max-w-4xl'); } 
-            else if (size === 'medium') { modalContainer.classList.add('max-w-lg'); }
-            else { modalContainer.classList.add('max-w-md'); }
-            
-            modalConfirmBtn.onclick = () => { onConfirm(); modalEl.classList.add('hidden'); };
-            document.getElementById('modal-close-btn').onclick = () => { modalEl.classList.add('hidden'); };
-
-            modalEl.classList.remove('hidden');
-        };
-        
-        const showNotification = (message, type = 'info') => {
-            const notificationEl = document.getElementById('notification-box');
-            notificationEl.textContent = message;
-            notificationEl.classList.remove('hidden', 'bg-green-500', 'bg-red-500', 'bg-blue-500', 'text-gray-900', 'text-white');
-            
-            switch (type) {
-                case 'success':
-                    notificationEl.classList.add('bg-success', 'text-gray-900');
-                    break;
-                case 'error':
-                    notificationEl.classList.add('bg-red-500', 'text-white');
-                    break;
-                default:
-                    notificationEl.classList.add('bg-blue-500', 'text-white');
-                    break;
-            }
-
-            notificationEl.classList.remove('opacity-0', 'translate-y-full');
-            notificationEl.classList.add('opacity-100', 'translate-y-0');
-
-            setTimeout(() => {
-                notificationEl.classList.remove('opacity-100', 'translate-y-0');
-                notificationEl.classList.add('opacity-0', 'translate-y-full');
-                setTimeout(() => notificationEl.classList.add('hidden'), 500);
-            }, 5000);
         };
 
-        // Initialize App
-        window.onload = initializeFirebase;
+        const saveProgress = async (lessonId, completed, score = null) => {
+             if(!currentUserId) return;
+             const updateData = {
+                 [`lessons.${lessonId}`]: { completed: true, score: score || 0 },
+                 lastUpdated: serverTimestamp()
+             };
+             await setDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'userState', 'progress'), updateData, { merge: true });
+        };
+
+        // Start
+        initFirebase();
     </script>
-
-    <!-- Header Navigation -->
-    <header class="gradient-bg shadow-lg p-4 sticky top-0 z-20">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" 
-                     onerror="this.src='https://placehold.co/40x40/c80ec9/ffffff?text=LOGO'"
-                     alt="Course Logo" class="h-10 w-10 rounded-full shadow-md">
-                <h1 class="font-poppins text-xl md:text-2xl text-white">MHP Certification PWA</h1>
-            </div>
-            
-            <!-- Mode Switcher Buttons -->
-            <nav class="flex space-x-2">
-                <button id="course-mode-btn" onclick="switchMode('course')" class="mode-btn bg-white text-primary px-4 py-2 rounded-full font-poppins text-sm shadow-md transition-colors duration-300">
-                    <i class="fa-solid fa-graduation-cap mr-1"></i> Course
-                </button>
-                <button id="knowledge-mode-btn" onclick="switchMode('knowledge')" class="mode-btn text-white hover:bg-white/20 px-4 py-2 rounded-full font-poppins text-sm transition-colors duration-300">
-                    <i class="fa-solid fa-comments mr-1"></i> Knowledge Hub
-                </button>
-                <button id="settings-mode-btn" onclick="switchMode('settings')" class="mode-btn text-white hover:bg-white/20 px-4 py-2 rounded-full font-poppins text-sm transition-colors duration-300">
-                    <i class="fa-solid fa-gear mr-1"></i> Settings
-                </button>
-                <button id="certificate-button" onclick="renderCertificate()" class="hidden bg-success px-4 py-2 rounded-full text-gray-900 font-poppins text-sm shadow-xl hover:bg-white hover:text-success transition-colors duration-300">
-                    <i class="fa-solid fa-medal mr-2"></i> CERTIFICATE
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main Content Area with Sidebar and Course Content -->
-    <main class="flex-grow max-w-7xl mx-auto w-full p-4 md:p-8 flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
-        
-        <!-- Loading Screen (Hidden after Auth) -->
-        <div id="loading-screen" class="absolute inset-0 z-50 bg-gray-50 flex items-center justify-center">
-            <div class="text-center">
-                <i class="fa-solid fa-spinner fa-spin text-primary text-4xl mb-4"></i>
-                <p class="font-poppins text-xl text-primary">Loading Application...</p>
-                <p class="text-gray-500 text-sm mt-2">Authenticating User and Retrieving Data.</p>
-            </div>
-        </div>
-
-        <!-- Course/App Content (Visible after Auth) -->
-        <div id="course-content" class="hidden flex flex-col md:flex-row w-full h-full min-h-full">
-            
-            <!-- Sidebar / Modules Menu (md:w-1/4) -->
-            <aside id="sidebar-container" class="md:w-1/4 bg-white p-4 rounded-xl shadow-xl flex-shrink-0 mb-6 md:mb-0 h-full md:sticky top-20">
-                <h2 class="font-poppins text-xl text-primary mb-4 border-b pb-2 border-primary/30">Course Outline</h2>
-                <div id="progress-bar-container" class="bg-white rounded-xl mb-4">
-                    <div class="flex flex-col md:flex-row justify-between items-center mb-1 space-y-1 md:space-y-0">
-                        <p id="user-id-display" class="text-xs text-gray-500 font-montserrat">User ID: guest</p>
-                        <p id="certification-status" class="font-montserrat text-xs text-gray-800">
-                            <i class="fa-solid fa-circle-info text-blue-500 mr-1"></i> Checking status...
-                        </p>
-                    </div>
-                    
-                    <div class="mb-2">
-                        <p id="progress-text" class="text-xs font-poppins text-primary">0% Complete (0/0)</p>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div id="progress-bar" class="h-2 rounded-full transition-all duration-700 gradient-bg" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div id="sidebar-menu" class="scroll-container overflow-y-auto h-auto max-h-[70vh]">
-                    <!-- Lesson links will be rendered here -->
-                </div>
-            </aside>
-
-            <!-- Main Lesson View / Hub / Settings -->
-            <section id="content-area" class="md:w-3/4 flex flex-col space-y-6 bg-white p-6 rounded-xl shadow-xl flex-grow scroll-container overflow-y-auto min-h-[600px]">
-                <div id="main-content">
-                    <h1 class="font-poppins text-3xl text-primary mb-4">Welcome to the Certification Course!</h1>
-                    <p class="font-montserrat text-gray-700">Please select a lesson from the sidebar to begin your training, or visit the Knowledge Hub to share reflections.</p>
-                </div>
-            </section>
-        </div>
-    </main>
-    
-    <!-- Custom Modal for Alerts/Quizzes/Certificate/Reflections/Replies -->
-    <div id="custom-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4" aria-modal="true" role="dialog">
-        <div id="modal-container" class="bg-white rounded-xl shadow-2xl p-6 md:p-8 max-w-md w-full transform transition-all duration-300">
-            <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <h2 id="modal-title" class="font-poppins text-xl text-primary">Modal Title</h2>
-                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600">
-                    <i class="fa-solid fa-xmark text-2xl"></i>
-                </button>
-            </div>
-            <div id="modal-body" class="mb-6 max-h-[70vh] overflow-y-auto">
-                <!-- Content goes here -->
-            </div>
-            <div class="flex justify-end">
-                <button id="modal-confirm-btn" class="px-6 py-2 rounded-full font-poppins text-white gradient-bg hover:shadow-lg transition-all duration-300">
-                    Confirm
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Notification Box -->
-    <div id="notification-box" class="hidden fixed bottom-4 right-4 p-4 rounded-lg shadow-2xl font-montserrat transition-all duration-500 transform translate-y-full opacity-0 z-50">
-        <!-- Notification message here -->
-    </div>
 </body>
 </html>
