@@ -6,16 +6,12 @@
     <title>Mental Health Paraprofessional Certification</title>
     <!-- Dynamic PWA Manifest Injection handled in JS -->
     <link id="manifest-link" rel="manifest" href="">
-    
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Load Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -36,51 +32,55 @@
             }
         }
     </script>
-
     <style>
         :root {
             --color-primary: #b425aa;
             --color-accent: #c80ec9;
             --color-success: #D4AF37;
         }
-
         body {
             background-color: var(--background);
             overflow-x: hidden;
         }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
-
         .gradient-bg {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
         }
-
         .fade-in { animation: fadeIn 0.3s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .glass-panel {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
         /* Mobile Navigation Bottom Bar */
         .bottom-nav-item.active { color: var(--color-primary); border-top: 3px solid var(--color-primary); }
+        .cognitio-logo {
+            height: 1.5rem;
+            width: auto;
+            object-fit: contain;
+        }
+        .cognitio-logo-mobile {
+            height: 1.25rem;
+            width: auto;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 h-screen flex flex-col md:flex-row overflow-hidden">
-
     <!-- Sidebar (Desktop) -->
     <aside class="hidden md:flex flex-col w-64 gradient-bg text-white shadow-xl z-20">
         <div class="p-6">
-            <h1 class="font-brand text-2xl font-bold tracking-wider"><i class="fas fa-brain mr-2"></i>Cognitio+</h1>
+            <div class="flex items-center space-x-2">
+                <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" alt="Cognitio+" class="cognitio-logo">
+                <span class="font-brand text-2xl font-bold tracking-wider">Cognitio+</span>
+            </div>
             <p class="text-xs opacity-80 mt-1">CCMHPP</p>
         </div>
-        
         <nav class="flex-1 overflow-y-auto py-4">
             <button onclick="switchMode('course')" id="nav-course-d" class="w-full text-left px-6 py-3 hover:bg-white/10 transition flex items-center bg-white/20 border-l-4 border-white">
                 <i class="fas fa-book-open w-6"></i> Course Modules
@@ -92,7 +92,6 @@
                 <i class="fas fa-cog w-6"></i> Settings
             </button>
         </nav>
-
         <div class="p-4 bg-black/10">
             <div id="user-status-display" class="text-sm mb-2 opacity-80">
                 <i class="fas fa-circle-notch fa-spin"></i> Connecting...
@@ -102,15 +101,16 @@
             </div>
         </div>
     </aside>
-
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col h-full relative">
         <!-- Mobile Header -->
         <header class="md:hidden gradient-bg text-white p-4 flex justify-between items-center shadow-md z-20">
-            <h1 class="font-brand font-bold text-lg"><i class="fas fa-brain mr-2"></i>Cognitio+</h1>
+            <div class="flex items-center space-x-2">
+                <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" alt="Cognitio+" class="cognitio-logo-mobile">
+                <span class="font-brand font-bold text-lg">Cognitio+</span>
+            </div>
             <div id="mobile-cert-status" class="text-xs font-bold bg-white/20 px-2 py-1 rounded hidden">Certified</div>
         </header>
-
         <!-- Dynamic View Container -->
         <div id="main-view" class="flex-1 overflow-y-auto p-4 md:p-8 scroll-container relative">
             <!-- Loading Screen -->
@@ -118,10 +118,8 @@
                 <i class="fas fa-circle-notch fa-spin text-4xl text-primary mb-4"></i>
                 <p class="font-heading text-gray-600">Loading Certification Data...</p>
             </div>
-            
             <!-- Content will be injected here via JS -->
         </div>
-
         <!-- Mobile Bottom Nav -->
         <nav class="md:hidden bg-white shadow-lg border-t border-gray-200 flex justify-around items-center h-16 z-20">
             <button onclick="switchMode('course')" id="nav-course-m" class="bottom-nav-item active flex-1 h-full flex flex-col items-center justify-center text-gray-500">
@@ -138,18 +136,15 @@
             </button>
         </nav>
     </main>
-
     <!-- Firebase & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
         // --- Configuration & Global State ---
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
         let app, db, auth;
         let currentUserId = null;
         let reflections = [];
@@ -157,7 +152,6 @@
         let activeMode = 'course'; // 'course', 'knowledge', 'settings'
         let expandedModule = 0; // Default open module
         let currentLesson = null; // Currently viewing lesson object
-
         // --- Data: Course Structure (Completed) ---
         const courseStructure = [
              {
@@ -252,7 +246,6 @@
                 ]
             }
         ];
-
         // --- PWA Generation ---
         function generatePWA() {
             // Create Manifest
@@ -264,13 +257,12 @@
                 background_color: "#f7f7f7",
                 theme_color: "#b425aa",
                 icons: [
-                    { src: "https://placehold.co/192x192/b425aa/white?text=MHP", sizes: "192x192", type: "image/png" },
-                    { src: "https://placehold.co/512x512/b425aa/white?text=MHP", sizes: "512x512", type: "image/png" }
+                    { src: "https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png", sizes: "192x192", type: "image/png" },
+                    { src: "https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png", sizes: "512x512", type: "image/png" }
                 ]
             };
             const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
             document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
-
             // Register Dummy SW
             if ('serviceWorker' in navigator) {
                 const swContent = `self.addEventListener('fetch', e => { /* Cache logic would go here */ });`;
@@ -280,10 +272,7 @@
             }
         }
         generatePWA();
-
-
         // --- UI Rendering Functions ---
-
         window.switchMode = (mode) => {
             activeMode = mode;
             // Update Nav Styles
@@ -297,11 +286,9 @@
             });
             renderMainContent();
         }
-
         window.renderMainContent = () => {
             const container = document.getElementById('main-view');
             container.innerHTML = '';
-
             if (activeMode === 'course') {
                 renderCourseView(container);
             } else if (activeMode === 'knowledge') {
@@ -310,20 +297,17 @@
                 renderSettings(container);
             }
         };
-
         const renderCourseView = (container) => {
             if (currentLesson) {
                 renderLessonContent(container);
                 return;
             }
-
             // Dashboard Header
-            const header = document.createElement('div');
-            header.className = "mb-8 fade-in";
             const totalLessons = courseStructure.reduce((acc, m) => acc + m.lessons.length, 0);
             const completedCount = Object.values(userProgress).filter(l => l.completed).length;
             const percentage = Math.round((completedCount / totalLessons) * 100);
-
+            const header = document.createElement('div');
+            header.className = "mb-8 fade-in";
             header.innerHTML = `
                 <h2 class="text-3xl font-brand font-bold text-gray-800 mb-2">Welcome Back</h2>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
@@ -338,13 +322,11 @@
                 </div>
             `;
             container.appendChild(header);
-
             // Modules Accordion
             courseStructure.forEach(module => {
                 const moduleEl = document.createElement('div');
                 moduleEl.className = "mb-4 bg-white rounded-lg shadow-sm overflow-hidden fade-in";
                 const isOpen = expandedModule === module.moduleIndex;
-
                 moduleEl.innerHTML = `
                     <button onclick="toggleModule(${module.moduleIndex})" class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition">
                         <span class="font-heading font-semibold text-left text-gray-700">${module.title}</span>
@@ -371,12 +353,10 @@
                 container.appendChild(moduleEl);
             });
         };
-
         window.toggleModule = (index) => {
             expandedModule = expandedModule === index ? -1 : index;
             renderMainContent();
         };
-
         window.selectLesson = (lessonId) => {
             let found = null;
             courseStructure.forEach(m => {
@@ -386,27 +366,22 @@
             currentLesson = found;
             renderMainContent();
         };
-
         const renderLessonContent = (container) => {
             const isQuiz = !!currentLesson.quiz;
             const isCompleted = userProgress[currentLesson.lessonId]?.completed;
-
             container.innerHTML = `
                 <div class="fade-in max-w-3xl mx-auto">
                     <button onclick="currentLesson = null; renderMainContent()" class="mb-4 text-gray-500 hover:text-primary flex items-center text-sm font-bold">
                         <i class="fas fa-arrow-left mr-2"></i> Back to Modules
                     </button>
-                    
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                         <div class="h-2 bg-gradient-to-r from-primary to-accent"></div>
                         <div class="p-6 md:p-8">
                             <h2 class="text-2xl md:text-3xl font-heading font-bold text-gray-800 mb-6">${currentLesson.title}</h2>
-                            
                             ${isQuiz 
                                 ? renderQuizInterface(currentLesson) 
                                 : currentLesson.content
                             }
-
                             ${!isQuiz ? `
                             <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
                                 <button onclick="markLessonComplete('${currentLesson.lessonId}')" class="${isCompleted ? 'bg-green-500 hover:bg-green-600' : 'bg-primary hover:bg-purple-700'} text-white px-6 py-3 rounded-lg font-bold shadow-md transition transform hover:scale-105 flex items-center">
@@ -420,11 +395,9 @@
                 </div>
             `;
         };
-
         const renderQuizInterface = (lesson) => {
             const savedScore = userProgress[lesson.lessonId]?.score;
             const isPassed = savedScore >= 80;
-
             if (isPassed) {
                 return `
                     <div class="text-center py-8">
@@ -439,7 +412,6 @@
                     </div>
                 `;
             }
-
             // Render Quiz Form
             let html = `<form id="quiz-form" class="space-y-6">`;
             lesson.quiz.forEach((q, idx) => {
@@ -466,20 +438,16 @@
             </form>`;
             return html;
         };
-
         window.submitQuiz = async (lessonId) => {
             const lesson = courseStructure.find(m => m.lessons.some(l => l.lessonId === lessonId)).lessons.find(l => l.lessonId === lessonId);
             const form = document.getElementById('quiz-form');
             let correct = 0;
             let total = lesson.quiz.length;
-
             lesson.quiz.forEach((q, idx) => {
                 const selected = form.querySelector(`input[name="q${idx}"]:checked`);
                 if (selected && parseInt(selected.value) === q.answer) correct++;
             });
-
             const score = (correct / total) * 100;
-            
             if (score >= 80) {
                 alert(`Congratulations! You passed with ${score}%.`);
                 await saveProgress(lessonId, true, score);
@@ -488,14 +456,12 @@
             }
             renderMainContent();
         };
-
         window.markLessonComplete = async (lessonId) => {
             await saveProgress(lessonId, true);
             // Auto advance
             currentLesson = null;
             renderMainContent();
         };
-
         // --- Knowledge Hub Rendering ---
         const renderKnowledgeHub = (container) => {
             container.innerHTML = `
@@ -503,7 +469,6 @@
                     <h2 class="text-2xl font-brand font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-users text-primary mr-2"></i> Knowledge Hub
                     </h2>
-                    
                     <!-- Post Input -->
                     <div class="bg-white p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
                         <textarea id="reflection-input" placeholder="Share a reflection, insight, or question about your practice..." class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none h-24 text-sm"></textarea>
@@ -513,7 +478,6 @@
                             </button>
                         </div>
                     </div>
-
                     <!-- Feed -->
                     <div class="space-y-4 pb-20">
                         ${reflections.length === 0 ? '<p class="text-center text-gray-400 italic mt-8">No reflections yet. Be the first to share!</p>' : ''}
@@ -531,7 +495,6 @@
                                     </div>
                                 </div>
                                 <p class="text-gray-700 text-sm mb-4 leading-relaxed">${r.content}</p>
-                                
                                 <div class="bg-gray-50 rounded-lg p-3">
                                     ${r.replies && r.replies.length > 0 ? `
                                         <div class="space-y-2 mb-3">
@@ -553,13 +516,10 @@
                 </div>
             `;
         };
-
         window.postReflection = async () => {
             const content = document.getElementById('reflection-input').value;
             if(!content.trim()) return;
-            
             if (!currentUserId) { alert("Please wait for connection..."); return; }
-
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'reflections'), {
                     userId: currentUserId,
@@ -571,11 +531,9 @@
                 document.getElementById('reflection-input').value = '';
             } catch (e) { console.error(e); alert("Error posting."); }
         };
-
         window.postReply = async (docId) => {
             const text = document.getElementById(`reply-${docId}`).value;
             if(!text.trim()) return;
-            
             // Note: In a real app, use arrayUnion. Here we simplify for the single-file constraint/demo logic
             // Since we can't easily do partial updates on array objects without knowing the exact structure or using arrayUnion with complex objects
             // We will just do a optimistic UI update or simple alert here as the full logic is complex for one file.
@@ -591,7 +549,6 @@
                await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'reflections', docId), { replies: newReplies }, { merge: true });
             } catch(e) { console.error(e); }
         };
-
         // --- Settings Rendering ---
         const renderSettings = (container) => {
             container.innerHTML = `
@@ -623,7 +580,6 @@
                 </div>
             `;
         };
-
         window.generateCertificate = () => {
              const container = document.getElementById('main-view');
              const date = new Date().toLocaleDateString();
@@ -649,30 +605,24 @@
                 </div>
              `;
         };
-
         // --- Firebase Core Logic ---
-        
         const initFirebase = async () => {
             if (!firebaseConfig) { 
                 console.error("Config missing"); 
                 document.getElementById('loading-screen').innerHTML = "Error: Configuration Missing";
                 return; 
             }
-            
             try {
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
-
                 if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
                 else await signInAnonymously(auth);
-
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         currentUserId = user.uid;
                         document.getElementById('user-status-display').textContent = `ID: ${user.uid.substring(0,6)}...`;
                         document.getElementById('loading-screen').classList.add('hidden');
-                        
                         // Load User Progress
                         onSnapshot(doc(db, 'artifacts', appId, 'users', currentUserId, 'userState', 'progress'), (snap) => {
                             if(snap.exists()) {
@@ -686,7 +636,6 @@
                             }
                             renderMainContent(); // Re-render on update
                         });
-
                         // Load Public Reflections
                         onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'reflections'), (snap) => {
                             reflections = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
@@ -694,13 +643,11 @@
                         });
                     }
                 });
-
             } catch (err) {
                 console.error(err);
                 document.getElementById('loading-screen').innerHTML = "Connection Failed.";
             }
         };
-
         const saveProgress = async (lessonId, completed, score = null) => {
              if(!currentUserId) return;
              const updateData = {
@@ -709,7 +656,6 @@
              };
              await setDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'userState', 'progress'), updateData, { merge: true });
         };
-
         // Start
         initFirebase();
     </script>
