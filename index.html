@@ -10,7 +10,6 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection, query, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
         // Expose Firebase functions to the global scope for use in the script below
         window.firebase = { 
             initializeApp, getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut,
@@ -23,7 +22,6 @@
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght<600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -56,7 +54,6 @@
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .certificate-border {
-            /* Mimicking the gold/magenta border feel from the image */
             border: 10px solid transparent; 
             border-image: linear-gradient(to right, #D4AF37 0%, #C80EC9 100%) 1;
         }
@@ -71,7 +68,6 @@
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
-
     <!-- Global State Variables & Initialization -->
     <script>
         let db;
@@ -82,21 +78,19 @@
         let postTestScore = 0;
         let postTestCompleted = false;
         let isAuthReady = false;
-        const totalModules = 9; // Updated from 8 to 9
-        const MIN_PASS_SCORE = 12; // 80% of 15 questions
+        const totalModules = 9;
+        const MIN_PASS_SCORE = 12;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        
-        // Function to generate a unique 5-digit suffix for the certificate based on userId
+
         function generateParticipantSuffix(userId) {
             if (!userId) return '00000';
             let hash = 0;
             for (let i = 0; i < userId.length; i++) {
                 hash = ((hash << 5) - hash) + userId.charCodeAt(i);
-                hash |= 0; // Convert to 32bit integer
+                hash |= 0;
             }
-            // Use modulus to get a 5-digit positive number
             return (Math.abs(hash) % 100000).toString().padStart(5, '0');
         }
 
@@ -119,42 +113,238 @@
         ];
 
         const MODULES_DATA = [
-            { id: 0, title: "Orientation & Readiness", duration: "1 hr", hours: 1, color: "bg-stone-100 text-stone-800", desc: "Administrative, ethical, and foundational readiness for the course.",
-                content: { intro: "The purpose is to equip you with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support. Your primary goal is not to diagnose, fix, or advise—but to listen, hold space, and connect others to help. This module is the gateway to the course.", topics: ["Course Goal and Philosophy (Non-Clinical Role)", "WHO QualityRights Initiative (Upholding Dignity and Human Rights)", "PCMH Alignment (Workforce Development & Cross-Sectoral Collaboration)", "Readiness Check (Pre-Test & Resilience Navigator)", "Statement of Confidentiality"], keyTakeaway: "Preparation is key. Your primary goal is non-clinical: to listen, hold space, and connect others to professional help, not to diagnose or advise. You are key to closing the treatment gap (WHO mhGAP).", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m0-slides', label: 'Introductory Slides: Course Goals' }] }
+            {
+                id: 0,
+                title: "Orientation and Course Structure",
+                duration: "1 hr",
+                hours: 1,
+                color: "bg-stone-100 text-stone-800",
+                desc: "Establishes the context, purpose, and structure of the certification program.",
+                content: {
+                    intro: "The central goal of this course is to equip you with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support in various Philippine contexts. The course philosophy applies Psychological First Aid (PFA) principles—Look, Listen, Link—to build foundational competencies in immediate support, communication, and safe referral.",
+                    topics: [
+                        "Course Goal and Philosophy (Non-Clinical Role)",
+                        "WHO QualityRights Initiative (Upholding Dignity and Human Rights)",
+                        "PCMH Strategic Framework 2024–2028 (Workforce Development & Cross-Sectoral Collaboration)",
+                        "Readiness Check (Pre-Test & Resilience Navigator)",
+                        "Statement of Confidentiality"
+                    ],
+                    keyTakeaway: "Preparation is key. Your primary goal is non-clinical: to listen, hold space, and connect others to professional help, not to diagnose or advise. You are key to closing the treatment gap (WHO mhGAP).",
+                    materials: [
+                        { type: 'video', url: 'https://youtu.be/7feUjsAv5is', label: 'Intro: Certification Course' },
+                        { type: 'video', url: 'https://youtu.be/PtN2YMdU1WY', label: 'Message from Chief Training Officer' },
+                        { type: 'slides', url: 'https://www.canva.com/design/DAG4fnBymhQ/g3wtSGZXCES-feVrNOoE8w/view?embed', label: 'Course Structure Slides' }
+                    ]
+                }
             },
-            { id: 1, title: "Foundations of Mental Health", duration: "3 hrs", hours: 3, color: "bg-magenta-50 text-magenta-800", desc: "Definitions, the legal context in the Philippines, and the boundaries of your role.",
-                content: { intro: "Establishes the core WHO definition of Mental Health and the legal basis for practice within the Philippines via the Mental Health Act (RA 11036). Focus is placed on the Biopsychosocial determinants of health and your non-clinical responsibilities: Support, Normalize, and Link. You are key to closing the treatment gap (WHO mhGAP).", topics: ["WHO Definition of Mental Health", "Mental Health Act (RA 11036) Provisions", "Biopsychosocial Determinants", "Stigma & Person-First Language", "The Non-Clinical Role: Support, Normalize, Link"], keyTakeaway: "Mental health is more than the absence of illness; it is a state of well-being. Your core role is non-clinical and mandated by the Philippine Mental Health Act to counter the service gap.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m1-slides', label: 'Slides: Legal Framework & Determinants' }, { type: 'video', url: 'https://youtu.be/mha-video', label: 'Video: The Biopsychosocial Model' }] }
+            {
+                id: 1,
+                title: "Foundational Frameworks and Your Role",
+                duration: "3 hrs",
+                hours: 3,
+                color: "bg-magenta-50 text-magenta-800",
+                desc: "Defines the scope, legal basis, and professional boundaries of the paraprofessional role.",
+                content: {
+                    intro: "Establishes the core WHO definition of Mental Health and the legal basis for practice within the Philippines via the Mental Health Act (RA 11036). Focus is placed on the Biopsychosocial determinants of health and your non-clinical responsibilities: Support, Normalize, and Link.",
+                    topics: [
+                        "WHO Definition of Mental Health",
+                        "Mental Health Act (RA 11036) Provisions",
+                        "Biopsychosocial Determinants of Mental Health",
+                        "Stigma & Person-First Language",
+                        "The Non-Clinical Role: Support, Normalize, Link"
+                    ],
+                    keyTakeaway: "Mental health is more than the absence of illness; it is a state of well-being. Your core role is non-clinical and mandated by the Philippine Mental Health Act to counter the service gap.",
+                    materials: [
+                        { type: 'slides', url: 'https://www.canva.com/design/DAG4fnVLh98/CVt0kP-Grox9BbCo3BKwdA/view?embed', label: 'Legal Framework & Determinants' },
+                        { type: 'video', url: 'https://youtu.be/aHAuxdBfDzA', label: 'Bridging the Gap: Paraprofessional Role' }
+                    ]
+                }
             },
-            { id: 2, title: "Ethics & Boundaries", duration: "2 hrs", hours: 2, color: "bg-sky-50 text-sky-800", desc: "Data privacy, informed consent, and maintaining professional boundaries.",
-                content: { intro: "Covers the four core ethical principles (Autonomy, Beneficence, Non-maleficence, Justice) and the strict legal requirements of the Data Privacy Act (RA 10173) for digital support. Non-maleficence requires strict adherence to your paraprofessional scope. You will learn the limits of confidentiality (Duty to Warn).", topics: ["The Four Ethical Principles (Autonomy, Beneficence, etc.)", "Data Privacy Act (RA 10173) & Sensitive Personal Information", "Informed Consent Requirements (Voluntary, Informed, Specific)", "Limits of Confidentiality (Duty to Warn)", "Professional Boundary Violations (Dual Relationships)"], keyTakeaway: "We cannot promise absolute secrecy. Non-maleficence requires you to stay strictly within your paraprofessional scope. Confidentiality must be broken in cases of imminent risk of harm or court orders.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m2-slides', label: 'Slides: Ethical Practice & RA 10173' }] }
+            {
+                id: 2,
+                title: "Ethical, Legal, and Digital Practice",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-sky-50 text-sky-800",
+                desc: "Covers ethical principles, Data Privacy Act (RA 10173), informed consent, and professional boundaries.",
+                content: {
+                    intro: "Covers the four core ethical principles (Autonomy, Beneficence, Non-maleficence, Justice) and the strict legal requirements of the Data Privacy Act (RA 10173) for digital support. Non-maleficence requires strict adherence to your paraprofessional scope. You will learn the limits of confidentiality (Duty to Warn).",
+                    topics: [
+                        "The Four Ethical Principles (Autonomy, Beneficence, etc.)",
+                        "Data Privacy Act (RA 10173) & Sensitive Personal Information",
+                        "Informed Consent Requirements (Voluntary, Informed, Specific)",
+                        "Limits of Confidentiality (Duty to Warn)",
+                        "Professional Boundary Violations (Dual Relationships)"
+                    ],
+                    keyTakeaway: "We cannot promise absolute secrecy. Non-maleficence requires you to stay strictly within your paraprofessional scope. Confidentiality must be broken in cases of imminent risk of harm or court orders.",
+                    materials: [
+                        { type: 'slides', url: 'https://www.canva.com/design/DAG4fzYXTSE/DnwXtDcHeA8rR3Gg3DNrnA/view?embed', label: 'Ethical Practice & RA 10173' }
+                    ]
+                }
             },
-            { id: 3, title: "Psychological First Aid", duration: "3 hrs", hours: 3, color: "bg-gold-50 text-gold-800", desc: "The core PFA model: Look, Listen, Link, and its five essential principles.",
-                content: { intro: "The entire course is built upon the practical, universal principles of Psychological First Aid (PFA). This module details the five essential principles (Safety, Calmness, Connectedness, Self-Efficacy, Hope) and how to implement the Look-Listen-Link action plan. ", topics: ["5 Core PFA Principles (Safety, Calmness, Connectedness, Self-Efficacy, Hope)", "LOOK: Assess safety and urgent basic needs.", "LISTEN: Offer non-intrusive support and comfort.", "LINK: Connect people to services and social support.", "PFA is NOT: Counseling, Forced Debriefing, or Diagnosis"], keyTakeaway: "PFA is a humane, supportive, and practical response to serious stress; it is immediate, temporary, and non-clinical. Always prioritize promoting safety, dignity, and recovery.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m3-slides', label: 'Slides: PFA Principles & Action' }, { type: 'video', url: 'https://youtu.be/pfa-demonstration', label: 'Video: PFA in Practice' }] }
+            {
+                id: 3,
+                title: "Psychological First Aid (PFA) and Scope",
+                duration: "3 hrs",
+                hours: 3,
+                color: "bg-gold-50 text-gold-800",
+                desc: "Details the five essential principles of PFA and how to implement the Look-Listen-Link action plan.",
+                content: {
+                    intro: "The entire course is built upon the practical, universal principles of Psychological First Aid (PFA). This module details the five essential principles (Safety, Calmness, Connectedness, Self-Efficacy, Hope) and how to implement the Look-Listen-Link action plan.",
+                    topics: [
+                        "5 Core PFA Principles (Safety, Calmness, Connectedness, Self-Efficacy, Hope)",
+                        "LOOK: Assess safety and urgent basic needs.",
+                        "LISTEN: Offer non-intrusive support and comfort.",
+                        "LINK: Connect people to services and social support.",
+                        "PFA is NOT: Counseling, Forced Debriefing, or Diagnosis"
+                    ],
+                    keyTakeaway: "PFA is a humane, supportive, and practical response to serious stress; it is immediate, temporary, and non-clinical. Always prioritize promoting safety, dignity, and recovery.",
+                    materials: [
+                        { type: 'slides', url: 'https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view?embed', label: 'PFA Principles & Action' },
+                        { type: 'video', url: 'https://youtu.be/sGooy-cS9G4', label: 'Basics of PFA' }
+                    ]
+                }
             },
-            { id: 4, title: "Core Support Skills", duration: "6 hrs", hours: 6, color: "bg-magenta-50 text-magenta-800", desc: "Communication, Empathy, Generative Listening, and basic coping mechanisms.",
-                content: { intro: "The longest module, focusing on the eight core communication skills (e.g., Building Rapport, Reflecting, Identifying Strengths) and the deepest level of engagement, based on Otto Scharmer's 4 levels of listening. This module defines the difference between Empathic Listening (L3) and Generative Listening (L4). ", topics: ["8 Core Communication Skills (Rapport, Reflection, etc.)", "Deep Dive: Generative Listening (Listening from the Emerging Future)", "The 4 Levels of Listening (Downloading, Factual, Empathic, Generative)", "Teaching Stabilizing Techniques (Belly Breathing, 5-4-3-2-1 Grounding)"], keyTakeaway: "Generative Listening (Level 4) is the deepest form of engagement. It requires suspending judgment and listening with an 'Open Will' to co-create new possibilities for the client's future.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m4-slides', label: 'Slides: Scharmer’s Levels & Communication' }, { type: 'video', url: 'https://youtu.be/generative-listening', label: 'Video: Practicing Generative Listening' }] }
+            {
+                id: 4,
+                title: "Core Communication and Basic Coping Skills",
+                duration: "6 hrs",
+                hours: 6,
+                color: "bg-magenta-50 text-magenta-800",
+                desc: "Communication, Empathy, Generative Listening, and basic coping mechanisms.",
+                content: {
+                    intro: "The longest module, focusing on the eight core communication skills (e.g., Building Rapport, Reflecting, Identifying Strengths) and the deepest level of engagement, based on Otto Scharmer's 4 levels of listening. This module defines the difference between Empathic Listening (L3) and Generative Listening (L4).",
+                    topics: [
+                        "8 Core Communication Skills (Rapport, Reflection, etc.)",
+                        "Deep Dive: Generative Listening (Listening from the Emerging Future)",
+                        "The 4 Levels of Listening (Downloading, Factual, Empathic, Generative)",
+                        "Teaching Stabilizing Techniques (Belly Breathing, 5-4-3-2-1 Grounding)"
+                    ],
+                    keyTakeaway: "Generative Listening (Level 4) is the deepest form of engagement. It requires suspending judgment and listening with an 'Open Will' to co-create new possibilities for the client's future.",
+                    materials: [
+                        { type: 'video', url: 'https://youtu.be/TpPGddb93Kg', label: 'Building Rapport' },
+                        { type: 'video', url: 'https://youtu.be/Jkg-1kLhTT4', label: 'Showing Empathy' },
+                        { type: 'video', url: 'https://youtu.be/ZhRTvXN_tJ8', label: 'Reflecting' },
+                        { type: 'video', url: 'https://youtu.be/WCWtnChOdqI', label: 'Labeling Emotions' },
+                        { type: 'video', url: 'https://youtu.be/8Ow64RjY5zc', label: 'Asking the Right Questions' },
+                        { type: 'video', url: 'https://youtu.be/7OReldWvjds', label: 'Giving No Advice' },
+                        { type: 'video', url: 'https://youtu.be/znVeC6cdAVE', label: 'Identifying Strengths' },
+                        { type: 'video', url: 'https://youtu.be/lxuYFw85hvw', label: 'Generative Listening' }
+                    ]
+                }
             },
-            { id: 5, title: "Crisis Response", duration: "4 hrs", hours: 4, color: "bg-red-50 text-red-800", desc: "Recognizing acute emergencies, the 4-Step Protocol, and safe referrals.",
-                content: { intro: "Focuses on recognizing acute mental health emergencies (Level 3 Care) and making safe, appropriate referrals. The core goal is to guide the client through the Seamless Care Process, which involves assessing risk, making a warm handoff, and following up. The Warm Handoff is critical for seamless transition.", topics: ["Crisis Indicators (Suicide Risk, Psychosis, Aggression)", "4-Step Crisis Response Protocol (Stay Calm, Listen, Remove Means, Connect)", "Safe Referrals: Level 1, 2, and 3 Pathways", "The Seamless Care Process and Warm Handoff Technique"], keyTakeaway: "Stay calm, ensure safety, and never handle a high-risk crisis alone. A 'Warm Handoff' involves calling the professional resource *while the client is present* to ensure a seamless transition of care.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m5-slides', label: 'Slides: Crisis & Warm Handoff Protocol' }, { type: 'video', url: 'https://youtu.be/warm-handoff-demo', label: 'Video: Warm Handoff Demonstration' }] }
+            {
+                id: 5,
+                title: "Crisis Intervention and Safe Referral",
+                duration: "4 hrs",
+                hours: 4,
+                color: "bg-red-50 text-red-800",
+                desc: "Recognizing acute emergencies, the 4-Step Protocol, and safe referrals.",
+                content: {
+                    intro: "Focuses on recognizing acute mental health emergencies (Level 3 Care) and making safe, appropriate referrals. The core goal is to guide the client through the Seamless Care Process, which involves assessing risk, making a warm handoff, and following up. The Warm Handoff is critical for seamless transition.",
+                    topics: [
+                        "Crisis Indicators (Suicide Risk, Psychosis, Aggression)",
+                        "4-Step Crisis Response Protocol (Stay Calm, Listen, Remove Means, Connect)",
+                        "Safe Referrals: Level 1, 2, and 3 Pathways",
+                        "The Seamless Care Process and Warm Handoff Technique"
+                    ],
+                    keyTakeaway: "Stay calm, ensure safety, and never handle a high-risk crisis alone. A 'Warm Handoff' involves calling the professional resource *while the client is present* to ensure a seamless transition of care.",
+                    materials: [
+                        { type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m5-slides', label: 'Crisis & Warm Handoff Protocol' }
+                    ]
+                }
             },
-            { id: 6, title: "Cultural Sensitivity", duration: "2 hrs", hours: 2, color: "bg-gold-50 text-gold-800", desc: "Cultural humility, key Filipino values, and inclusive practice.",
-                content: { intro: "Adapting support to the Philippine context by practicing cultural humility and understanding how key Filipino values (e.g., Hiya, Family-Centered Healing) influence help-seeking behaviors. You must be prepared to work with diverse populations.", topics: ["Cultural Humility: Self-Reflection and Continuous Learning", "Hiya (Shame) and Pakikisama (Harmony) in Help-Seeking", "Family-Centered Healing Approach", "Inclusive Practice (LGBTQIA+, PWDs, Indigenous Communities)"], keyTakeaway: "Cultural humility allows us to support the person within their own context, honoring their values while gently empowering them to prioritize their well-being.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m6-slides', label: 'Slides: Cultural Humility in the PH' }] }
+            {
+                id: 6,
+                title: "Cultural Sensitivity and Inclusive Practice",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-gold-50 text-gold-800",
+                desc: "Cultural humility, key Filipino values, and inclusive practice.",
+                content: {
+                    intro: "Adapting support to the Philippine context by practicing cultural humility and understanding how key Filipino values (e.g., Hiya, Family-Centered Healing) influence help-seeking behaviors. You must be prepared to work with diverse populations.",
+                    topics: [
+                        "Cultural Humility: Self-Reflection and Continuous Learning",
+                        "Hiya (Shame) and Pakikisama (Harmony) in Help-Seeking",
+                        "Family-Centered Healing Approach",
+                        "Inclusive Practice (LGBTQIA+, PWDs, Indigenous Communities)"
+                    ],
+                    keyTakeaway: "Cultural humility allows us to support the person within their own context, honoring their values while gently empowering them to prioritize their well-being.",
+                    materials: [
+                        { type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m6-slides', label: 'Cultural Humility in the PH' }
+                    ]
+                }
             },
-            { id: 7, title: "Self-Care & Resilience", duration: "2 hrs", hours: 2, color: "bg-stone-100 text-stone-800", desc: "Preventing compassion fatigue and utilizing digital resilience tools.",
-                content: { intro: "Understanding the difference between Compassion Fatigue (Figley, 1995) and Burnout, and developing sustainable self-care habits. This is crucial for preventing secondary traumatic stress and maintaining ethical practice.", topics: ["Compassion Fatigue vs Burnout (Figley, 1995)", "4 Dimensions of Self-Care (Physical, Emotional, Social, Spiritual)", "Boundary Setting and Peer Supervision", "Cognitio+ Digital Resilience Tools (Well-Be, Oasis, Navigator)"], keyTakeaway: "Self-care is an ethical imperative. You must actively manage your well-being across all dimensions to prevent compassion fatigue and ensure Non-maleficence in your work. You cannot pour from an empty cup.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m7-slides', label: 'Slides: Preventing Compassion Fatigue' }, { type: 'video', url: 'https://youtu.be/cf-prevention', label: 'Video: Self-Care Techniques' }] }
+            {
+                id: 7,
+                title: "Self-Care and Resilience",
+                duration: "2 hrs",
+                hours: 2,
+                color: "bg-stone-100 text-stone-800",
+                desc: "Preventing compassion fatigue and utilizing digital resilience tools.",
+                content: {
+                    intro: "Understanding the difference between Compassion Fatigue (Figley, 1995) and Burnout, and developing sustainable self-care habits. This is crucial for preventing secondary traumatic stress and maintaining ethical practice.",
+                    topics: [
+                        "Compassion Fatigue vs Burnout (Figley, 1995)",
+                        "4 Dimensions of Self-Care (Physical, Emotional, Social, Spiritual)",
+                        "Boundary Setting and Peer Supervision",
+                        "Cognitio+ Digital Resilience Tools (Well-Be, Oasis, Navigator)"
+                    ],
+                    keyTakeaway: "Self-care is an ethical imperative. You must actively manage your well-being across all dimensions to prevent compassion fatigue and ensure Non-maleficence in your work. You cannot pour from an empty cup.",
+                    materials: [
+                        { type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m7-slides', label: 'Preventing Compassion Fatigue' },
+                        { type: 'video', url: 'https://youtu.be/bMh8MSV9qLU', label: 'Self-Care Techniques' }
+                    ]
+                }
             },
-            // NEW MODULES
-            { id: 8, title: "Practicum & Mentoring", duration: "5 hrs", hours: 5, color: "bg-sky-50 text-sky-800", desc: "Applied practice, case reflection, and ethical supervision.",
-                content: { intro: "This module bridges theory and practice. The required 5-hour engagement focuses on ethical case reflections, applied PFA simulation, and structured mentorship to reinforce boundary management and crisis recognition in real-world scenarios. This is a pass/fail component.", topics: ["Required 5-Hour Field Practice/Simulation", "Mentor Endorsement Process", "Ethical Dilemma Case Reflections", "Supervision for Boundary Management", "Practical Application of Warm Handoff"], keyTakeaway: "Practical application under mentorship is essential for safe practice. Your mentor's endorsement confirms your continued adherence to ethical guidelines and non-maleficent practice.", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m8-slides', label: 'Practicum Guidebook' }] }
+            {
+                id: 8,
+                title: "Practicum Preparation and Professional Development",
+                duration: "5 hrs",
+                hours: 5,
+                color: "bg-sky-50 text-sky-800",
+                desc: "Applied practice, case reflection, and ethical supervision.",
+                content: {
+                    intro: "This module bridges theory and practice. The required 5-hour engagement focuses on ethical case reflections, applied PFA simulation, and structured mentorship to reinforce boundary management and crisis recognition in real-world scenarios. This is a pass/fail component.",
+                    topics: [
+                        "Required 5-Hour Field Practice/Simulation",
+                        "Mentor Endorsement Process",
+                        "Ethical Dilemma Case Reflections",
+                        "Supervision for Boundary Management",
+                        "Practical Application of Warm Handoff"
+                    ],
+                    keyTakeaway: "Practical application under mentorship is essential for safe practice. Your mentor's endorsement confirms your continued adherence to ethical guidelines and non-maleficent practice.",
+                    materials: [
+                        { type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m8-slides', label: 'Practicum Guidebook' }
+                    ]
+                }
             },
-            { id: 9, title: "Integration & Certification", duration: "1 hr", hours: 1, color: "bg-magenta-50 text-magenta-800", desc: "Final assessment, course review, and official certification.",
-                content: { intro: "This is the final phase to integrate all learning outcomes. Successful completion requires passing the 15-question Multiple Choice Post-Test (minimum score 80% or 12/15 correct). Upon passing, your certification status is officially granted.", topics: ["Course Integration Review", "15-Question Post-Test (Minimum 80% to Pass)", "Mentor Endorsement Confirmation", "Closing Statement & Ongoing CPD", "Certificate Generation"], keyTakeaway: "Certification confirms mastery of the PFA model, ethical guidelines, and core support skills. 'You came to learn how to support others. You leave knowing you are already part of the healing.'", materials: [{ type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m9-review', label: 'Final Review Slides' }] }
+            {
+                id: 9,
+                title: "Certification and Renewal",
+                duration: "1 hr",
+                hours: 1,
+                color: "bg-magenta-50 text-magenta-800",
+                desc: "Final assessment, course review, and official certification.",
+                content: {
+                    intro: "This is the final phase to integrate all learning outcomes. Successful completion requires passing the 15-question Multiple Choice Post-Test (minimum score 80% or 12/15 correct). Upon passing, your certification status is officially granted.",
+                    topics: [
+                        "Course Integration Review",
+                        "15-Question Post-Test (Minimum 80% to Pass)",
+                        "Mentor Endorsement Confirmation",
+                        "Closing Statement & Ongoing CPD",
+                        "Certificate Generation"
+                    ],
+                    keyTakeaway: "Certification confirms mastery of the PFA model, ethical guidelines, and core support skills. 'You came to learn how to support others. You leave knowing you are already part of the healing.'",
+                    materials: [
+                        { type: 'slides', url: 'https://cognitioplus.aiwaapp.live/m9-review', label: 'Final Review Slides' }
+                    ]
+                }
             }
         ];
+
         const TOTAL_COURSE_HOURS = MODULES_DATA.reduce((sum, mod) => sum + mod.hours, 0);
 
-
-        // --- FIREBASE & AUTHENTICATION ---
         async function initializeFirebase() {
             try {
                 if (!db) {
@@ -162,15 +352,11 @@
                     const app = firebase.initializeApp(firebaseConfig);
                     db = firebase.getFirestore(app);
                     auth = firebase.getAuth(app);
-                    
-                    // Sign in with custom token or anonymously
                     if (initialAuthToken) {
                         await firebase.signInWithCustomToken(auth, initialAuthToken);
                     } else {
                         await firebase.signInAnonymously(auth);
                     }
-                    
-                    // Listen for auth state changes
                     firebase.onAuthStateChanged(auth, (user) => {
                         if (user) {
                             userId = user.uid;
@@ -178,7 +364,7 @@
                             document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
                             loadUserData();
                         } else {
-                            userId = crypto.randomUUID(); // Fallback UUID if anonymous sign-in fails
+                            userId = crypto.randomUUID();
                             isAuthReady = true;
                             document.getElementById('user-id-display').textContent = 'User ID: Anonymous (Data may not persist)';
                             renderApp(); 
@@ -191,8 +377,7 @@
                 renderApp();
             }
         }
-        
-        // --- FIRESTORE OPERATIONS ---
+
         const userDocPath = () => {
             return firebase.doc(db, `artifacts/${appId}/users/${userId}/progress`, 'data');
         };
@@ -202,7 +387,6 @@
             try {
                 const docRef = userDocPath();
                 const docSnap = await firebase.getDoc(docRef);
-
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     userName = data.name || 'Participant';
@@ -211,7 +395,6 @@
                     postTestCompleted = data.postTestCompleted || false;
                 } else {
                     userProgress = initializeProgress();
-                    // Set initial document
                     await firebase.setDoc(docRef, { name: userName, progress: userProgress, postTestScore: 0, postTestCompleted: false });
                 }
             } catch (error) {
@@ -243,36 +426,28 @@
 
         async function startOrResetCourse(newStatus) {
             if (!isAuthReady) return;
-
             if (newStatus === 'restart') {
                 if (!confirm("Are you sure you want to restart the course? All progress, including post-test score, will be reset.")) return;
                 userProgress = initializeProgress();
                 postTestScore = 0;
                 postTestCompleted = false;
             }
-            
             await updateUserData({ progress: userProgress, postTestScore: postTestScore, postTestCompleted: postTestCompleted });
             document.getElementById('auth-modal').classList.add('hidden');
         }
 
-        // --- UTILITY ---
         const initializeProgress = () => Object.fromEntries(MODULES_DATA.map(m => [m.id, false]));
         const getCompletionCount = () => Object.values(userProgress).filter(status => status).length;
         const getCompletionPercentage = () => Math.round((getCompletionCount() / totalModules) * 100);
-        
-        // Certification requires ALL modules complete AND Post-Test passed
         const isCourseCertified = () => getCompletionCount() === totalModules && postTestCompleted && postTestScore >= MIN_PASS_SCORE;
 
-        // --- RENDERING ---
         function renderApp() {
             renderHeader();
             renderTracker();
             renderModuleTabs();
-            // Load Module 9 content by default if 8 is complete, otherwise load first incomplete module
             const nextModule = MODULES_DATA.findIndex(m => !userProgress[m.id]);
             loadModule(nextModule !== -1 ? nextModule : totalModules - 1); 
             initCharts();
-            
             if (isCourseCertified()) {
                 document.getElementById('certificate-section').classList.remove('hidden');
             } else {
@@ -294,18 +469,13 @@
             const checklist = document.getElementById('pre-course-checklist');
             const statusText = document.getElementById('readiness-status-text');
             const progressBar = document.getElementById('progress-bar');
-            
-            // Check M0 and Certification Status
             const mod0Complete = userProgress[0] || false; 
             const certified = isCourseCertified();
-            
-            // Update checklist for M0 (only M0 items listed here for brevity/focus)
             const m0Items = [
                 { title: "Pre-Test Assessment", info: "General knowledge baseline check. Does not affect certification.", url: null, completed: mod0Complete },
                 { title: "Resilience Navigator", info: "Mandatory self-assessment for personal readiness.", url: 'https://cognitioplus.aiwaapp.live/resilience-navigator', completed: mod0Complete },
                 { title: "Statement of Confidentiality", info: "Sign the agreement adhering to the Privacy Policy.", url: 'https://cognitioplus.aiwaapp.live/privacy-policy', completed: mod0Complete }
             ];
-
             checklist.innerHTML = m0Items.map(item => `
                 <div class="flex gap-3 items-start p-3 ${item.completed ? 'bg-green-50 border-green-200' : 'bg-stone-50 border-stone-100'} rounded-lg border">
                     <div class="mt-1 text-lg ${item.completed ? 'text-green-600' : 'text-stone-400'}">
@@ -320,9 +490,6 @@
                     </div>
                 </div>
             `).join('');
-            
-            // Update Overall Progress
-            const progress = getCompletionPercentage();
             statusText.textContent = certified ? 'Certified' : (mod0Complete ? 'Ready to Proceed' : 'Pending');
             statusText.classList.toggle('text-green-600', certified);
             statusText.classList.toggle('text-gold-600', !certified && mod0Complete);
@@ -330,7 +497,6 @@
             progressBar.style.width = `${progress}%`;
         }
 
-        // --- MODULE LOGIC (MARKING COMPLETE) ---
         function renderModuleTabs() {
             const container = document.getElementById('moduleTabs');
             container.innerHTML = MODULES_DATA.map(m => {
@@ -341,7 +507,6 @@
                 const checkIcon = isCompleted 
                     ? '<i class="ph ph-check-circle-fill text-lg mr-1"></i>' 
                     : '';
-                    
                 return `
                     <button onclick="loadModule(${m.id})" id="tab-${m.id}" 
                         class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all border shadow-sm flex-shrink-0 flex items-center ${buttonClass}">
@@ -354,35 +519,28 @@
         function loadModule(id) {
             const module = MODULES_DATA.find(m => m.id === id);
             const contentDiv = document.getElementById('moduleContent');
-            
             if (!module || !contentDiv) return;
-
-            // Update Tab Styles
             MODULES_DATA.forEach(m => {
                 const tab = document.getElementById(`tab-${m.id}`);
                 if(tab) {
                     tab.classList.toggle('bg-magenta-600', m.id === id && !userProgress[m.id]);
                     tab.classList.toggle('text-white', m.id === id);
                     tab.classList.toggle('border-magenta-600', m.id === id);
-                    
                     if(userProgress[m.id]) {
                          tab.classList.add('bg-magenta-700', 'text-white', 'border-magenta-700');
                          tab.classList.remove('bg-magenta-600');
                     }
                 }
             });
-
             const materialsHtml = module.content.materials.map(mat => `
                 <a href="${mat.url}" target="_blank" class="flex items-center gap-2 text-sm text-magenta-700 hover:text-magenta-900 font-medium transition-colors p-2 rounded-lg hover:bg-magenta-50 border border-transparent hover:border-magenta-100">
                     <i class="ph ${mat.type === 'video' ? 'ph-video-camera' : 'ph-presentation'} text-xl"></i> 
                     ${mat.label} <i class="ph ph-arrow-square-out text-xs ml-auto"></i>
                 </a>
             `).join('');
-            
             let moduleSpecificContent = '';
             let moduleActionButton = '';
-
-            if (module.id === 9) { // Module 9: Integration and Certification (Post-Test)
+            if (module.id === 9) {
                 moduleSpecificContent = renderPostTest();
             } else {
                  moduleSpecificContent = `
@@ -392,7 +550,6 @@
                     <p class="text-stone-700 mb-6 leading-relaxed">
                         ${module.content.intro}
                     </p>
-
                     <h4 class="font-heading font-bold text-sm text-stone-800 mb-3 uppercase tracking-wide">Topics Covered</h4>
                     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         ${module.content.topics.map(t => `
@@ -403,7 +560,6 @@
                     </ul>
                  `;
             }
-
             moduleActionButton = `
                 <div class="mt-8 pt-6 border-t border-stone-100">
                     <button onclick="toggleModuleCompletion(${module.id})" 
@@ -414,10 +570,9 @@
                     </button>
                 </div>
             `;
-            // Hide action button for M9 if post test not yet passed
             if (module.id === 9) {
                 if (!postTestCompleted || postTestScore < MIN_PASS_SCORE) {
-                    moduleActionButton = ''; // Only complete M9 after passing test
+                    moduleActionButton = '';
                 } else {
                     moduleActionButton = `
                         <div class="mt-8 pt-6 border-t border-stone-100">
@@ -431,11 +586,7 @@
                     `;
                 }
             }
-
-
-            // Animate Content Swap
             contentDiv.style.opacity = '0';
-            
             setTimeout(() => {
                 contentDiv.innerHTML = `
                     <div class="flex flex-col md:flex-row gap-8">
@@ -445,16 +596,13 @@
                             </div>
                             <h3 class="text-3xl font-heading font-bold text-stone-900 mb-2">${module.title}</h3>
                             <p class="text-lg font-serif text-stone-600 italic mb-6">${module.desc}</p>
-                            
                             <div class="bg-stone-50 p-4 rounded-lg border border-stone-100 mb-6">
                                 <h4 class="font-heading font-bold text-sm text-stone-800 mb-2">Key Takeaway</h4>
                                 <p class="text-sm text-stone-600">"${module.content.keyTakeaway}"</p>
                             </div>
-
                             <h4 class="font-heading font-bold text-sm text-stone-800 mb-3 uppercase tracking-wide">Materials</h4>
                             <div class="space-y-2">${materialsHtml}</div>
                         </div>
-
                         <div class="md:w-2/3 border-t md:border-t-0 md:border-l border-stone-200 pt-6 md:pt-0 md:pl-8">
                             ${moduleSpecificContent}
                             ${moduleActionButton}
@@ -462,37 +610,26 @@
                     </div>
                 `;
                 contentDiv.style.opacity = '1';
-
-                // Initialize Post-Test listeners if M9 is loaded
                 if (module.id === 9) {
                     document.getElementById('post-test-form').addEventListener('submit', submitPostTest);
                 }
-
             }, 200);
         }
-        
+
         function toggleModuleCompletion(moduleId) {
             const currentStatus = userProgress[moduleId];
             const newStatus = !currentStatus;
-            
-            // Can't mark M9 incomplete if certified
             if (moduleId === 9 && isCourseCertified()) return;
-
-            // Module 0 is foundational
             if (moduleId === 0 && !newStatus && getCompletionCount() > 1) {
-                // Do not allow unmarking M0 if other progress exists
                 console.log("Module 0 is foundational and cannot be unmarked once other modules are started.");
                 return;
             }
-            
             updateModuleProgress(moduleId, newStatus);
         }
 
-        // --- POST TEST LOGIC ---
         function renderPostTest() {
             let statusMessage = '';
             let formContent = '';
-
             if (getCompletionCount() < totalModules - 1) {
                  statusMessage = `
                     <div class="p-4 bg-red-100 border border-red-300 text-red-800 rounded-lg">
@@ -542,7 +679,6 @@
                     </form>
                 `;
             }
-
             return `
                 <h4 class="font-heading font-bold text-2xl text-stone-900 mb-4">Final Certification Assessment</h4>
                 ${statusMessage}
@@ -551,37 +687,27 @@
                 </div>
             `;
         }
-        
+
         function submitPostTest(event) {
             event.preventDefault();
-            
             let score = 0;
             const formData = new FormData(event.target);
-
             POST_TEST_MCQS.forEach(q => {
                 const selectedAnswer = formData.get(`q${q.id}`);
                 if (selectedAnswer === q.answer) {
                     score++;
                 }
             });
-            
             const passed = score >= MIN_PASS_SCORE;
-            
-            // Update state and Firestore
             updateUserData({ 
                 postTestScore: score, 
                 postTestCompleted: true, 
-                progress: userProgress // Ensure progress is not overwritten
+                progress: userProgress
             });
-
-            // Re-render M9 to show result
             loadModule(9); 
-            
-            // Display alert message using a custom modal/div if available (using a simple div message here for simplicity)
             const resultMsg = passed 
                 ? `Congratulations! You passed the Post-Test with a score of ${score}/${POST_TEST_MCQS.length}. You are now ready to finalize certification.`
                 : `You scored ${score}/${POST_TEST_MCQS.length}. You need ${MIN_PASS_SCORE} to pass. Please review and try again.`;
-
             document.getElementById('post-test-container').innerHTML = `
                 <div class="p-6 ${passed ? 'bg-green-50 border-green-400 text-green-800' : 'bg-red-50 border-red-400 text-red-800'} rounded-lg border text-center font-bold text-lg mb-6">
                     ${resultMsg}
@@ -592,8 +718,6 @@
             `;
         }
 
-
-        // --- LISTENING LEVELS LOGIC (Simplified from previous) ---
         function setListeningLevel(level) {
             const listeningLevels = [
                 { level: 1, title: "Downloading", desc: "Hearing only what you already know. Confirming old habits and judgments, maintaining the status quo (Closed Will).", icon: "ph-download-simple" },
@@ -601,11 +725,9 @@
                 { level: 3, title: "Empathic Listening", desc: "Seeing through the other person's eyes. Emotional connection (Open Heart). Sensing the client's emotional field.", icon: "ph-heart" },
                 { level: 4, title: "Generative Listening", desc: "Listening from the emerging future. Co-creating potential (Open Will). Sensing the client's potential for healing.", icon: "ph-sparkle" }
             ];
-            
             const data = listeningLevels.find(l => l.level === level);
             const container = document.getElementById('listening-content');
             if (!data || !container) return; 
-
             [1,2,3,4].forEach(l => {
                 const btn = document.getElementById(`btn-lvl-${l}`);
                 if(btn) {
@@ -618,7 +740,6 @@
                     }
                 }
             });
-
             container.innerHTML = `
                 <div class="mb-4">
                     <i class="ph ${data.icon} text-5xl text-magenta-600"></i>
@@ -626,13 +747,11 @@
                 <h4 class="text-xl font-heading font-bold text-stone-800 mb-2">Level ${data.level}: ${data.title}</h4>
                 <p class="text-stone-600">${data.desc}</p>
             `;
-            
             container.classList.remove('fade-in');
             void container.offsetWidth; 
             container.classList.add('fade-in');
         }
 
-        // --- AUTH MODAL ---
         function showAuthModal() {
             document.getElementById('new-user-name').value = userName;
             document.getElementById('auth-modal-current-user').textContent = userName;
@@ -648,23 +767,18 @@
         async function updateUserName() {
             const newName = document.getElementById('new-user-name').value.trim();
             if (!newName || newName === userName) return;
-
             userName = newName;
             await updateUserData({ name: userName });
             closeAuthModal();
         }
 
-        // --- CHARTS ---
         function initCharts() {
             const chartCanvas = document.getElementById('courseTimeChart');
             if (!chartCanvas) return;
-
             const ctx = chartCanvas.getContext('2d');
-            
             if (window.myCourseChart instanceof Chart) {
                 window.myCourseChart.destroy();
             }
-
             const labels = MODULES_DATA.map(m => `Mod ${m.id}`);
             const data = MODULES_DATA.map(m => m.hours);
             const colors = MODULES_DATA.map(m => {
@@ -672,7 +786,6 @@
                 if(m.id === 5) return '#ef4444'; 
                 return '#e7e5e4'; 
             });
-
             window.myCourseChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -713,28 +826,23 @@
                 }
             });
         }
-        
-        // --- INITIALIZATION ---
+
         window.onload = initializeFirebase;
     </script>
-
     <!-- Authentication Modal -->
     <div id="auth-modal" class="fixed inset-0 bg-stone-900 bg-opacity-75 z-[100] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl p-8 shadow-2xl max-w-lg w-full transform transition-all">
             <h3 class="text-xl font-heading font-bold text-stone-900 mb-4 border-b pb-2">Course Status & Account</h3>
-            
             <div class="space-y-3 mb-6 text-sm">
                 <p>Certification Status: <span id="auth-modal-completion" class="font-bold text-magenta-600"></span></p>
                 <p>Current Name: <span id="auth-modal-current-user" class="font-bold text-stone-800"></span></p>
                 <p class="text-xs text-stone-500 break-all" id="auth-modal-user-id"></p>
             </div>
-            
             <div class="mb-6">
                 <label for="new-user-name" class="block text-sm font-medium text-stone-700 mb-1">Update Display Name</label>
                 <input type="text" id="new-user-name" placeholder="Your Full Name for Certificate" class="w-full border border-stone-300 rounded-lg p-2 focus:ring-magenta-500 focus:border-magenta-500" value="">
                 <button onclick="updateUserName()" class="mt-2 w-full bg-magenta-600 text-white py-2 rounded-lg font-bold hover:bg-magenta-700 transition">Save Name</button>
             </div>
-            
             <div class="flex gap-4">
                 <button onclick="startOrResetCourse('restart')" class="flex-1 py-3 border border-red-500 text-red-600 rounded-lg font-bold hover:bg-red-50 transition">
                     <i class="ph ph-arrow-counter-clockwise mr-2"></i> Restart Course
@@ -745,7 +853,6 @@
             </div>
         </div>
     </div>
-
     <!-- Header -->
     <header class="bg-white border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -755,15 +862,12 @@
                     <span class="font-heading font-bold text-xl tracking-tight text-stone-800">Cognitio+ <span class="font-sans font-normal text-sm uppercase tracking-wide text-magenta-600">Certification Hub</span></span>
                 </div>
                 <div class="flex items-center" id="user-status">
-                    <!-- User status rendered here -->
                 </div>
             </div>
         </div>
     </header>
-
     <!-- Main Content -->
     <main class="flex-grow">
-        
         <!-- Hero Section -->
         <section class="bg-white border-b border-stone-200 py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -778,30 +882,23 @@
                 </div>
             </div>
         </section>
-
-        <!-- Certificate Section (Hidden until 100% complete) -->
+        <!-- Certificate Section -->
         <section id="certificate-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 hidden">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-heading font-bold text-green-700">Congratulations! You are Certified!</h2>
                 <p class="text-lg text-stone-600 mt-2">All modules are complete, and the Post-Test has been passed.</p>
             </div>
-            
-            <!-- Certificate Mockup -->
             <div class="max-w-4xl mx-auto bg-white p-4 sm:p-8 rounded-xl shadow-2xl certificate-border certificate-bg">
                 <div class="text-center py-10 bg-white bg-opacity-90 rounded-lg">
                     <h3 class="text-4xl font-heading font-extrabold text-magenta-700 mb-10 text-glow">Cognitio+ Certification</h3>
                     <p class="text-2xl font-serif text-stone-600 mb-6">This is awarded to</p>
-                    
-                    <!-- Participant Name -->
                     <div class="inline-block border-b-2 border-magenta-600 px-16 pb-2 mb-10">
                         <h1 id="certificate-name" class="text-5xl font-heading font-bold text-stone-900">${userName}</h1>
                     </div>
-                    
                     <p class="text-xl text-stone-700 mb-10 max-w-2xl mx-auto">
                         For successfully completing the **Mental Health and Well-Being Paraprofessional Course** (${TOTAL_COURSE_HOURS} Hours)
                         <br>Certified in WHO QualityRights, PFA, and Generative Listening.
                     </p>
-                    
                     <div class="flex justify-around items-center max-w-lg mx-auto mb-10">
                         <div>
                             <img src="https://placehold.co/150x50/ffffff/000000?text=Signature" alt="Signature Placeholder" class="border-b border-stone-500 mx-auto mb-1">
@@ -811,18 +908,14 @@
                             <div class="pt-1 text-sm font-serif text-stone-600">Date: ${new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
                         </div>
                     </div>
-                    
                     <div class="text-center text-sm font-serif text-stone-500 mt-4">
                         <p>Verification Code: CCMH-36912-2025-00077<span id="verification-code-suffix">${generateParticipantSuffix(userId)}</span></p>
                     </div>
                 </div>
             </div>
         </section>
-
-
         <!-- Dashboard: Assessment & Tracker -->
         <section id="dashboard" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <!-- Context Intro -->
             <div class="mb-8">
                 <h2 class="text-2xl font-heading font-bold text-stone-800 mb-2">Part I & II: Assessment & Readiness</h2>
                 <p class="text-stone-600">
@@ -830,9 +923,7 @@
                 </p>
                 <p id="user-id-display" class="text-xs text-stone-400 mt-2"></p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Left: Pre-Requisite Tracker -->
                 <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-6 lg:col-span-1 h-fit">
                     <div class="flex items-center gap-2 mb-6">
                         <div class="p-2 bg-gold-50 rounded-lg text-gold-600">
@@ -840,11 +931,8 @@
                         </div>
                         <h3 class="font-heading font-bold text-lg">Readiness Checklist</h3>
                     </div>
-
                     <div class="space-y-4" id="pre-course-checklist">
-                        <!-- Items rendered by JS -->
                     </div>
-                    
                     <div class="mt-6 pt-6 border-t border-stone-100">
                         <div class="flex justify-between items-center text-sm mb-2">
                             <span class="text-stone-500">Post-Test Status</span>
@@ -862,22 +950,17 @@
                         <p class="text-xs text-stone-500 mt-1">Overall Course Completion: <span id="progress-text">${getCompletionPercentage()}%</span></p>
                     </div>
                 </div>
-
-                <!-- Right: Module Overview & Stats -->
                 <div class="bg-white rounded-xl shadow-sm border border-stone-200 p-6 lg:col-span-2">
                     <h3 class="font-heading font-bold text-lg mb-4">Course Composition (${TOTAL_COURSE_HOURS} Total Hours)</h3>
                     <p class="text-sm text-stone-500 mb-6">
                         The course requires a total of ${TOTAL_COURSE_HOURS} hours of dedicated study. The chart shows the time investment per module, highlighting **Module 4 (Core Support Skills)** as the most intensive component.
                     </p>
-                    
-                    <!-- Chart Container -->
                     <div class="chart-container">
                         <canvas id="courseTimeChart"></canvas>
                     </div>
                 </div>
             </div>
         </section>
-
         <!-- Curriculum Explorer -->
         <section id="curriculum" class="bg-stone-50 border-t border-stone-200 py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -887,19 +970,12 @@
                         Explore the modules below. Module 9 includes the final Post-Test required for certification.
                     </p>
                 </div>
-
-                <!-- Module Navigation Tabs -->
                 <div class="flex overflow-x-auto pb-4 gap-2 mb-6 md:justify-center" id="moduleTabs">
-                    <!-- Buttons injected via JS -->
                 </div>
-
-                <!-- Active Module Content -->
                 <div id="moduleContent" class="bg-white rounded-2xl shadow-lg border border-stone-200 p-8 min-h-[400px] transition-all duration-300">
-                    <!-- Dynamic Content -->
                 </div>
             </div>
         </section>
-
         <!-- Visual Frameworks Section -->
         <section id="visuals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="mb-12">
@@ -908,21 +984,16 @@
                     These tools represent the core methodologies: Psychological First Aid (PFA) and Deep Listening, which form the basis of your paraprofessional practice.
                 </p>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <!-- PFA Interactive Flow -->
                 <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="font-heading font-bold text-lg text-stone-800">PFA Model: Look, Listen, Link</h3>
                         <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Module 3</span>
                     </div>
-                    
                     <p class="text-sm text-stone-500 mb-6 mt-4">
                         Hover over each stage to understand your specific responsibilities during a crisis interaction, adhering to the PFA core principles (Safety, Dignity, Recovery).
                     </p>
-                    
                     <div class="space-y-4">
-                        <!-- Step 1: LOOK -->
                         <div class="group relative cursor-pointer">
                             <div class="flex items-center gap-4 bg-red-50 p-4 rounded-lg border border-red-100 group-hover:bg-red-100 transition-colors">
                                 <div class="bg-red-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">1</div>
@@ -939,8 +1010,6 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Step 2: LISTEN -->
                         <div class="group relative cursor-pointer">
                             <div class="flex items-center gap-4 bg-gold-50 p-4 rounded-lg border border-gold-100 group-hover:bg-gold-100 transition-colors">
                                 <div class="bg-gold-600 text-stone-900 w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">2</div>
@@ -957,8 +1026,6 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <!-- Step 3: LINK -->
                         <div class="group relative cursor-pointer">
                             <div class="flex items-center gap-4 bg-magenta-50 p-4 rounded-lg border border-magenta-100 group-hover:bg-magenta-100 transition-colors">
                                 <div class="bg-magenta-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-sm">3</div>
@@ -978,25 +1045,20 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Scharmer's Listening Levels -->
                 <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm flex flex-col">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="font-heading font-bold text-lg text-stone-800">4 Levels of Listening (Scharmer)</h3>
                         <span class="text-xs bg-stone-100 text-stone-600 px-2 py-1 rounded">Module 4</span>
                     </div>
-                    
                     <p class="text-sm text-stone-500 mb-6 mt-4">
                         Select a level. Level 4 (Generative Listening) is the goal, requiring openness across mind, heart, and will to facilitate deep healing and new perspectives.
                     </p>
-
                     <div class="flex gap-1 mb-4">
                         <button onclick="setListeningLevel(1)" id="btn-lvl-1" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L1</button>
                         <button onclick="setListeningLevel(2)" id="btn-lvl-2" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L2</button>
                         <button onclick="setListeningLevel(3)" id="btn-lvl-3" class="flex-1 py-2 text-xs font-bold rounded bg-stone-100 text-stone-500 hover:bg-stone-200 transition">L3</button>
                         <button onclick="setListeningLevel(4)" id="btn-lvl-4" class="flex-1 py-2 text-xs font-bold rounded bg-magenta-600 text-white shadow-md transition">L4</button>
                     </div>
-
                     <div id="listening-content" class="bg-stone-50 p-6 rounded-xl border border-stone-100 flex-grow flex flex-col justify-center text-center fade-in">
                         <div class="mb-4">
                             <i class="ph ph-sparkle text-5xl text-magenta-600"></i>
@@ -1007,7 +1069,6 @@
                 </div>
             </div>
         </section>
-        
         <!-- Footer -->
         <footer class="bg-stone-900 text-stone-400 py-8 mt-12">
             <div class="max-w-7xl mx-auto px-4 text-center">
@@ -1018,7 +1079,6 @@
                 </div>
             </div>
         </footer>
-
     </main>
 </body>
 </html>
