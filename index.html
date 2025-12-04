@@ -1,1706 +1,1015 @@
-<!DOCTYPE html>
+<DOCTYPE! html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cognitio+ | Mental Health Paraprofessional Certification</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" id="manifest-placeholder">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto+Condensed:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#b425aa',
-                        accent: '#c80ec9',
-                        success: '#D4AF37',
-                        surface: '#ffffff',
-                        background: '#f7f7f7',
-                        'primary-blue': '#1D4ED8',
-                        'light-blue': '#E0F2F1',
-                        'accent-green': '#059669',
-                        'warning-red': '#DC2626'
-                    },
-                    fontFamily: {
-                        sans: ['Roboto Condensed', 'sans-serif'],
-                        heading: ['Poppins', 'sans-serif'],
-                        brand: ['Montserrat', 'sans-serif'],
-                        inter: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Course for Mental Health and Well-Being Paraprofessional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --color-primary: #b425aa;
-            --color-accent: #c80ec9;
-            --header-height: 60px;
-            --bottom-nav-height: 64px;
+            --primary: #b425aa;
+            --primary-light: #c80ec9;
+            --accent: #D4AF37;
+            --bg-dark: #1a1a1a;
+            --bg-light: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border: #e0e0e0;
         }
 
         body {
-            background-color: #f3f4f6;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Roboto Condensed', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            line-height: 1.6;
         }
 
-        /* Smooth Scrolling */
-        html { scroll-behavior: smooth; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
         }
 
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-
-        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        .slide-in-right { animation: slideInRight 0.3s ease-out forwards; }
-
-        /* Navigation Active States */
-        .nav-item.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid white;
+        h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
         }
-        
-        .mobile-nav-item.active {
-            color: var(--color-primary);
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        .mobile-nav-item.active i {
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+        }
+
+        .site-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: #f0c64a;
             transform: translateY(-2px);
         }
-        .mobile-nav-item.active::after {
-            content: '';
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        .sidebar {
+            width: 350px;
+            flex-shrink: 0;
+        }
+
+        .content-area {
+            flex: 1;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Module List */
+        .module-item {
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .module-item:hover {
+            border-color: var(--primary);
+            background: #fafafa;
+        }
+
+        .module-item.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
+        }
+
+        .module-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .module-duration {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .progress-bar {
+            background: var(--border);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        /* Content Display */
+        .lesson-content {
+            line-height: 1.8;
+        }
+
+        .lesson-content h2 {
+            color: var(--primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .lesson-content h3 {
+            color: var(--primary-light);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+
+        .lesson-content ul, .lesson-content ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .lesson-content li {
+            margin-bottom: 10px;
+        }
+
+        .lesson-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .lesson-content th, .lesson-content td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .lesson-content th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
             position: absolute;
             top: 0;
-            width: 50%;
-            height: 3px;
-            background: var(--color-primary);
-            border-radius: 0 0 4px 4px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        /* Typography & Content */
-        .prose h3 { font-family: 'Poppins', sans-serif; font-weight: 700; color: #1f2937; margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.25rem; }
-        .prose h4 { font-family: 'Poppins', sans-serif; font-weight: 600; color: #374151; margin-top: 1.2em; margin-bottom: 0.5em; font-size: 1.1rem; }
-        .prose p { margin-bottom: 1em; line-height: 1.6; font-family: 'Inter', sans-serif; }
-        .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
-        .prose ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
-        .prose li { margin-bottom: 0.5em; }
+        /* Quiz Section */
+        .quiz-question {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
 
-        /* Module Accordion */
-        .module-header { cursor: pointer; transition: all 0.2s; }
-        .module-header:hover { background-color: #f9fafb; }
-        .lesson-item { border-left: 2px solid transparent; transition: all 0.2s; }
-        .lesson-item:hover { background-color: #f0fdf4; border-left-color: #b425aa; }
-        .lesson-item.completed i { color: #059669; }
-        .lesson-item.current { background-color: #fdf2f8; border-left-color: #b425aa; font-weight: 600; }
+        .quiz-options {
+            margin-top: 15px;
+        }
 
-        /* Certificate Styles */
-        .cert-container {
-            background-image: url('Certificate Template.png'); /* Fallback needed if local file not served */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            padding: 50px;
-            position: relative;
-            color: #333;
-            font-family: Arial, sans-serif;
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-light);
+            background: #fafafa;
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(180, 37, 170, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        /* Navigation Buttons */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border);
+        }
+
+        /* Certificate Section */
+        .certificate-preview {
             text-align: center;
-            border: 1px solid #ddd;
-        }
-        /* Fallback background if image fails */
-        .cert-fallback {
-            background: linear-gradient(to bottom right, #fff, #f0f0f0);
-            border: 20px double #b425aa;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
+            border-radius: 12px;
         }
 
-        /* Loader */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #b425aa;
+        .certificate-preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Certificate Canvas */
+        #certificateCanvas {
+            max-width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--white);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            border-top-color: transparent;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body class="font-sans text-gray-800 h-screen flex flex-col md:flex-row overflow-hidden select-none">
-
-    <!-- Sidebar (Desktop) -->
-    <aside class="hidden md:flex flex-col w-80 gradient-bg text-white shadow-2xl z-30 relative">
-        <div class="p-8 pb-4">
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary font-bold text-xl shadow-lg">C+</div>
-                <div>
-                    <span class="font-brand text-2xl font-bold tracking-wide block leading-none">Cognitio+</span>
-                    <span class="text-[10px] opacity-80 uppercase tracking-widest">LMS Platform</span>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" alt="Cognitio+ Logo" class="logo">
+                    <div class="site-title">Mental Health Paraprofessional Certification</div>
                 </div>
-            </div>
-            
-            <!-- User Mini Profile -->
-            <div class="bg-white/10 rounded-lg p-3 flex items-center space-x-3 backdrop-blur-sm border border-white/10">
-                <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <i class="fas fa-user text-sm"></i>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="showVerificationModal()">Verify Certificate</button>
+                    <button class="btn btn-primary" onclick="showPurchaseModal()">Get Certified - ₱1,500</button>
                 </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold truncate user-name-display">Guest User</p>
-                    <div class="w-full bg-black/20 rounded-full h-1.5 mt-1">
-                        <div class="bg-success h-1.5 rounded-full global-progress-bar" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="premium-badge" class="mt-2 hidden">
-                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full"><i class="fas fa-crown mr-1"></i> Premium</span>
             </div>
         </div>
+    </header>
 
-        <nav class="flex-1 overflow-y-auto py-2 space-y-1 px-4">
-            <button onclick="app.router('course')" id="nav-d-course" class="nav-item w-full text-left px-4 py-3 rounded-lg transition flex items-center space-x-3">
-                <i class="fas fa-graduation-cap w-6 text-center"></i> <span>My Course</span>
-            </button>
-            <button onclick="app.router('knowledge')" id="nav-d-knowledge" class="nav-item w-full text-left px-4 py-3 rounded-lg transition flex items-center space-x-3">
-                <i class="fas fa-book-reader w-6 text-center"></i> <span>Knowledge Hub</span>
-            </button>
-            <button onclick="app.router('certificate')" id="nav-d-certificate" class="nav-item w-full text-left px-4 py-3 rounded-lg transition flex items-center space-x-3">
-                <i class="fas fa-certificate w-6 text-center"></i> <span>Certificate</span>
-            </button>
-            <button onclick="app.router('settings')" id="nav-d-settings" class="nav-item w-full text-left px-4 py-3 rounded-lg transition flex items-center space-x-3">
-                <i class="fas fa-cog w-6 text-center"></i> <span>Settings</span>
-            </button>
-        </nav>
-
-        <div class="p-6 text-xs text-center opacity-60">
-            &copy; 2025 Cognitio+ Systems<br>v2.1 Premium
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Certification Course for Mental Health and Well-Being Paraprofessional</h1>
+            <p>Equip yourself with essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support</p>
+            <button class="btn btn-primary" onclick="scrollToContent()">Start Learning for Free</button>
         </div>
-    </aside>
+    </section>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-full relative bg-gray-50">
-        
-        <!-- Mobile Header -->
-        <header class="md:hidden gradient-bg text-white p-4 flex justify-between items-center shadow-md z-30 sticky top-0">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary font-bold shadow-sm">C+</div>
-                <span class="font-brand font-bold text-lg">Cognitio+</span>
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="card">
+                    <h3>Course Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+                    </div>
+                    <p class="mt-20"><span id="progressPercentage">0</span>% Complete</p>
+                </div>
+
+                <div class="card">
+                    <h3>Course Modules</h3>
+                    <div id="moduleList"></div>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <div class="card">
+                    <div id="lessonContent"></div>
+                    
+                    <div class="lesson-nav">
+                        <button class="btn btn-secondary" id="prevBtn" onclick="previousLesson()">← Previous</button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextLesson()">Next →</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Purchase Modal -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Get Your Certificate</h2>
+                <span class="close-modal" onclick="closePurchaseModal()">×</span>
             </div>
-            <div class="flex items-center space-x-3">
-                <div class="radial-progress text-[10px] font-bold" id="mobile-progress-text">0%</div>
-                <button onclick="app.router('settings')" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <i class="fas fa-user text-xs"></i>
+            
+            <div id="purchaseForm">
+                <div class="certificate-preview">
+                    <h3>Certificate of Completion</h3>
+                    <p class="price-tag">₱1,500</p>
+                    <p>Complete the course and purchase your official certificate</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name (as it should appear on certificate)</label>
+                    <input type="text" id="fullName" placeholder="Juan Dela Cruz" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="juan@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" id="contactNumber" placeholder="+63 912 345 6789" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="paymentMethod">
+                        <option value="gcash">GCash</option>
+                        <option value="paymaya">PayMaya</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%" onclick="processPurchase()">
+                    Proceed to Payment - ₱1,500
                 </button>
+
+                <p style="text-align: center; margin-top: 20px; color: var(--text-light); font-size: 0.9rem;">
+                    * You must complete all modules before purchasing the certificate
+                </p>
             </div>
-        </header>
 
-        <!-- Dynamic View Container -->
-        <div id="main-view" class="flex-1 overflow-y-auto scroll-container relative pb-24 md:pb-8">
-            <!-- Views will be injected here -->
-        </div>
-
-        <!-- Mobile Bottom Nav -->
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-gray-100 flex justify-around items-center h-16 z-40 pb-safe">
-            <button onclick="app.router('course')" id="nav-m-course" class="mobile-nav-item relative flex-1 h-full flex flex-col items-center justify-center text-gray-400">
-                <i class="fas fa-graduation-cap text-xl mb-1 transition-transform"></i>
-                <span class="text-[10px] font-medium">Course</span>
-            </button>
-            <button onclick="app.router('knowledge')" id="nav-m-knowledge" class="mobile-nav-item relative flex-1 h-full flex flex-col items-center justify-center text-gray-400">
-                <i class="fas fa-book-reader text-xl mb-1 transition-transform"></i>
-                <span class="text-[10px] font-medium">Hub</span>
-            </button>
-             <button onclick="app.router('certificate')" id="nav-m-certificate" class="mobile-nav-item relative flex-1 h-full flex flex-col items-center justify-center text-gray-400">
-                <i class="fas fa-certificate text-xl mb-1 transition-transform"></i>
-                <span class="text-[10px] font-medium">Cert</span>
-            </button>
-            <button onclick="app.router('settings')" id="nav-m-settings" class="mobile-nav-item relative flex-1 h-full flex flex-col items-center justify-center text-gray-400">
-                <i class="fas fa-cog text-xl mb-1 transition-transform"></i>
-                <span class="text-[10px] font-medium">Settings</span>
-            </button>
-        </nav>
-
-    </main>
-
-    <!-- Loading Overlay -->
-    <div id="app-loader" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center transition-opacity duration-500">
-        <div class="loader mb-4"></div>
-        <h2 class="font-brand text-xl font-bold text-gray-700 animate-pulse">Cognitio+</h2>
-        <p class="text-gray-400 text-sm mt-2">Initializing Course Data...</p>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed top-4 right-4 md:bottom-8 md:right-8 md:top-auto z-[100] transform translate-x-full transition-transform duration-300">
-        <div class="bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
-            <i class="fas fa-info-circle text-accent"></i>
-            <span id="toast-msg">Notification</span>
+            <div id="certificateGeneration" class="hidden">
+                <div class="success-message">
+                    Payment Successful! Generating your certificate...
+                </div>
+                <canvas id="certificateCanvas" width="1200" height="850"></canvas>
+                <div class="text-center mt-20">
+                    <button class="btn btn-primary" onclick="downloadCertificate()">Download Certificate</button>
+                    <p class="mt-20">Verification Code: <strong id="verificationCode"></strong></p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <!-- Verification Modal -->
+    <div class="modal" id="verificationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Verify Certificate</h2>
+                <span class="close-modal" onclick="closeVerificationModal()">×</span>
+            </div>
 
-        // --- Configuration & Constants ---
-        const APP_ID = typeof __app_id !== 'undefined' ? __app_id : 'cognitio-lms';
-        const FIREBASE_CONFIG = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const INITIAL_TOKEN = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        
-        // --- COMPLETE COURSE DATA (Modules 0-9) ---
-        // Enhanced with visual descriptions for diagrams and new content
-        const COURSE_DATA = [
-            // --- MODULE 0 ---
-            {
-                id: "mod_0",
-                title: "Module 0: Orientation & Structure",
-                icon: "fa-compass",
-                lessons: [
-                    { 
-                        id: "m0_l1", 
-                        title: "Course Goals & Philosophy", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6">
-                                    <h3 class="text-2xl font-brand font-bold text-primary mb-4">Welcome to Cognitio+</h3>
-                                    <p class="text-gray-600">The central goal of this course is to equip you with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support in various Philippine contexts.</p>
-                                </div>
-                                <h4 class="text-lg font-semibold text-gray-800">Core Philosophy: PFA</h4>
-                                <p>We apply <strong>Psychological First Aid (PFA)</strong> principles—<span class="text-primary-blue font-bold">Look, Listen, Link</span>—to build foundational competencies.</p>
+            <div class="form-group">
+                <label>Enter Verification Code</label>
+                <input type="text" id="verifyCode" placeholder="CCMHP-XXXX-XXXX">
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%" onclick="verifyCertificate()">
+                Verify Certificate
+            </button>
+
+            <div id="verificationResult" class="mt-20"></div>
+        </div>
+    </div>
+
+    <script>
+        // Course Data Structure
+        const courseData = {
+            modules: [
+                {
+                    id: 'module0',
+                    title: 'Module 0: Orientation and Course Structure',
+                    duration: '2 hours',
+                    lessons: [
+                        {
+                            title: '0.1 Course Goal and Philosophy',
+                            content: `
+                                <h2>Course Goal and Philosophy</h2>
+                                <p>The central goal of this course is to equip you with the essential knowledge, values, and practical skills to provide <strong>safe, ethical, and compassionate peer-based psychosocial support</strong> in various Philippine contexts.</p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                                    <div class="bg-blue-50 p-4 rounded-lg text-center border border-blue-100">
-                                        <i class="fas fa-eye text-2xl text-blue-500 mb-2"></i>
-                                        <div class="font-bold text-blue-800">LOOK</div>
-                                        <div class="text-xs text-blue-600">Safety & Urgent Needs</div>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-lg text-center border border-green-100">
-                                        <i class="fas fa-ear-listen text-2xl text-green-500 mb-2"></i>
-                                        <div class="font-bold text-green-800">LISTEN</div>
-                                        <div class="text-xs text-green-600">Active Listening & Empathy</div>
-                                    </div>
-                                    <div class="bg-purple-50 p-4 rounded-lg text-center border border-purple-100">
-                                        <i class="fas fa-link text-2xl text-purple-500 mb-2"></i>
-                                        <div class="font-bold text-purple-800">LINK</div>
-                                        <div class="text-xs text-purple-600">Referral & Basic Needs</div>
-                                    </div>
-                                </div>
-
-                                <h4 class="text-lg font-semibold text-gray-800 mt-6">Guiding Frameworks</h4>
-                                <ul class="list-disc pl-5 space-y-2">
-                                    <li><strong>WHO Mental Health Gap Action Programme (mhGAP):</strong> Scaling up services for mental, neurological, and substance use disorders.</li>
-                                    <li><strong>WHO QualityRights Initiative:</strong> Promoting dignity, recovery, and human rights.</li>
-                                    <li><strong>PCMH Strategic Framework 2024–2028:</strong> Workforce Development and Cross-Sectoral Collaboration.</li>
-                                </ul>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m0_l2",
-                        title: "Videos & Resources",
-                        type: "text",
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Orientation Videos</h3>
-                                <div class="grid grid-cols-1 gap-6 mb-6">
-                                    <div>
-                                        <p class="font-bold mb-2">Introduction to Course</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded-xl overflow-hidden shadow-lg">
-                                            <iframe src="https://www.youtube.com/embed/7feUjsAv5is" class="w-full h-[250px]" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold mb-2">Message from Chief Training Officer</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded-xl overflow-hidden shadow-lg">
-                                            <iframe src="https://www.youtube.com/embed/PtN2YMdU1WY" class="w-full h-[250px]" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="https://www.canva.com/design/DAG4fnBymhQ/g3wtSGZXCES-feVrNOoE8w/view" target="_blank" class="block bg-primary text-white text-center py-3 rounded-lg font-bold hover:bg-accent transition"><i class="fas fa-file-powerpoint mr-2"></i> View Slide Presentation</a>
+                                <h3>Psychological First Aid (PFA) Principles</h3>
+                                <p>The course philosophy applies <strong>Psychological First Aid (PFA)</strong> principles—<em>Look, Listen, Link</em>—to build foundational competencies in immediate support, communication, and safe referral.</p>
                                 
-                                <h4 class="mt-6">Reference Material (Self-Reading)</h4>
-                                <ul class="space-y-2 text-sm text-primary-blue">
-                                    <li><a href="https://iris.who.int/server/api/core/bitstreams/e7e129fb-b306-496d-84a5-67bb70abc130/content" target="_blank" class="hover:underline"><i class="fas fa-book mr-1"></i> WHO PFA Guide for Field Workers</a></li>
-                                    <li><a href="https://cognitioplus.aiwaapp.live/guidebook" target="_blank" class="hover:underline"><i class="fas fa-book-open mr-1"></i> Comprehensive Guidebook</a></li>
-                                </ul>
-                            </div>
-                        `
-                    },
-                    {
-                        id: "m0_l3",
-                        title: "Certification Structure",
-                        type: "text",
-                        content: `
-                             <div class="prose max-w-none">
-                                <h3>Course Roadmap</h3>
-                                <div class="overflow-x-auto">
-                                    <table class="min-w-full text-sm border-collapse border border-gray-200">
-                                        <thead class="bg-gray-100">
-                                            <tr><th class="border p-2">Component</th><th class="border p-2">Description</th><th class="border p-2">Assessment</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr><td class="border p-2">Foundational Training</td><td class="border p-2">24h Online Modules</td><td class="border p-2">Quizzes, Reflections</td></tr>
-                                            <tr><td class="border p-2">Practicum</td><td class="border p-2">10h Guided Sessions</td><td class="border p-2">Checklist, Evaluation</td></tr>
-                                            <tr><td class="border p-2">Assessment</td><td class="border p-2">Final Exam</td><td class="border p-2">Pre-Test / Final</td></tr>
-                                            <tr><td class="border p-2 font-bold text-primary">Certification</td><td class="border p-2" colspan="2">Autogenerated Certificate with Verification Code</td></tr>
-                                        </tbody>
-                                    </table>
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/7feUjsAv5is" allowfullscreen></iframe>
                                 </div>
-                                <div class="bg-yellow-50 p-4 mt-4 rounded border-l-4 border-yellow-400">
-                                    <strong>Grading System:</strong> 20% Quizzes, 30% Skills, 35% Practicum, 15% Reflections.
-                                </div>
-                            </div>
-                        `
-                    },
-                    {
-                        id: "m0_quiz",
-                        title: "Assessment: Pre-Test",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "q1",
-                                text: "What is the primary goal of Psychological First Aid (PFA)?",
-                                options: [
-                                    { val: "a", text: "To diagnose mental health conditions quickly." },
-                                    { val: "b", text: "To provide non-intrusive, supportive, and practical help to people in crisis." },
-                                    { val: "c", text: "To offer long-term cognitive behavioral therapy." },
-                                    { val: "d", text: "To force distressed individuals to talk about their trauma." }
-                                ],
-                                correct: "b",
-                                hint: "Think about immediate safety and support rather than clinical treatment.",
-                                feedback: "Correct! PFA is about immediate, practical support, not diagnosis or therapy."
-                            },
-                            {
-                                id: "q2",
-                                text: "Which Philippine law mandates the integration of mental health services into the basic health care system?",
-                                options: [
-                                    { val: "a", text: "RA 10173 (Data Privacy Act)" },
-                                    { val: "b", text: "RA 11036 (Mental Health Act)" },
-                                    { val: "c", text: "RA 9165 (Comprehensive Dangerous Drugs Act)" }
-                                ],
-                                correct: "b",
-                                hint: "This act is specifically named for the condition it addresses.",
-                                feedback: "RA 11036 is the landmark Mental Health Act."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 1 ---
-            {
-                id: "mod_1",
-                title: "Module 1: Frameworks & Roles",
-                icon: "fa-scale-balanced",
-                lessons: [
-                    { 
-                        id: "m1_l1", 
-                        title: "The Philippine Context", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>RA 11036: The Mental Health Act</h3>
-                                <p>This law establishes the right of every Filipino to integrated, accessible, and rights-based mental health care.</p>
-                                <div class="bg-blue-50 p-4 rounded border border-blue-100">
-                                    <h4 class="mt-0 text-blue-800">Paraprofessional Core Role</h4>
-                                    <ul class="list-none space-y-2 mt-2">
-                                        <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>Support:</strong> Provide immediate, compassionate care.</li>
-                                        <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>Normalize:</strong> Use person-first language to combat stigma.</li>
-                                        <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>Link:</strong> Connect to professional services.</li>
-                                        <li><i class="fas fa-times text-red-500 mr-2"></i> <strong>Boundary:</strong> DO NOT diagnose or prescribe.</li>
-                                    </ul>
-                                </div>
-                                <div class="mt-6">
-                                    <p class="font-bold">Video: Bridging the Gap</p>
-                                    <iframe src="https://www.youtube.com/embed/aHAuxdBfDzA" class="w-full h-[250px] rounded-lg shadow" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m1_l2", 
-                        title: "Reflection: Your Self-Care Plan", 
-                        type: "reflection", 
-                        prompt: "Identify three (3) specific activities you can do this week to recharge emotionally and physically. How will you incorporate them into your routine?" 
-                    },
-                    {
-                        id: "m1_quiz",
-                        title: "Module 1 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m1_q1",
-                                text: "Which of the following is strictly OUTSIDE the role of a paraprofessional?",
-                                options: [
-                                    { val: "a", text: "Listening to a person's story." },
-                                    { val: "b", text: "Diagnosing Bipolar Disorder." },
-                                    { val: "c", text: "Refering to a hospital." }
-                                ],
-                                correct: "b",
-                                hint: "Paraprofessionals provide support, but clinical tasks are for licensed doctors.",
-                                feedback: "Correct. Diagnosing is a clinical task reserved for licensed professionals."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 2 ---
-            {
-                id: "mod_2",
-                title: "Module 2: Ethical & Digital Practice",
-                icon: "fa-shield-halved",
-                lessons: [
-                    { 
-                        id: "m2_l1", 
-                        title: "Core Ethical Principles", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Moral Foundations</h3>
-                                <div class="grid grid-cols-2 gap-4 text-sm">
-                                    <div class="bg-white p-3 shadow-sm rounded border border-gray-100">
-                                        <strong>Autonomy</strong><br>Respect self-determination.
-                                    </div>
-                                    <div class="bg-white p-3 shadow-sm rounded border border-gray-100">
-                                        <strong>Beneficence</strong><br>Act in the client's best interest.
-                                    </div>
-                                    <div class="bg-white p-3 shadow-sm rounded border border-gray-100">
-                                        <strong>Non-maleficence</strong><br>Do no harm.
-                                    </div>
-                                    <div class="bg-white p-3 shadow-sm rounded border border-gray-100">
-                                        <strong>Justice</strong><br>Ensure fair access.
-                                    </div>
-                                </div>
-
-                                <h4 class="mt-6">Data Privacy (RA 10173)</h4>
-                                <p>All mental health disclosures are Sensitive Personal Information.</p>
-                                <ul class="list-disc pl-5 bg-red-50 p-4 rounded border-l-4 border-red-400">
-                                    <li>Use encrypted apps (Signal, etc).</li>
-                                    <li>Store notes in password-protected files.</li>
-                                    <li>Get <strong>Informed Consent</strong> before starting.</li>
-                                </ul>
-                                <div class="mt-4">
-                                     <a href="https://www.canva.com/design/DAG4fzYXTSE/DnwXtDcHeA8rR3Gg3DNrnA/view" target="_blank" class="text-primary hover:underline font-bold"><i class="fas fa-external-link-alt"></i> View Module 2 Slides</a>
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m2_quiz",
-                        title: "Module 2 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m2_q1",
-                                text: "When must you breach confidentiality?",
-                                options: [
-                                    { val: "a", text: "When a family member asks for updates." },
-                                    { val: "b", text: "When there is imminent risk of serious harm to self or others." },
-                                    { val: "c", text: "When you want to share a story with friends." }
-                                ],
-                                correct: "b",
-                                hint: "Safety overrides privacy only in life-threatening situations.",
-                                feedback: "Correct. 'Duty to Warn' applies when lives are at stake."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 3 ---
-            {
-                id: "mod_3",
-                title: "Module 3: PFA & Scope",
-                icon: "fa-hands-holding-circle",
-                lessons: [
-                    { 
-                        id: "m3_l1", 
-                        title: "PFA CCHeSS Framework", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>The 5 Core Principles</h3>
-                                <div class="space-y-2">
-                                    <div class="flex items-center"><span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mr-3">C</span> Promote Calmness</div>
-                                    <div class="flex items-center"><span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold mr-3">C</span> Promote Connectedness</div>
-                                    <div class="flex items-center"><span class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center font-bold mr-3">H</span> Promote Hope</div>
-                                    <div class="flex items-center"><span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold mr-3">S</span> Promote Self-Efficacy</div>
-                                    <div class="flex items-center"><span class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold mr-3">S</span> Promote Safety</div>
-                                </div>
-                                <h4 class="mt-6">PFA Action Model</h4>
-                                <div class="grid grid-cols-3 gap-2 text-center text-sm font-bold text-white mt-2">
-                                    <div class="bg-blue-500 p-2 rounded">LOOK</div>
-                                    <div class="bg-green-500 p-2 rounded">LISTEN</div>
-                                    <div class="bg-purple-500 p-2 rounded">LINK</div>
-                                </div>
-                                <p class="text-sm text-center mt-1 text-gray-500">Observe • Engage • Connect</p>
+                            `
+                        },
+                        {
+                            title: '0.2 Guiding Frameworks',
+                            content: `
+                                <h2>Guiding Frameworks</h2>
+                                <p>The training is anchored in core national and international standards:</p>
                                 
-                                <div class="mt-4">
-                                     <a href="https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view" target="_blank" class="text-primary hover:underline font-bold"><i class="fas fa-external-link-alt"></i> View Module 3 Slides</a>
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m3_quiz",
-                        title: "Module 3 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m3_q1",
-                                text: "Is PFA the same as professional counseling?",
-                                options: [
-                                    { val: "yes", text: "Yes" },
-                                    { val: "no", text: "No, it is immediate, non-clinical support." }
-                                ],
-                                correct: "no",
-                                hint: "PFA is 'First Aid', not long-term therapy.",
-                                feedback: "Correct! PFA is a humane, supportive response, not clinical therapy."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 4 ---
-            {
-                id: "mod_4",
-                title: "Module 4: Core Support, Communication and Basic Coping Skills",
-                icon: "fa-ear-listen",
-                lessons: [
-                    { 
-                        id: "m4_l1", 
-                        title: "The RRELeAASE Framework", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>8 Core Communication Skills (The LISTEN Phase)</h3>
-                                <p>Master these skills to build trust and effective support.</p>
+                                <h3>WHO Mental Health Gap Action Programme (mhGAP)</h3>
+                                <p>A strategy to scale up services for mental, neurological, and substance use disorders. You, as a paraprofessional, are key to addressing the service gap.</p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    
-                                    <!-- R: Rapport -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">R</div>
-                                            <h4 class="m-0 text-sm font-bold">Building Rapport</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Establishing trust and comfort through authentic presence.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/TpPGddb93Kg" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- R: Reflecting -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">R</div>
-                                            <h4 class="m-0 text-sm font-bold">Reflecting</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Paraphrasing statements to confirm understanding.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/ZhRTvXN_tJ8" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- E: Empathy -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">E</div>
-                                            <h4 class="m-0 text-sm font-bold">Showing Empathy</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Connecting to feelings and experiences.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/Jkg-1kLhTT4" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- Le: Labeling Emotions -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-yellow-100 text-yellow-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">Le</div>
-                                            <h4 class="m-0 text-sm font-bold">Labeling Emotions</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Helping accurately name internal feelings.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/WCWtnChOdqI" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- A: Asking Questions -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-purple-100 text-purple-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">A</div>
-                                            <h4 class="m-0 text-sm font-bold">Asking Right Questions</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Using open-ended questions to encourage sharing.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/8Ow64RjY5zc" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- A: No Advice -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-purple-100 text-purple-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">A</div>
-                                            <h4 class="m-0 text-sm font-bold">Giving No Advice</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Guiding to own solutions (Non-maleficence).</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/7OReldWvjds" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- S: Strengths -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-red-100 text-red-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">S</div>
-                                            <h4 class="m-0 text-sm font-bold">Identifying Strengths</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Pointing out resilience to promote self-efficacy.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/znVeC6cdAVE" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                    <!-- E: Generative Listening -->
-                                    <div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <div class="bg-indigo-100 text-indigo-700 w-8 h-8 rounded-full flex items-center justify-center font-bold">E</div>
-                                            <h4 class="m-0 text-sm font-bold">Generative Listening</h4>
-                                        </div>
-                                        <p class="text-xs text-gray-600 mb-2">Suspending judgment and co-creating possibilities.</p>
-                                        <div class="aspect-w-16 aspect-h-9 bg-black rounded overflow-hidden">
-                                            <iframe src="https://www.youtube.com/embed/lxuYFw85hvw" class="w-full h-40" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                         id: "m4_l2",
-                         title: "Generative Listening in Practice",
-                         type: "text",
-                         content: `
-                            <div class="prose max-w-none">
-                                <h3>Deepening the Connection</h3>
-                                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-4">
-                                    <p class="text-indigo-800 italic">"Listening not just to what is said, but what is possible."</p>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="bg-white p-2 rounded shadow mr-3 text-indigo-600"><i class="fas fa-clock"></i></div>
-                                        <div>
-                                            <strong class="block text-gray-800">Emerging Future</strong>
-                                            <p class="text-sm text-gray-600">Tune into what is becoming possible. Suspend the impulse to react based on past experiences.</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="bg-white p-2 rounded shadow mr-3 text-indigo-600"><i class="fas fa-users-cog"></i></div>
-                                        <div>
-                                            <strong class="block text-gray-800">Co-creation</strong>
-                                            <p class="text-sm text-gray-600">Generate new ideas, solutions, or shared meaning that didn't exist when the conversation began.</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="bg-white p-2 rounded shadow mr-3 text-indigo-600"><i class="fas fa-butterfly"></i></div>
-                                        <div>
-                                            <strong class="block text-gray-800">Transformation</strong>
-                                            <p class="text-sm text-gray-600">Shift the client's perception of their own identity and reality, moving them toward empowerment.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                         `
-                    },
-                    {
-                        id: "m4_l3", 
-                        title: "Basic Stabilizing Techniques", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Immediate Calmness Tools</h3>
-                                <p>Teach these simple, evidence-based coping skills:</p>
+                                <h3>WHO QualityRights Initiative</h3>
+                                <p>Promotes dignity, recovery, and human rights in all mental health service delivery.</p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                    <!-- Breathing -->
-                                    <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 text-center">
-                                        <i class="fas fa-lungs text-4xl text-blue-400 mb-3"></i>
-                                        <h4 class="text-blue-800 font-bold m-0">Diaphragmatic Breathing</h4>
-                                        <p class="text-xs text-blue-600 mb-3">Engage the parasympathetic nervous system.</p>
-                                        <div class="bg-white p-3 rounded text-sm font-mono text-gray-700">
-                                            Inhale (4s)<br>Hold (2s)<br>Exhale (6s)
-                                        </div>
-                                    </div>
-
-                                    <!-- Grounding -->
-                                    <div class="bg-green-50 p-5 rounded-xl border border-green-100 text-center">
-                                        <i class="fas fa-shoe-prints text-4xl text-green-400 mb-3"></i>
-                                        <h4 class="text-green-800 font-bold m-0">5-4-3-2-1 Grounding</h4>
-                                        <p class="text-xs text-green-600 mb-3">Shift focus away from distress.</p>
-                                        <ul class="text-left text-sm space-y-1 bg-white p-3 rounded">
-                                            <li><span class="font-bold text-green-600">5</span> See</li>
-                                            <li><span class="font-bold text-green-600">4</span> Touch</li>
-                                            <li><span class="font-bold text-green-600">3</span> Hear</li>
-                                            <li><span class="font-bold text-green-600">2</span> Smell</li>
-                                            <li><span class="font-bold text-green-600">1</span> Taste</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m4_l4", 
-                        title: "Supporting Personal Resilience", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>The Resilience Navigator</h3>
-                                <p>Help clients identify and strengthen their personal resources for coping with adversity.</p>
+                                <h3>Philippine Council for Mental Health (PCMH) Strategic Framework 2024–2028</h3>
+                                <p>Guides the national mental health agenda, specifically addressing <strong>Workforce Development</strong> and <strong>Cross-Sectoral Collaboration</strong>.</p>
                                 
-                                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-xl text-white text-center shadow-lg">
-                                    <i class="fas fa-compass text-5xl mb-4 opacity-80"></i>
-                                    <h3 class="text-white text-2xl font-bold m-0">Resilience Navigator Tool</h3>
-                                    <p class="text-white/90 text-sm mb-6">Interactive assessment and resource building.</p>
-                                    <a href="https://cognitioplus.aiwaapp.live/resilience-navigator/" target="_blank" class="bg-white text-purple-600 px-6 py-3 rounded-full font-bold shadow-md hover:bg-gray-100 transition transform hover:scale-105 inline-block">
-                                        Launch Tool <i class="fas fa-external-link-alt ml-2"></i>
-                                    </a>
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/PtN2YMdU1WY" allowfullscreen></iframe>
                                 </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m4_quiz",
-                        title: "Module 4 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m4_q1",
-                                text: "Generative listening focuses on:",
-                                options: [
-                                    { val: "a", text: "Confirming what you already know." },
-                                    { val: "b", text: "Co-creating new possibilities for the future." },
-                                    { val: "c", text: "Judging the speaker." }
-                                ],
-                                correct: "b",
-                                hint: "It is the deepest level, involving the 'Open Will'.",
-                                feedback: "Correct! Generative listening transforms the conversation."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 5 ---
-            {
-                id: "mod_5",
-                title: "Module 5: Crisis & Referral",
-                icon: "fa-triangle-exclamation",
-                lessons: [
-                    { 
-                        id: "m5_l1", 
-                        title: "Crisis Recognition", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>When to Act Immediately</h3>
-                                <div class="bg-red-50 border-l-4 border-red-500 p-4">
-                                    <strong>Imminent Suicide Risk:</strong> Ask directly "Are you thinking of killing yourself?". Stay with them.
-                                </div>
-                                <ul class="mt-4 list-disc pl-5">
-                                    <li><strong>Psychosis:</strong> Delusions or Hallucinations.</li>
-                                    <li><strong>Acute Violence:</strong> Threat to others.</li>
-                                </ul>
-                                <img src="https://cognitioplus.aiwaapp.live/cache/media_cache/22356b88daf732624d26b953fb438ad8.jpeg" alt="Stress Infographic" class="w-full rounded shadow mt-4">
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m5_l2",
-                        title: "Referral Protocols",
-                        type: "text",
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Stepped Care Referral</h3>
-                                <ul class="space-y-2">
-                                    <li class="p-2 bg-gray-100 rounded"><strong>Level 1 (Community):</strong> BHWs, Peer Support.</li>
-                                    <li class="p-2 bg-gray-200 rounded"><strong>Level 2 (Specialized):</strong> Psychologists for persistent symptoms.</li>
-                                    <li class="p-2 bg-red-100 text-red-800 rounded font-bold"><strong>Level 3 (Emergency):</strong> NCMH Hotline (1553) or ER for acute crisis.</li>
-                                </ul>
-                            </div>
-                        `
-                    },
-                    {
-                        id: "m5_quiz",
-                        title: "Module 5 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m5_q1",
-                                text: "For an acute crisis with imminent suicide risk, where should you refer?",
-                                options: [
-                                    { val: "a", text: "Level 1 (Barangay)" },
-                                    { val: "b", text: "Level 3 (Emergency/Hotline)" },
-                                    { val: "c", text: "A self-help book" }
-                                ],
-                                correct: "b",
-                                hint: "Imminent life threat requires the highest level of emergency care.",
-                                feedback: "Correct. Immediate danger requires Level 3 emergency intervention."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 6 ---
-            {
-                id: "mod_6",
-                title: "Module 6: Cultural Sensitivity",
-                icon: "fa-people-roof",
-                lessons: [
-                    { 
-                        id: "m6_l1", 
-                        title: "Cultural Humility & Values", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Filipino Cultural Values</h3>
-                                <p><strong>Hiya (Shame):</strong> May prevent help-seeking. <br><em>Response:</em> Emphasize confidentiality.</p>
-                                <p><strong>Pakikisama (Harmony):</strong> May cause suppression of distress. <br><em>Response:</em> Validate feelings gently.</p>
-                                
-                                <h4 class="mt-4">Inclusive Practice</h4>
-                                <p>Adapt approach for LGBTQIA+, PWDs, Indigenous, and Muslim communities. Always ask for preferred pronouns and assistance methods.</p>
-                                <div class="mt-4">
-                                     <a href="https://www.canva.com/design/DAG4htSUDUE/v72-JsOfYY-kObohRljxKQ/view" target="_blank" class="text-primary hover:underline font-bold"><i class="fas fa-external-link-alt"></i> View Module 6 Slides</a>
-                                </div>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m6_quiz",
-                        title: "Module 6 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m6_q1",
-                                text: "Cultural humility involves:",
-                                options: [
-                                    { val: "a", text: "Knowing everything about every culture." },
-                                    { val: "b", text: "Continuous self-reflection and learning, not assuming expertise." },
-                                    { val: "c", text: "Ignoring cultural differences." }
-                                ],
-                                correct: "b",
-                                hint: "It's about being open to learning, not being an expert.",
-                                feedback: "Correct! We must be humble learners of our clients' cultures."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 7 ---
-            {
-                id: "mod_7",
-                title: "Module 7: Self-Care & Resilience",
-                icon: "fa-heart-pulse",
-                lessons: [
-                    { 
-                        id: "m7_l1", 
-                        title: "Preventing Burnout", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Compassion Fatigue</h3>
-                                <p>The "cost of caring". It impairs your ability to be ethical.</p>
-                                <img src="https://cognitioplus.aiwaapp.live/cache/media_cache/5ea1b3c335967d7e52fcdf1f794d8251.jpeg" alt="Self Care Info" class="w-full rounded shadow mb-4">
-                                <h4>Digital Tools</h4>
-                                <ul class="space-y-2 text-sm">
-                                    <li><a href="https://cognitioplus.aiwaapp.live/well-be/" target="_blank" class="text-primary hover:underline">Well-Be (Stress Monitor)</a></li>
-                                    <li><a href="https://cognitioplus.aiwaapp.live/smart-emotion-tracker/" target="_blank" class="text-primary hover:underline">Smart Emotion Tracker</a></li>
-                                    <li><a href="https://cognitioplus.aiwaapp.live/oasis" target="_blank" class="text-primary hover:underline">Oasis (Relaxation)</a></li>
-                                </ul>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m7_quiz",
-                        title: "Module 7 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m7_q1",
-                                text: "Why is self-care an ethical mandate?",
-                                options: [
-                                    { val: "a", text: "It isn't; it's just a luxury." },
-                                    { val: "b", text: "Because you cannot provide safe care if you are depleted (Non-maleficence)." }
-                                ],
-                                correct: "b",
-                                hint: "Think about 'Do No Harm'.",
-                                feedback: "Correct. Caring for yourself protects your clients."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 8 ---
-            {
-                id: "mod_8",
-                title: "Module 8: Practicum & Roadmap",
-                icon: "fa-user-nurse",
-                lessons: [
-                    { 
-                        id: "m8_l1", 
-                        title: "Practicum Requirements", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>16-Hour Practicum</h3>
-                                <p>Requires 10 guided support sessions under a licensed mentor.</p>
-                                <h4>Documentation</h4>
-                                <p>Record only facts. Include rationale for referrals. Secure files under RA 10173.</p>
-                                <h4>Roadmap</h4>
-                                <ul class="list-disc pl-5">
-                                    <li>Join Paraprofessional Network.</li>
-                                    <li>Volunteer at Barangay Desks.</li>
-                                    <li>Quarterly Peer Supervision.</li>
-                                </ul>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m8_quiz",
-                        title: "Module 8 Knowledge Check",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m8_q1",
-                                text: "In documentation, you should include:",
-                                options: [
-                                    { val: "a", text: "Your personal assumptions about the client." },
-                                    { val: "b", text: "Only what was said and done, and the referral rationale." }
-                                ],
-                                correct: "b",
-                                hint: "Documentation must be objective and factual.",
-                                feedback: "Correct. Keep it factual and professional."
-                            }
-                        ]
-                    }
-                ]
-            },
-            // --- MODULE 9 ---
-            {
-                id: "mod_9",
-                title: "Module 9: Conclusion",
-                icon: "fa-flag-checkered",
-                lessons: [
-                    { 
-                        id: "m9_l1", 
-                        title: "Renewal & Assessment", 
-                        type: "text", 
-                        content: `
-                            <div class="prose max-w-none">
-                                <h3>Certification</h3>
-                                <p>Requires 75% passing grade. Valid for 2 years.</p>
-                                <h4>Renewal</h4>
-                                <ul>
-                                    <li>6-hour Refresher Course.</li>
-                                    <li>3 New Case Reflections.</li>
-                                    <li>Mentor Endorsement.</li>
-                                </ul>
-                                <p class="mt-4 font-bold text-center text-primary">You are ready. Remember: Look, Listen, Link.</p>
-                            </div>
-                        ` 
-                    },
-                    {
-                        id: "m9_quiz",
-                        title: "Final Certification Exam",
-                        type: "quiz",
-                        questions: [
-                            {
-                                id: "m9_q1",
-                                text: "The PCMH Strategic Framework 2024-2028 focuses on:",
-                                options: [
-                                    { val: "a", text: "Workforce Development and Cross-Sectoral Collaboration." },
-                                    { val: "b", text: "Building more mental hospitals only." }
-                                ],
-                                correct: "a",
-                                hint: "It's about expanding the workforce and working across sectors.",
-                                feedback: "Correct!"
-                            },
-                             {
-                                id: "m9_q2",
-                                text: "True or False: Self-care is optional.",
-                                options: [
-                                    { val: "true", text: "True" },
-                                    { val: "false", text: "False" }
-                                ],
-                                correct: "false",
-                                hint: "It is an ethical requirement.",
-                                feedback: "Correct. It is essential."
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
-
-        // --- App State ---
-        class LMSApp {
-            constructor() {
-                this.db = null;
-                this.auth = null;
-                this.user = null;
-                this.progress = { completed: [], quizScores: {}, reflections: {}, quizAttempts: {}, isPremium: false };
-                this.currentView = 'course';
-                this.currentModuleIdx = 0;
-            }
-
-            async init() {
-                // Initialize Firebase
-                const app = initializeApp(FIREBASE_CONFIG);
-                this.auth = getAuth(app);
-                this.db = getFirestore(app);
-
-                // Auth Flow
-                try {
-                    if (INITIAL_TOKEN) {
-                        await signInWithCustomToken(this.auth, INITIAL_TOKEN);
-                    } else {
-                        await signInAnonymously(this.auth);
-                    }
-                } catch (e) {
-                    console.error("Auth Error:", e);
-                }
-
-                // Listener
-                onAuthStateChanged(this.auth, (user) => {
-                    this.user = user;
-                    if (user) {
-                        this.loadUserData();
-                    }
-                });
-                
-                // PWA Manifest Injection
-                this.setupManifest();
-            }
-
-            setupManifest() {
-                const manifest = {
-                    name: "Cognitio+ Certification",
-                    short_name: "Cognitio+",
-                    start_url: ".",
-                    display: "standalone",
-                    background_color: "#f3f4f6",
-                    theme_color: "#b425aa",
-                    icons: [{ src: "https://via.placeholder.com/192/b425aa/ffffff?text=C%2B", sizes: "192x192", type: "image/png" }]
-                };
-                const stringManifest = JSON.stringify(manifest);
-                const blob = new Blob([stringManifest], {type: 'application/json'});
-                document.getElementById('manifest-placeholder').setAttribute('href', URL.createObjectURL(blob));
-            }
-
-            async loadUserData() {
-                if (!this.user) return;
-                
-                const userRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'profile', 'data');
-                const progressRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'progress', 'data');
-
-                // Real-time listener for progress
-                onSnapshot(progressRef, (docSnap) => {
-                    if (docSnap.exists()) {
-                        this.progress = { ...this.progress, ...docSnap.data() };
-                    } else {
-                        // Initialize if new
-                        setDoc(progressRef, this.progress, { merge: true });
-                    }
-                    this.updateUI();
-                });
-
-                // Get Profile Name
-                const profileSnap = await getDoc(userRef);
-                if (profileSnap.exists()) {
-                     const data = profileSnap.data();
-                     if (data.displayName) this.updateNameDisplay(data.displayName);
-                     if (data.isPremium) this.progress.isPremium = true;
-                }
-                
-                document.getElementById('app-loader').classList.add('opacity-0');
-                setTimeout(() => document.getElementById('app-loader').style.display = 'none', 500);
-            }
-
-            updateNameDisplay(name) {
-                document.querySelectorAll('.user-name-display').forEach(el => el.textContent = name);
-            }
-
-            async saveProgress(lessonId, score = null) {
-                if (!this.user) return;
-                const progressRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'progress', 'data');
-                
-                const updateData = {
-                    completed: arrayUnion(lessonId)
-                };
-                if (score !== null) {
-                    updateData[`quizScores.${lessonId}`] = score;
-                }
-
-                await updateDoc(progressRef, updateData);
-            }
-            
-            async saveReflection(lessonId, text) {
-                if (!this.user) return;
-                const progressRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'progress', 'data');
-                await updateDoc(progressRef, {
-                    [`reflections.${lessonId}`]: text,
-                    completed: arrayUnion(lessonId)
-                });
-                
-                // Visibly Saved Feedback (Task 1)
-                const btn = document.getElementById(`ref-btn-${lessonId}`);
-                if(btn) {
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Saved Successfully!';
-                    btn.classList.remove('bg-primary');
-                    btn.classList.add('bg-green-600');
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.classList.add('bg-primary');
-                        btn.classList.remove('bg-green-600');
-                    }, 2000);
-                }
-            }
-
-            async purchasePremium() {
-                if(!this.user) return;
-                if(!confirm("Proceed to payment gateway for PHP 1,500? (Demo: Click OK to simulate success)")) return;
-                
-                const userRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'profile', 'data');
-                await setDoc(userRef, { isPremium: true }, { merge: true });
-                this.progress.isPremium = true;
-                this.updateUI();
-                this.showToast("Certificate Purchased Successfully!");
-            }
-
-            updateUI() {
-                // Calculate %
-                const totalLessons = COURSE_DATA.reduce((acc, mod) => acc + mod.lessons.length, 0);
-                const completedCount = this.progress.completed ? this.progress.completed.length : 0;
-                const percent = Math.round((completedCount / totalLessons) * 100);
-
-                // Update Bars
-                document.querySelectorAll('.global-progress-bar').forEach(el => el.style.width = `${percent}%`);
-                const mobileTxt = document.getElementById('mobile-progress-text');
-                if(mobileTxt) mobileTxt.textContent = `${percent}%`;
-                
-                // Premium Badge
-                if(this.progress.isPremium) document.getElementById('premium-badge').classList.remove('hidden');
-
-                // Re-render current view if needed
-                if (this.currentView === 'course') this.renderCourseDashboard();
-                if (this.currentView === 'certificate') this.renderCertificate();
-            }
-
-            router(viewName, params = {}) {
-                this.currentView = viewName;
-                
-                // Update Nav States
-                document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(el => el.classList.remove('active'));
-                const dNav = document.getElementById(`nav-d-${viewName}`);
-                const mNav = document.getElementById(`nav-m-${viewName}`);
-                if(dNav) dNav.classList.add('active');
-                if(mNav) mNav.classList.add('active');
-
-                const container = document.getElementById('main-view');
-                container.innerHTML = ''; // Clear
-                container.scrollTop = 0;
-
-                switch(viewName) {
-                    case 'course': this.renderCourseDashboard(); break;
-                    case 'lesson': this.renderLesson(params.modIdx, params.lessIdx); break;
-                    case 'knowledge': this.renderKnowledgeHub(); break;
-                    case 'settings': this.renderSettings(); break;
-                    case 'certificate': this.renderCertificate(); break;
-                }
-            }
-
-            // --- Renderers ---
-
-            renderCourseDashboard() {
-                const container = document.getElementById('main-view');
-                let html = `
-                    <div class="p-6 md:p-10 max-w-5xl mx-auto fade-in">
-                        <h1 class="text-3xl font-brand font-bold text-gray-800 mb-2">My Learning Path</h1>
-                        <p class="text-gray-500 mb-8">Complete all modules to earn your certification.</p>
-                        
-                        <div class="space-y-4">
-                `;
-
-                COURSE_DATA.forEach((module, mIdx) => {
-                    const isOpen = mIdx === this.currentModuleIdx;
-                    
-                    html += `
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300">
-                            <div class="module-header p-5 flex items-center justify-between bg-white border-b border-gray-50" onclick="app.toggleModule(${mIdx})">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-10 h-10 rounded-full bg-light-blue flex items-center justify-center text-primary-blue">
-                                        <i class="fas ${module.icon}"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-gray-800 text-lg">${module.title}</h3>
-                                        <p class="text-xs text-gray-500">${module.lessons.length} Lessons</p>
-                                    </div>
-                                </div>
-                                <i class="fas fa-chevron-down transform transition-transform ${isOpen ? 'rotate-180' : ''} text-gray-400"></i>
-                            </div>
-                            <div id="mod-content-${mIdx}" class="${isOpen ? 'block' : 'hidden'} bg-gray-50">
-                    `;
-
-                    module.lessons.forEach((lesson, lIdx) => {
-                        const isCompleted = this.progress.completed && this.progress.completed.includes(lesson.id);
-                        const isQuiz = lesson.type === 'quiz';
-                        const isReflect = lesson.type === 'reflection';
-                        
-                        let icon = 'fa-circle-play text-gray-300';
-                        if(isQuiz) icon = 'fa-clipboard-question text-orange-400';
-                        if(isReflect) icon = 'fa-pen-to-square text-purple-400';
-                        if(isCompleted) icon = 'fa-check-circle text-accent-green';
-                        
-                        html += `
-                            <div onclick="app.router('lesson', {modIdx:${mIdx}, lessIdx:${lIdx}})" class="lesson-item p-4 pl-12 flex items-center justify-between cursor-pointer border-b border-gray-100 last:border-0 ${isCompleted ? 'bg-green-50/30' : ''}">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas ${icon} text-lg w-6 text-center"></i>
-                                    <span class="text-sm md:text-base font-medium ${isCompleted ? 'text-gray-500 line-through decoration-gray-300' : 'text-gray-700'}">${lesson.title}</span>
-                                </div>
-                                ${isCompleted ? '<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Done</span>' : ''}
-                            </div>
-                        `;
-                    });
-
-                    html += `</div></div>`;
-                });
-
-                html += `</div></div>`;
-                container.innerHTML = html;
-            }
-
-            toggleModule(idx) {
-                this.currentModuleIdx = this.currentModuleIdx === idx ? -1 : idx;
-                this.renderCourseDashboard();
-            }
-
-            renderLesson(mIdx, lIdx) {
-                const lesson = COURSE_DATA[mIdx].lessons[lIdx];
-                const container = document.getElementById('main-view');
-                
-                let contentHTML = '';
-                
-                if (lesson.type === 'video') {
-                    contentHTML = `
-                        <div class="aspect-w-16 aspect-h-9 mb-6 bg-black rounded-xl overflow-hidden shadow-lg">
-                            <iframe src="${lesson.url}" class="w-full h-[300px] md:h-[500px]" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                        <p class="text-gray-600 italic">${lesson.description}</p>
-                    `;
-                } else if (lesson.type === 'quiz') {
-                    contentHTML = this.renderQuizInternal(lesson);
-                } else if (lesson.type === 'reflection') {
-                    contentHTML = this.renderReflection(lesson);
-                } else {
-                    contentHTML = lesson.content;
-                }
-
-                container.innerHTML = `
-                    <div class="flex flex-col h-full bg-white md:m-4 md:rounded-2xl md:shadow-lg overflow-hidden">
-                        <!-- Toolbar -->
-                        <div class="flex items-center justify-between p-4 border-b border-gray-100 bg-white sticky top-0 z-20">
-                            <button onclick="app.router('course')" class="text-gray-500 hover:text-primary transition">
-                                <i class="fas fa-arrow-left"></i> <span class="hidden md:inline ml-1">Back</span>
-                            </button>
-                            <span class="font-bold text-sm md:text-lg truncate max-w-[200px]">${lesson.title}</span>
-                            <div class="w-8"></div> 
-                        </div>
-
-                        <!-- Content Scroller -->
-                        <div class="flex-1 overflow-y-auto p-6 md:p-10 slide-in-right">
-                            ${contentHTML}
-                        </div>
-
-                        <!-- Footer -->
-                        ${(lesson.type !== 'quiz' && lesson.type !== 'reflection') ? `
-                        <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-end">
-                            <button onclick="app.completeLesson('${lesson.id}', ${mIdx}, ${lIdx})" class="bg-primary hover:bg-accent text-white px-6 py-3 rounded-lg shadow transition transform active:scale-95 flex items-center space-x-2">
-                                <span>Mark Complete</span> <i class="fas fa-check"></i>
-                            </button>
-                        </div>` : ''}
-                    </div>
-                `;
-            }
-            
-            renderReflection(lesson) {
-                // Task 1: Visibly Saved and Editable
-                const savedRef = (this.progress.reflections && this.progress.reflections[lesson.id]) || '';
-                const isSaved = savedRef.length > 0;
-                
-                return `
-                    <div class="max-w-2xl mx-auto">
-                        <div class="bg-purple-50 border-l-4 border-purple-400 p-6 rounded mb-6">
-                            <h3 class="font-brand font-bold text-lg text-purple-800 mb-2"><i class="fas fa-pen-fancy mr-2"></i>Reflection Exercise</h3>
-                            <p class="text-purple-700 italic">"${lesson.prompt}"</p>
-                        </div>
-                        
-                        <div class="mb-4 relative">
-                            <label class="block text-gray-600 text-sm font-bold mb-2">Your Journal Entry:</label>
-                            <textarea id="ref-input-${lesson.id}" class="w-full h-40 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none" placeholder="Write your thoughts here...">${savedRef}</textarea>
-                            ${isSaved ? '<div class="absolute top-0 right-0 mt-8 mr-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded"><i class="fas fa-check"></i> Saved</div>' : ''}
-                        </div>
-                        
-                        <button id="ref-btn-${lesson.id}" onclick="app.submitReflection('${lesson.id}')" class="bg-primary hover:bg-accent text-white px-6 py-3 rounded-lg shadow transition w-full md:w-auto">
-                            ${isSaved ? 'Update & Save' : 'Save Reflection'}
-                        </button>
-                    </div>
-                `;
-            }
-            
-            submitReflection(lessonId) {
-                const text = document.getElementById(`ref-input-${lessonId}`).value;
-                if(text.trim() === '') return this.showToast('Please write something first.');
-                this.saveReflection(lessonId, text);
-            }
-
-            renderQuizInternal(lesson) {
-                const hasScore = this.progress.quizScores && this.progress.quizScores[lesson.id];
-                const attemptCount = (this.progress.quizAttempts && this.progress.quizAttempts[lesson.id]) || 0;
-                const isPassed = hasScore >= 75;
-                const maxAttempts = 2;
-                
-                let html = `<div class="max-w-2xl mx-auto">
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-                        <p class="font-bold text-blue-800">Quiz Assessment</p>
-                        <p class="text-sm text-blue-600">Attempt: ${attemptCount} / ${maxAttempts}. Pass mark: 75%</p>
-                    </div>`;
-
-                if (isPassed || attemptCount >= maxAttempts) {
-                    const msg = isPassed ? "Fantastic work! You've mastered this module." : "Good effort. Review the material and try again later.";
-                    const color = isPassed ? "green" : "orange";
-                    
-                    html += `
-                        <div class="text-center py-10 fade-in">
-                            <div class="inline-block p-6 rounded-full bg-${color}-100 text-${color}-600 mb-4">
-                                <i class="fas ${isPassed ? 'fa-trophy' : 'fa-clipboard-check'} text-4xl"></i>
-                            </div>
-                            <h2 class="text-2xl font-bold mb-2">Score: ${hasScore || 0}%</h2>
-                            <p class="text-gray-600 mb-6 font-medium">${msg}</p>
-                            
-                            <!-- Task 2: Visible Feedback History -->
-                            <div class="text-left bg-gray-50 p-4 rounded border">
-                                <h4 class="font-bold mb-2">Review Answers:</h4>
-                                <ul class="space-y-2 text-sm">
-                                    ${lesson.questions.map((q, i) => `
-                                        <li class="border-b pb-2">
-                                            <p class="font-semibold">${i+1}. ${q.text}</p>
-                                            <p class="text-green-600"><i class="fas fa-check"></i> ${q.feedback}</p>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                            
-                            ${!isPassed ? `<button onclick="app.resetQuiz('${lesson.id}', ${this.currentModuleIdx}, ${COURSE_DATA[this.currentModuleIdx].lessons.findIndex(l=>l.id===lesson.id)})" class="mt-6 text-primary underline font-bold">Try Quiz Again</button>` : ''}
-                        </div>
-                    `;
-                    return html;
-                }
-
-                // Quiz Form
-                html += `<form id="quiz-form-${lesson.id}" class="space-y-8 fade-in">`;
-                
-                lesson.questions.forEach((q, idx) => {
-                    html += `
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 question-block" id="q-block-${q.id}">
-                            <p class="font-semibold text-lg mb-4 text-gray-800"><span class="text-primary mr-2">${idx + 1}.</span> ${q.text}</p>
-                            <div class="space-y-3">
-                    `;
-                    q.options.forEach(opt => {
-                        html += `
-                            <label class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
-                                <input type="radio" name="${q.id}" value="${opt.val}" class="w-5 h-5 text-primary border-gray-300 focus:ring-primary">
-                                <span class="ml-3 text-gray-700">${opt.text}</span>
-                            </label>
-                        `;
-                    });
-                    
-                    // Task 3: Hint container (hidden by default)
-                    html += `</div>
-                        <div id="hint-${q.id}" class="hidden mt-3 bg-yellow-50 text-yellow-800 p-3 rounded text-sm border-l-4 border-yellow-400">
-                            <i class="fas fa-lightbulb mr-2"></i> <strong>Hint:</strong> ${q.hint || "Review the lesson text."}
-                        </div>
-                    </div>`;
-                });
-
-                html += `
-                    <button type="button" onclick="app.gradeQuiz('${lesson.id}')" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-accent transition transform active:scale-95 mt-8">
-                        ${attemptCount === 0 ? 'Submit Answers' : 'Submit Corrections'}
-                    </button>
-                </form></div>`;
-                
-                return html;
-            }
-
-            gradeQuiz(lessonId) {
-                let quiz;
-                COURSE_DATA.forEach(m => m.lessons.forEach(l => { if(l.id === lessonId) quiz = l; }));
-                
-                const form = document.getElementById(`quiz-form-${lessonId}`);
-                const formData = new FormData(form);
-                let correctCount = 0;
-                let total = quiz.questions.length;
-                let allCorrect = true;
-
-                // First pass check
-                quiz.questions.forEach(q => {
-                    const selected = formData.get(q.id);
-                    const block = document.getElementById(`q-block-${q.id}`);
-                    const hintBox = document.getElementById(`hint-${q.id}`);
-                    
-                    if (selected === q.correct) {
-                        correctCount++;
-                        block.classList.add('border-green-500', 'bg-green-50');
-                        block.classList.remove('border-red-500');
-                        hintBox.classList.add('hidden');
-                    } else {
-                        allCorrect = false;
-                        // Task 3: Two Chances Logic
-                        const attempts = (this.progress.quizAttempts && this.progress.quizAttempts[lessonId]) || 0;
-                        if(attempts === 0) {
-                            // First attempt wrong -> Show Hint
-                            block.classList.add('border-red-500');
-                            hintBox.classList.remove('hidden');
+                            `
                         }
-                    }
-                });
-
-                // Update attempts
-                const currentAttempts = (this.progress.quizAttempts[lessonId] || 0) + 1;
-                const progressRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'progress', 'data');
-                updateDoc(progressRef, { [`quizAttempts.${lessonId}`]: currentAttempts });
-                this.progress.quizAttempts[lessonId] = currentAttempts;
-
-                if (allCorrect || currentAttempts >= 2) {
-                    // Finalize
-                    const score = Math.round((correctCount / total) * 100);
-                    this.saveProgress(lessonId, score);
-                    this.showToast(`Quiz Complete! Score: ${score}%`);
-                    // Rerender to show result screen
-                    setTimeout(() => {
-                        this.renderLesson(this.currentModuleIdx, COURSE_DATA[this.currentModuleIdx].lessons.findIndex(l => l.id === lessonId));
-                    }, 1000);
-                } else {
-                    // Let them try again
-                    this.showToast("Some answers need review. Check the hints!");
-                }
-            }
-            
-            resetQuiz(lessonId, mIdx, lIdx) {
-                if (!this.user) return;
-                // Soft reset for demo purposes, in real app might restrict resets
-                delete this.progress.quizScores[lessonId];
-                delete this.progress.quizAttempts[lessonId];
-                this.renderLesson(mIdx, lIdx);
-            }
-
-            async completeLesson(id, mIdx, lIdx) {
-                await this.saveProgress(id);
-                const module = COURSE_DATA[mIdx];
-                if (lIdx + 1 < module.lessons.length) {
-                    this.router('lesson', {modIdx: mIdx, lessIdx: lIdx + 1});
-                } else {
-                    this.router('course');
-                }
-            }
-
-            renderCertificate() {
-                // Task 6: Freemium / Payment Gate
-                const isPremium = this.progress.isPremium;
-                const userName = document.querySelector('.user-name-display').textContent;
-                const container = document.getElementById('main-view');
-                
-                // Check completion
-                const totalLessons = COURSE_DATA.reduce((acc, mod) => acc + mod.lessons.length, 0);
-                let completedCount = 0;
-                let allDone = true;
-                COURSE_DATA.forEach(m => m.lessons.forEach(l => {
-                    if(this.progress.completed && this.progress.completed.includes(l.id)) {
-                        completedCount++;
-                    } else {
-                        allDone = false;
-                    }
-                }));
-
-                if (!allDone) {
-                    container.innerHTML = `
-                        <div class="flex flex-col items-center justify-center h-full p-8 text-center fade-in">
-                            <div class="bg-gray-200 rounded-full p-6 mb-6">
-                                <i class="fas fa-lock text-4xl text-gray-500"></i>
-                            </div>
-                            <h2 class="text-2xl font-bold text-gray-700">Course Incomplete</h2>
-                            <p class="text-gray-500 mt-2 max-w-md">Complete all lessons (${completedCount}/${totalLessons}) to generate your certificate.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                if (!isPremium) {
-                    container.innerHTML = `
-                        <div class="flex flex-col items-center justify-center h-full p-8 text-center fade-in">
-                            <div class="bg-yellow-100 rounded-full p-6 mb-6 text-yellow-600">
-                                <i class="fas fa-crown text-4xl"></i>
-                            </div>
-                            <h2 class="text-2xl font-bold text-gray-800">Course Completed!</h2>
-                            <p class="text-gray-500 mt-2 max-w-md mb-8">You have finished the course. To get your official Certificate of Completion, a fee is required.</p>
-                            
-                            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 max-w-sm w-full">
-                                <h3 class="font-bold text-xl mb-2">Certificate of Completion</h3>
-                                <p class="text-3xl font-bold text-primary mb-4">PHP 1,500</p>
-                                <ul class="text-left text-sm space-y-2 mb-6 text-gray-600">
-                                    <li><i class="fas fa-check text-green-500 mr-2"></i> Official Digital Certificate</li>
-                                    <li><i class="fas fa-check text-green-500 mr-2"></i> Verification Code</li>
-                                    <li><i class="fas fa-check text-green-500 mr-2"></i> Printable PDF</li>
+                    ]
+                },
+                {
+                    id: 'module1',
+                    title: 'Module 1: Foundational Frameworks and Your Role',
+                    duration: '3 hours',
+                    lessons: [
+                        {
+                            title: '1.1 The Philippine Mental Health Context',
+                            content: `
+                                <h2>The Philippine Mental Health Context</h2>
+                                <p>The <strong>Mental Health Act (Republic Act No. 11036)</strong> establishes the right of every Filipino to integrated, accessible, and rights-based mental health care. This law mandates the integration of mental health services into the basic health care system.</p>
+                                
+                                <h3>PCMH Mandate</h3>
+                                <p>The PCMH is responsible for overseeing the law's implementation, making your role essential to extending its reach into the community.</p>
+                            `
+                        },
+                        {
+                            title: '1.2 The Goal and Roles of a Paraprofessional',
+                            content: `
+                                <h2>The Goal and Roles of a Paraprofessional</h2>
+                                <p>As a paraprofessional, your role is non-clinical. You are not a licensed psychiatrist, psychologist, or counselor.</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Core Role</th>
+                                            <th>Action Statement</th>
+                                            <th>Professional Boundary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Support</strong></td>
+                                            <td>Provide immediate, compassionate, and non-intrusive psychosocial support</td>
+                                            <td><strong>DO NOT</strong> diagnose, prescribe medication, or offer psychotherapy</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Normalize</strong></td>
+                                            <td>Use person-first language and psychoeducation to combat mental health stigma</td>
+                                            <td><strong>DO NOT</strong> use judgmental language or minimize distress</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Link</strong></td>
+                                            <td>Connect individuals to professional, licensed services when needed</td>
+                                            <td><strong>DO NOT</strong> take on long-term case management for severe cases</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/aHAuxdBfDzA" allowfullscreen></iframe>
+                                </div>
+                            `
+                        },
+                        {
+                            title: '1.3 Understanding Stigma',
+                            content: `
+                                <h2>Understanding Stigma</h2>
+                                <p><strong>Mental Health Stigma</strong> (prejudice and discrimination) is a primary barrier to help-seeking in the Philippines. Your practice must actively counter this by normalizing distress, respecting confidentiality, and upholding the rights-based approach.</p>
+                                
+                                <h3>How to Combat Stigma</h3>
+                                <ul>
+                                    <li>Use person-first language</li>
+                                    <li>Normalize conversations about mental health</li>
+                                    <li>Respect confidentiality</li>
+                                    <li>Uphold human rights in all interactions</li>
                                 </ul>
-                                <button onclick="app.purchasePremium()" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-accent transition shadow-lg transform active:scale-95">
-                                    Purchase Now
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // Task 7: Certificate Generation
-                const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                const userIdShort = this.user.uid.substring(0,5).toUpperCase();
-                const code = `CMHH-36912-2025-00077${userIdShort}`;
-
-                container.innerHTML = `
-                    <div class="p-4 flex flex-col items-center fade-in">
-                        <div class="cert-container shadow-2xl w-full max-w-[800px] aspect-[4/3] flex flex-col justify-center items-center">
-                            <!-- Certificate Content mimicking the HTML template provided -->
-                             <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 10px; color: #000;">CERTIFICATE OF COMPLETION</h1>
-                             <p style="font-size: 18px; margin: 5px 0;">is presented to:</p>
-                             <p style="font-size: 32px; font-weight: bold; margin: 15px 0; color: #b425aa; border-bottom: 2px solid #333; padding: 0 20px;">${userName}</p>
-                             <p style="font-size: 16px; margin: 10px 0; max-width: 600px; line-height: 1.5;">For rigorously completing the 40-hour blended format of the<br><strong>"Certification Course for Mental Health and Well-Being Paraprofessional"</strong><br>on ${today}.</p>
-                             
-                             <div style="font-size: 14px; margin-top: 20px; font-family: monospace; background: #eee; padding: 5px 10px; border-radius: 4px;">
-                                Verification Code: ${code}
-                             </div>
-
-                             <div style="display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin-top: 40px;">
-                                <div style="text-align: center;">
-                                    <div style="border-top: 1px solid #333; width: 200px; margin: 0 auto;"></div>
-                                    <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Thelma S. Barrera, MHPSS Expert</p>
-                                    <p style="font-size: 10px;">CHIEF TRAINING OFFICER</p>
+                            `
+                        }
+                    ]
+                },
+                {
+                    id: 'module2',
+                    title: 'Module 2: Ethical, Legal, and Digital Practice',
+                    duration: '3 hours',
+                    lessons: [
+                        {
+                            title: '2.1 Core Ethical Principles',
+                            content: `
+                                <h2>Core Ethical Principles</h2>
+                                <p>These principles are the moral foundation of your work:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Principle</th>
+                                            <th>Meaning in Practice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Autonomy</strong></td>
+                                            <td>Respect the service user's freedom of choice and self-determination</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Beneficence</strong></td>
+                                            <td>Commit to acting in the best interest of the client ("doing good")</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Non-maleficence</strong></td>
+                                            <td>Commit to avoiding harm ("do no harm") by staying strictly within your scope of practice</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Justice</strong></td>
+                                            <td>Ensure fairness and equal access to support, irrespective of background</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            `
+                        },
+                        {
+                            title: '2.2 The Data Privacy Act and Digital Confidentiality',
+                            content: `
+                                <h2>The Data Privacy Act (RA 10173) and Digital Confidentiality</h2>
+                                <p>The <strong>Data Privacy Act of 2012 (RA 10173)</strong> strictly regulates the collection, processing, and storage of personal information, especially <strong>Sensitive Personal Information (SPI)</strong>, which includes all mental health disclosures.</p>
+                                
+                                <h3>Mandatory Actions</h3>
+                                <ul>
+                                    <li><strong>Digital Conversations:</strong> Use end-to-end encrypted platforms (e.g., Signal). Never use personal social media for formal support</li>
+                                    <li><strong>Data Storage:</strong> Store all documentation in a password-protected or encrypted system</li>
+                                    <li><strong>Informed Consent:</strong> Explicitly inform the client how their data will be collected, used, and protected</li>
+                                </ul>
+                            `
+                        },
+                        {
+                            title: '2.3 Informed Consent and Professional Boundaries',
+                            content: `
+                                <h2>Informed Consent and Professional Boundaries</h2>
+                                
+                                <h3>Informed Consent</h3>
+                                <p>Must be <strong>Voluntary, Informed, and Specific (VIS)</strong>. The client must understand the limits of your role and the limits of confidentiality.</p>
+                                
+                                <h3>Sample Script</h3>
+                                <blockquote>"Hi, I'm [Name], a trained peer supporter. Our conversation is private, but I can't keep it secret if you're in danger. Do you feel okay talking with me today?"</blockquote>
+                                
+                                <h3>Limits of Confidentiality (Duty to Warn)</h3>
+                                <p>You must breach confidentiality when there is an <strong>imminent, credible risk</strong> of serious harm to the client or others, or mandated by law.</p>
+                                
+                                <h3>Boundary Violations to Avoid</h3>
+                                <ul>
+                                    <li>Dual relationships (e.g., friend and paraprofessional)</li>
+                                    <li>Accepting large gifts</li>
+                                    <li>Excessive self-disclosure</li>
+                                    <li>Responding at all hours</li>
+                                </ul>
+                            `
+                        }
+                    ]
+                },
+                {
+                    id: 'module3',
+                    title: 'Module 3: Psychological First Aid (PFA) and Scope',
+                    duration: '3 hours',
+                    lessons: [
+                        {
+                            title: '3.1 PFA: Five Core Principles',
+                            content: `
+                                <h2>PFA: Five Core Principles</h2>
+                                <p>PFA is a human, supportive, and practical response to serious stress, promoting immediate well-being and preventing long-term harm.</p>
+                                
+                                <ol>
+                                    <li><strong>Promote Safety:</strong> Ensure the environment is safe</li>
+                                    <li><strong>Promote Calmness:</strong> Help stabilize the individual's emotional state</li>
+                                    <li><strong>Promote Connectedness:</strong> Facilitate access to social support and services</li>
+                                    <li><strong>Promote Self-Efficacy:</strong> Empower the person to take charge of their own recovery</li>
+                                    <li><strong>Promote Hope:</strong> Maintain a realistic, positive outlook on recovery</li>
+                                </ol>
+                                
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/sGooy-cS9G4" allowfullscreen></iframe>
                                 </div>
-                                <div style="text-align: center;">
-                                    <div style="border-top: 1px solid #333; width: 200px; margin: 0 auto;"></div>
-                                    <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Bernardino A. Vicente, MD</p>
-                                    <p style="font-size: 10px;">CHIEF MENTAL HEALTH OFFICER</p>
-                                </div>
-                             </div>
-                        </div>
-                        <button onclick="window.print()" class="mt-8 bg-gray-800 text-white px-6 py-3 rounded shadow hover:bg-gray-700 font-bold">
-                            <i class="fas fa-print mr-2"></i> Print Certificate
-                        </button>
-                    </div>
-                `;
-            }
-
-            renderSettings() {
-                const container = document.getElementById('main-view');
-                container.innerHTML = `
-                    <div class="p-6 max-w-lg mx-auto fade-in">
-                        <h2 class="text-2xl font-bold mb-6">Settings</h2>
-                        <div class="bg-white p-6 rounded-xl shadow-sm space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Display Name (for Certificate)</label>
-                                <div class="flex space-x-2">
-                                    <input type="text" id="settings-name" class="flex-1 border border-gray-300 rounded p-2 focus:ring-2 focus:ring-primary outline-none" placeholder="Enter full name">
-                                    <button onclick="app.saveSettings()" class="bg-primary text-white px-4 rounded">Save</button>
-                                </div>
-                            </div>
-                            <div class="pt-4 border-t border-gray-100">
-                                <p class="text-xs text-gray-500 mb-2">User ID: ${this.user ? this.user.uid : 'Loading...'}</p>
-                                <button onclick="alert('To sign out, simply close this app or clear browser data for this site.')" class="text-red-500 text-sm hover:underline">Sign Out info</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            async saveSettings() {
-                const newName = document.getElementById('settings-name').value;
-                if(newName && this.user) {
-                    await updateProfile(this.user, { displayName: newName });
-                    const userRef = doc(this.db, 'artifacts', APP_ID, 'users', this.user.uid, 'profile', 'data');
-                    await setDoc(userRef, { displayName: newName }, { merge: true });
-                    this.updateNameDisplay(newName);
-                    this.showToast('Profile Updated');
-                }
-            }
-            
-            renderKnowledgeHub() {
-                 const container = document.getElementById('main-view');
-                 container.innerHTML = `
-                    <div class="p-6 md:p-10 fade-in">
-                        <h2 class="text-2xl font-bold mb-6">Knowledge Hub</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <i class="fas fa-book-medical text-3xl text-primary mb-4"></i>
-                                <h3 class="font-bold text-lg mb-2">Mental Health Act (RA 11036)</h3>
-                                <p class="text-sm text-gray-500 mb-4">Official documentation regarding the rights of service users.</p>
-                                <a href="https://www.officialgazette.gov.ph/downloads/2018/06jun/20180620-RA-11036-RRD.pdf" target="_blank" class="text-primary-blue text-sm font-bold">Download PDF &rarr;</a>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <i class="fas fa-hand-holding-heart text-3xl text-accent-green mb-4"></i>
-                                <h3 class="font-bold text-lg mb-2">PFA Field Guide</h3>
-                                <p class="text-sm text-gray-500 mb-4">WHO guide for field workers providing psychological first aid.</p>
-                                <a href="https://www.who.int/publications/i/item/9789241548205" target="_blank" class="text-primary-blue text-sm font-bold">Access Guide &rarr;</a>
-                            </div>
-                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <i class="fas fa-phone-volume text-3xl text-red-500 mb-4"></i>
-                                <h3 class="font-bold text-lg mb-2">Crisis Hotlines</h3>
-                                <p class="text-sm text-gray-500 mb-4">NCMH: 1553 | 0917-899-USAP (8727)</p>
-                            </div>
-                        </div>
-                    </div>
-                 `;
-            }
-
-            showToast(msg) {
-                const toast = document.getElementById('toast');
-                document.getElementById('toast-msg').textContent = msg;
-                toast.classList.remove('translate-x-full');
-                setTimeout(() => toast.classList.add('translate-x-full'), 3000);
-            }
+                            `
+                        },
+                        {
+                            title: '3.2 Applying the PFA Action Model',
+                            content: `
+                                <h2>Applying the PFA Action Model</h2>
+                                getElementById('verificationResult').innerHTML = '';
+}
+    // Payment Processing (Simulated)
+    function processPurchase() {
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const contactNumber = document.getElementById('contactNumber').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        
+        if (!fullName || !email || !contactNumber) {
+            alert('Please fill in all required fields.');
+            return;
         }
+        
+        // Simulate payment processing
+        alert('Redirecting to payment gateway...\n\nThis is a demo. In production, this would connect to a real payment processor.');
+        
+        // Simulate successful payment
+        setTimeout(() => {
+            generateCertificate(fullName, email);
+        }, 1500);
+    }
 
-        // Initialize Global App
-        window.app = new LMSApp();
-        window.onload = () => window.app.init();
+    // Certificate Generation
+    function generateCertificate(name, email) {
+        document.getElementById('purchaseForm').classList.add('hidden');
+        document.getElementById('certificateGeneration').classList.remove('hidden');
+        
+        const canvas = document.getElementById('certificateCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Generate verification code
+        const verificationCode = 'CCMHP-' + Math.random().toString(36).substr(2, 4).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+        document.getElementById('verificationCode').textContent = verificationCode;
+        
+        // Store certificate data
+        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        certificates[verificationCode] = {
+            name: name,
+            email: email,
+            date: today,
+            code: verificationCode
+        };
+        
+        // Draw certificate background
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw purple accents
+        ctx.fillStyle = '#b425aa';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 0);
+        ctx.lineTo(0, 200);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.fillStyle = '#c80ec9';
+        ctx.beginPath();
+        ctx.moveTo(canvas.width, 0);
+        ctx.lineTo(canvas.width - 200, 0);
+        ctx.lineTo(canvas.width, 200);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Draw border
+        ctx.strokeStyle = '#D4AF37';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+        
+        // Certificate text
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 60px Montserrat';
+        ctx.textAlign = 'center';
+        ctx.fillText('CERTIFICATE', canvas.width / 2, 150);
+        
+        ctx.font = 'bold 36px Poppins';
+        ctx.fillText('OF COMPLETION', canvas.width / 2, 200);
+        
+        ctx.font = '24px Roboto Condensed';
+        ctx.fillText('is presented to:', canvas.width / 2, 280);
+        
+        // Name
+        ctx.fillStyle = '#b425aa';
+        ctx.font = 'bold 48px Montserrat';
+        ctx.fillText(name, canvas.width / 2, 360);
+        
+        // Course details
+        ctx.fillStyle = '#333';
+        ctx.font = '20px Roboto Condensed';
+        ctx.fillText('For rigorously completing the 40-hour blended format of the', canvas.width / 2, 440);
+        
+        ctx.font = 'bold 22px Poppins';
+        ctx.fillText('"Certification Course for Mental Health and Well-Being Paraprofessional"', canvas.width / 2, 480);
+        
+        ctx.font = '20px Roboto Condensed';
+        ctx.fillText('on ' + today, canvas.width / 2, 520);
+        
+        // Signatures
+        ctx.font = '18px Roboto Condensed';
+        ctx.fillText('Thelma S. Barrera, MHPSS Expert', 300, 680);
+        ctx.fillText('CHIEF TRAINING OFFICER', 300, 710);
+        
+        ctx.fillText('Bernardino A. Vicente, MD, MHA, FPPA', 900, 680);
+        ctx.fillText('CHIEF MENTAL HEALTH OFFICER', 900, 710);
+        
+        // Verification code
+        ctx.font = 'bold 16px Roboto Condensed';
+        ctx.fillStyle = '#666';
+        ctx.fillText('Verification Code: ' + verificationCode, canvas.width / 2, 800);
+    }
 
-    </script>
+    // Download Certificate
+    function downloadCertificate() {
+        const canvas = document.getElementById('certificateCanvas');
+        const link = document.createElement('a');
+        link.download = 'Mental_Health_Paraprofessional_Certificate.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    }
+
+    // Verify Certificate
+    function verifyCertificate() {
+        const code = document.getElementById('verifyCode').value.trim();
+        const resultDiv = document.getElementById('verificationResult');
+        
+        if (!code) {
+            resultDiv.innerHTML = '<p style="color: #f44336;">Please enter a verification code.</p>';
+            return;
+        }
+        
+        if (certificates[code]) {
+            const cert = certificates[code];
+            resultDiv.innerHTML = `
+                <div style="background: #4caf50; color: white; padding: 20px; border-radius: 8px;">
+                    <h3>✓ Valid Certificate</h3>
+                    <p><strong>Name:</strong> ${cert.name}</p>
+                    <p><strong>Date Issued:</strong> ${cert.date}</p>
+                    <p><strong>Course:</strong> Certification Course for Mental Health and Well-Being Paraprofessional</p>
+                </div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <div style="background: #f44336; color: white; padding: 20px; border-radius: 8px;">
+                    <h3>✗ Invalid Certificate</h3>
+                    <p>The verification code you entered does not match our records.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Utility Functions
+    function scrollToContent() {
+        document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', initializeCourse);
+</script>
 </body>
 </html>
