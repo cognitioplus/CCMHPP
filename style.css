@@ -1,225 +1,547 @@
-/* ===========================
-   Global Styles
-   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --bg-light: #f4f8fb;
-  --text-dark: #333;
-  --text-light: #666;
-  --success: #28a745;
-  --danger: #dc3545;
+    --primary: #b425aa;
+    --primary-light: #c80ec9;
+    --accent: #D4AF37;
+    --bg-dark: #1a1a1a;
+    --bg-light: #f5f5f5;
+    --text-dark: #333;
+    --text-light: #666;
+    --white: #ffffff;
+    --border: #e0e0e0;
+    --success: #4caf50;
+    --error: #f44336;
 }
 
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  color: var(--text-dark);
-  line-height: 1.6;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    line-height: 1.6;
 }
 
-h1, h2, h3, h4 {
-  color: var(--primary);
-  margin-bottom: 15px;
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
 }
 
-p {
-  margin-bottom: 15px;
-  color: var(--text-dark);
+h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
-/* ===========================
-   Sections
-   =========================== */
-section {
-  padding: 40px;
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-section.light {
-  background-color: var(--bg-light);
+/* Header */
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-section.dark {
-  background-color: #f9f9f9;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* ===========================
-   Lists
-   =========================== */
-ul {
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto 20px auto;
-  font-size: 16px;
-  line-height: 1.6;
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-li {
-  margin-bottom: 10px;
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
 }
 
-/* ===========================
-   Buttons
-   =========================== */
+.site-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .btn-primary {
-  background-color: var(--primary);
-  color: #fff;
+    background: var(--accent);
+    color: var(--bg-dark);
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+.btn-primary:hover:not(:disabled) {
+    background: #f0c64a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
 }
 
-.btn-success {
-  background-color: var(--success);
-  color: #fff;
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
 }
 
-.btn-danger {
-  background-color: var(--danger);
-  color: #fff;
+.btn-secondary:hover:not(:disabled) {
+    background: var(--white);
+    color: var(--primary);
 }
 
-/* ===========================
-   Modals
-   =========================== */
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    gap: 30px;
+    padding: 40px 0;
+}
+
+.sidebar {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.content-area {
+    flex: 1;
+    min-width: 0;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.card h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+/* Module List */
+.module-item {
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.module-item:hover {
+    border-color: var(--primary);
+    background: #fafafa;
+}
+
+.module-item.active {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
+}
+
+.module-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.module-duration {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.progress-bar {
+    background: var(--border);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    height: 100%;
+    transition: width 0.5s;
+}
+
+/* Content Display */
+.lesson-content {
+    line-height: 1.8;
+}
+
+.lesson-content h2 {
+    color: var(--primary);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.lesson-content h3 {
+    color: var(--primary-light);
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+}
+
+.lesson-content p {
+    margin-bottom: 15px;
+}
+
+.lesson-content ul,
+.lesson-content ol {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.lesson-content li {
+    margin-bottom: 10px;
+}
+
+.lesson-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    overflow-x: auto;
+    display: block;
+}
+
+.lesson-content th,
+.lesson-content td {
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: left;
+}
+
+.lesson-content th {
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.lesson-content blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--text-light);
+}
+
+.lesson-content a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.lesson-content a:hover {
+    text-decoration: underline;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 20px 0;
+    border-radius: 8px;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Navigation Buttons */
+.lesson-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border);
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Certificate Section */
+.certificate-preview {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.price-tag {
+    font-size: 2.5rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+/* Modal */
 .modal {
-  display: none; /* hidden by default */
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,0,0.6);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
 }
 
 .modal-content {
-  background: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    color: var(--primary);
 }
 
 .close-modal {
-  font-size: 1.5rem;
-  cursor: pointer;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+    line-height: 1;
 }
 
-/* ===========================
-   Forms
-   =========================== */
+.close-modal:hover {
+    color: var(--primary);
+}
+
 .form-group {
-  margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
 }
 
 .form-group input,
 .form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1rem;
 }
 
-/* ===========================
-   Certificate Preview
-   =========================== */
-.certificate-preview {
-  text-align: center;
-  margin-bottom: 20px;
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
 }
 
-.price-tag {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--primary);
+/* Certificate Canvas */
+#certificateCanvas {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 20px 0;
+    display: block;
 }
 
-/* ===========================
-   Success / Verification
-   =========================== */
+/* Success Message */
 .success-message {
-  background: var(--success);
-  color: #fff;
-  padding: 12px;
-  border-radius: 5px;
-  text-align: center;
-  margin-bottom: 20px;
+    background: var(--success);
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-#verificationCode {
-  font-size: 1.3rem;
-  color: var(--primary);
-  font-weight: 700;
+.error-message {
+    background: var(--error);
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-/* ===========================
-   Embeds (Videos/Slides)
-   =========================== */
-iframe {
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(63,69,81,0.16);
-  margin: 20px 0;
-  width: 100%;
-  height: 100%;
+/* Footer */
+.footer {
+    background: var(--bg-dark);
+    color: var(--white);
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 60px;
 }
 
-.embed-container {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 ratio */
-  overflow: hidden;
-  border-radius: 8px;
+.footer p {
+    margin-bottom: 10px;
 }
 
-.embed-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
+.footer a {
+    color: var(--accent);
+    text-decoration: none;
 }
 
-/* ===========================
-   Utility Classes
-   =========================== */
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 .mt-20 {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
-.hidden {
-  display: none;
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .site-title {
+        font-size: 1rem;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .lesson-content table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        padding: 40px 0;
+    }
+
+    .price-tag {
+        font-size: 2rem;
+    }
+}
+
+/* Loading State */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
