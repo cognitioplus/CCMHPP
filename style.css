@@ -208,6 +208,72 @@ h4, h5, h6 {
     font-size: 0.85rem;
     color: var(--text-light);
 }
+/* Course Overview Section */
+.overview-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.overview-card h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.overview-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.overview-card th,
+.overview-card td {
+    border: 1px solid var(--border);
+    padding: 10px;
+    text-align: left;
+}
+
+.overview-card th {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+.overview-card ul, .overview-card ol {
+    padding-left: 30px;
+    margin: 10px 0;
+}
+
+.overview-card ul ul {
+    margin-top: 8px;
+}
+
+.module-button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.module-overview-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    background: white;
+    border: 2px solid var(--border);
+    color: var(--primary);
+    transition: all 0.2s;
+}
+
+.module-overview-btn:hover {
+    border-color: var(--primary);
+    background: rgba(180, 37, 170, 0.05);
+    transform: translateY(-2px);
+}
 
 .progress-bar {
     background: var(--border);
