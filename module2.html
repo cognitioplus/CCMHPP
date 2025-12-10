@@ -307,5 +307,41 @@
             <a href="module3.html" class="btn">Module 3: Psychological First Aid (PFA) and Scope →</a>
         </div>
     </div>
+
+    
+<script>
+        // Mark Module 2 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 2 has 3 lessons: [Context, Guiding Frameworks, The Roles and Goal, Stigma]
+            const module2Lessons = ['2-1', '2-2', '2-3'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 2 lessons if not already present
+            module0Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 2 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+</script>
+
+<script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module2Lessons = ['2-1', '2-2', '2-3'];
+
+</script>
 </body>
 </html>
