@@ -126,6 +126,10 @@
         <h1>Module 9: Certification and Renewal</h1>
         <p><strong>Duration:</strong> 2 hours</p>
 
+         <!-- Final Assessment Summary -->
+        <h2>9.1 Final Assessment</h2>
+        <p>The final certification requires an overall passing grade of <strong>75%</strong>, incorporating all knowledge and practical components.</p>
+
         <!-- Final Assessment (Post-Test) -->
         <div class="assessment-section">
             <h2>Final Assessment / Post-Test (15 Items)</h2>
@@ -226,11 +230,8 @@
                 <strong>Passing Grade:</strong> 75% or higher (minimum 12 correct answers)
             </p>
         </div>
-
-        <!-- Final Assessment Summary -->
-        <h2>9.1 Final Assessment</h2>
-        <p>The final certification requires an overall passing grade of <strong>75%</strong>, incorporating all knowledge and practical components.</p>
         <h3>Assessment Components</h3>
+        
         <table>
             <thead>
                 <tr>
@@ -391,6 +392,40 @@
             <span style="color: var(--text-light); font-style: italic;">End of Course</span>
         </div>
     </div>
+<script>
+        // Mark Module 9 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 9 has 3 lessons: [Final Assessment, Renewal Requirements, Course Completion and Next Steps]
+            const module9Lessons = ['9-1', '9-2', '9-3'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 9 lessons if not already present
+            module9Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 9 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+    </script>
+           <script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module9Lessons = ['9-0', '9-1', '9-2', '9-3'];
+
+
+              </script>
+    
 </body>
 </html>
-
