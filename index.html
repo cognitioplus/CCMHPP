@@ -1,446 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+ body {
+ background-color: white; /* Ensure the iframe has a white background */
+                }
+
+                /* Course Overview Card */
+.overview-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.overview-card h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+/* Module Grid */
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.module-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+}
+
+.module-card h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.module-card p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+/* Ensure buttons in cards are full-width */
+.module-card .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Certification Course for Mental Health and Well-Being Paraprofessional | Cognitio+</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --primary: #b425aa;
-            --primary-light: #c80ec9;
-            --accent: #D4AF37;
-            --bg-dark: #1a1a1a;
-            --bg-light: #f5f5f5;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --border: #e0e0e0;
-            --success: #4caf50;
-            --error: #f44336;
-        }
-        body {
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            line-height: 1.6;
-        }
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-        h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-        }
-        .site-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-dark);
-        }
-        .btn-primary:hover:not(:disabled) {
-            background: #f0c64a;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-        .btn-secondary:hover:not(:disabled) {
-            background: var(--white);
-            color: var(--primary);
-        }
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            padding: 80px 0;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        /* Main Content */
-        .main-content {
-            display: flex;
-            gap: 30px;
-            padding: 40px 0;
-        }
-        .sidebar {
-            width: 350px;
-            flex-shrink: 0;
-        }
-        .content-area {
-            flex: 1;
-            min-width: 0;
-        }
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
-        }
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        /* Module List */
-        .module-item {
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .module-item:hover {
-            border-color: var(--primary);
-            background: #fafafa;
-        }
-        .module-item.active {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
-        }
-        .module-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 0.95rem;
-        }
-        .module-duration {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-        .progress-bar {
-            background: var(--border);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-            height: 100%;
-            transition: width 0.5s;
-        }
-        /* Content Display */
-        .lesson-content {
-            line-height: 1.8;
-        }
-        .lesson-content h2 {
-            color: var(--primary);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        .lesson-content h3 {
-            color: var(--primary-light);
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-        }
-        .lesson-content p {
-            margin-bottom: 15px;
-        }
-        .lesson-content ul, .lesson-content ol {
-            margin-left: 30px;
-            margin-bottom: 20px;
-        }
-        .lesson-content li {
-            margin-bottom: 10px;
-        }
-        .lesson-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            overflow-x: auto;
-            display: block;
-        }
-        .lesson-content th, .lesson-content td {
-            border: 1px solid var(--border);
-            padding: 12px;
-            text-align: left;
-        }
-        .lesson-content th {
-            background: var(--primary);
-            color: var(--white);
-            font-weight: 600;
-        }
-        .lesson-content blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-light);
-        }
-        .lesson-content a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        .lesson-content a:hover {
-            text-decoration: underline;
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            margin: 20px 0;
-            border-radius: 8px;
-            background: #000;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* Navigation Buttons */
-        .lesson-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border);
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        /* Certificate Section */
-        .certificate-preview {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(180, 37, 170, 0.05) 0%, rgba(200, 14, 201, 0.05) 100%);
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-        .price-tag {
-            font-size: 2.5rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin: 20px 0;
-        }
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            color: var(--primary);
-        }
-        .close-modal {
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-light);
-            line-height: 1;
-        }
-        .close-modal:hover {
-            color: var(--primary);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Roboto Condensed', sans-serif;
-            font-size: 1rem;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        /* Certificate Canvas */
-        #certificateCanvas {
-            max-width: 100%;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin: 20px 0;
-            display: block;
-        }
-        /* Success Message */
-        .success-message {
-            background: var(--success);
-            color: white;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .error-message {
-            background: var(--error);
-            color: white;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        /* Footer */
-        .footer {
-            background: var(--bg-dark);
-            color: var(--white);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 60px;
-        }
-        .footer p {
-            margin-bottom: 10px;
-        }
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        /* Responsive */
-        @media (max-width: 968px) {
-            .main-content {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .site-title {
-                font-size: 1rem;
-            }
-            .modal-content {
-                padding: 20px;
-            }
-            .lesson-content table {
-                font-size: 0.9rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .btn {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-            .hero {
-                padding: 40px 0;
-            }
-            .price-tag {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <!-- Header -->
@@ -448,7 +78,11 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png" alt="Cognitio+ Logo" class="logo">
+                    <img
+                        src="https://appimize.app/assets/apps/user_1097/images/b2e254093bca_935_1097.png"
+                        alt="Cognitio+ Logo"
+                        class="logo"
+                    />
                     <div class="site-title">Mental Health Paraprofessional Certification</div>
                 </div>
                 <div class="nav-buttons">
@@ -458,46 +92,159 @@
             </div>
         </div>
     </header>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Certification Course for Mental Health and Well-Being Paraprofessional</h1>
-            <p>Equip yourself with essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support</p>
-            <button class="btn btn-primary" onclick="scrollToContent()" style="font-size: 1.1rem; padding: 12px 32px;">Start Learning for Free</button>
+            <h1>Certification Course for Mental Health and Well-Being Paraprofessionals</h1>
+            <p>Developed by Cognitio+ • Aligned with WHO mhGAP, WHO QualityRights, and PCMH 2024–2028 Framework</p>
+            <button class="btn btn-primary" onclick="scrollToModules()" style="font-size: 1.1rem; padding: 12px 32px;">
+                View All Modules
+            </button>
         </div>
     </section>
-    <!-- Main Content -->
-    <div class="container">
-        <div class="main-content">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="card">
-                    <h3>Course Progress</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
-                    </div>
-                    <p class="mt-20"><strong><span id="progressPercentage">0</span>%</strong> Complete</p>
-                    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 10px;">
-                        <span id="completedCount">0</span> of <span id="totalCount">0</span> lessons completed
-                    </p>
-                </div>
-                <div class="card">
-                    <h3>Course Modules</h3>
-                    <div id="moduleList"></div>
-                </div>
-            </aside>
-            <!-- Content Area -->
-            <main class="content-area">
-                <div class="card">
-                    <div id="lessonContent"></div>
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" id="prevBtn" onclick="previousLesson()">← Previous</button>
-                        <button class="btn btn-primary" id="nextBtn" onclick="nextLesson()">Next →</button>
-                    </div>
-                </div>
-            </main>
+
+    <!-- Course Overview -->
+    <section class="course-overview" id="overview" style="background: white; padding: 60px 0;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Course Overview</h2>
+
+            <!-- I. Purpose & Frameworks -->
+            <div class="overview-card">
+                <h3>I. Course Overview</h3>
+                <p><strong>Purpose:</strong> This certification course equips entry-level mental health and well-being paraprofessionals with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support online and in community contexts.</p>
+                <p><strong>Guiding Frameworks:</strong></p>
+                <ul>
+                    <li>WHO Mental Health Gap Action Programme (mhGAP), 2023 update</li>
+                    <li>WHO QualityRights Initiative: Dignity, Recovery, and Human Rights in Mental Health</li>
+                    <li>Philippine Council for Mental Health (PCMH) Strategic Framework 2024–2028</li>
+                </ul>
+                <p><strong>Course Philosophy:</strong> Applies Psychological First Aid (PFA) principles—<em>Look, Listen, Link</em>.</p>
+            </div>
+
+            <!-- II. Certification Structure -->
+            <div class="overview-card">
+                <h3>II. Certification Structure</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Part 1 – Foundational Training</td><td>Online modules</td><td>24 hours</td></tr>
+                        <tr><td>Part 2 – Practicum</td><td>10 supervised sessions</td><td>16 hours</td></tr>
+                        <tr><td>Certification Validity</td><td>2 years (renewable)</td><td>—</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- III. Learning Outcomes -->
+            <div class="overview-card">
+                <h3>III. Course Learning Outcomes</h3>
+                <p>Upon completion, trainees will be able to:</p>
+                <ol>
+                    <li>Apply generative listening and empathy.</li>
+                    <li>Demonstrate ethical communication and data privacy.</li>
+                    <li>Recognize and respond to crisis indicators.</li>
+                    <li>Make appropriate referrals.</li>
+                    <li>Practice self-care and mindfulness.</li>
+                    <li>Uphold human rights and cultural sensitivity.</li>
+                </ol>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Module Navigation Section -->
+    <section class="modules-section" id="modules" style="padding: 60px 0; background: var(--bg-light);">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Course Modules</h2>
+            <div class="module-grid">
+                <!-- Module 0 -->
+                <div class="module-card">
+                    <h3>Module 0: Orientation and Course Structure</h3>
+                    <p><strong>Duration:</strong> 2 hours</p>
+                    <p>Includes Pre-Test, course philosophy, and structure.</p>
+                    <a href="module0.html" class="btn btn-primary" style="width: 100%;">Go to Module 0</a>
+                </div>
+
+                <!-- Module 1 -->
+                <div class="module-card">
+                    <h3>Module 1: Foundational Frameworks and Your Role</h3>
+                    <p><strong>Duration:</strong> 3 hours</p>
+                    <p>RA 11036, WHO mhGAP, and the paraprofessional role.</p>
+                    <a href="module1.html" class="btn btn-primary" style="width: 100%;">Go to Module 1</a>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="module-card">
+                    <h3>Module 2: Ethics, Boundaries, and Digital Confidentiality</h3>
+                    <p><strong>Duration:</strong> 3 hours</p>
+                    <p>RA 10173, informed consent, and professional boundaries.</p>
+                    <a href="module2.html" class="btn btn-primary" style="width: 100%;">Go to Module 2</a>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="module-card">
+                    <h3>Module 3: Psychological First Aid (PFA) and Scope</h3>
+                    <p><strong>Duration:</strong> 3 hours</p>
+                    <p>Look–Listen–Link model and PFA principles.</p>
+                    <a href="module3.html" class="btn btn-primary" style="width: 100%;">Go to Module 3</a>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="module-card">
+                    <h3>Module 4: Core Communication and Basic Coping Skills</h3>
+                    <p><strong>Duration:</strong> 4 hours</p>
+                    <p>8 core skills: rapport, empathy, reflection, grounding, etc.</p>
+                    <a href="module4.html" class="btn btn-primary" style="width: 100%;">Go to Module 4</a>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="module-card">
+                    <h3>Module 5: Crisis Intervention and Safe Referral</h3>
+                    <p><strong>Duration:</strong> 4 hours</p>
+                    <p>Suicide risk, crisis protocol, and Philippine referral pathways.</p>
+                    <a href="module5.html" class="btn btn-primary" style="width: 100%;">Go to Module 5</a>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="module-card">
+                    <h3>Module 6: Cultural Sensitivity and Inclusive Practice</h3>
+                    <p><strong>Duration:</strong> 3 hours</p>
+                    <p>Filipino values (Hiya, Utang na Loob), LGBTQIA+, PWDs, and indigenous contexts.</p>
+                    <a href="module6.html" class="btn btn-primary" style="width: 100%;">Go to Module 6</a>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="module-card">
+                    <h3>Module 7: Paraprofessional Self-Care</h3>
+                    <p><strong>Duration:</strong> 3 hours</p>
+                    <p>Compassion fatigue, burnout, and Cognitio+ digital tools.</p>
+                    <a href="module7.html" class="btn btn-primary" style="width: 100%;">Go to Module 7</a>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="module-card">
+                    <h3>Module 8: Practicum and Mentorship</h3>
+                    <p><strong>Duration:</strong> 16 hours</p>
+                    <p>Supervised sessions, documentation, and observation rubric.</p>
+                    <a href="module8.html" class="btn btn-primary" style="width: 100%;">Go to Module 8</a>
+                </div>
+
+                <!-- Module 9 -->
+                <div class="module-card">
+                    <h3>Module 9: Integration and Certification</h3>
+                    <p><strong>Duration:</strong> 1 hour</p>
+                    <p>Final Assessment (Post-Test) and certification process.</p>
+                    <a href="module9.html" class="btn btn-primary" style="width: 100%;">Go to Module 9</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -508,677 +255,41 @@
         </div>
     </footer>
 
-    <!-- Purchase Modal -->
+    <!-- Modals (for certificate) -->
     <div class="modal" id="purchaseModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Get Your Certificate</h2>
                 <span class="close-modal" onclick="closePurchaseModal()">×</span>
             </div>
-            <div id="purchaseForm">
-                <div class="certificate-preview">
-                    <h3>Certificate of Completion</h3>
-                    <p class="price-tag">₱1,500</p>
-                    <p>Complete the course and purchase your official certificate recognized by mental health professionals</p>
-                </div>
-                <div class="form-group">
-                    <label>Full Name (as it should appear on certificate) *</label>
-                    <input type="text" id="fullName" placeholder="Juan Dela Cruz" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="email" placeholder="juan@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Contact Number *</label>
-                    <input type="tel" id="contactNumber" placeholder="+63 912 345 6789" required>
-                </div>
-                <a href="https://checkout.xendit.co/od/ccmhpp" target="_blank" 
-                   class="btn btn-primary" 
-                   style="display:block; width: 100%; padding: 14px; font-size: 1.1rem; text-align:center; text-decoration:none;"
-                   onclick="generateUserNumber()">
-                    Proceed to Payment - ₱1,500
-                </a>
-            </div>
-            <div id="certificateGeneration" class="hidden">
-                <div class="success-message">
-                    ✓ Payment Successful! Your certificate has been generated.
-                </div>
-                <canvas id="certificateCanvas" width="1200" height="850"></canvas>
-                <div class="text-center mt-20">
-                    <button class="btn btn-primary" onclick="downloadCertificate()" style="margin-bottom: 15px;">
-                        📥 Download Certificate
-                    </button>
-                    <p style="background: var(--bg-light); padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <strong>Verification Code:</strong><br>
-                        <span id="verificationCode" style="font-size: 1.3rem; color: var(--primary); font-weight: 700;"></span>
-                    </p>
-                    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 10px;">
-                        Keep this code safe. Others can verify your certificate using this code.
-                    </p>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 20px; color: var(--text-light); font-size: 0.9rem;">
-                * You must complete all modules before purchasing the certificate
-            </p>
+            <p>You must complete all modules before purchasing. This page links to all module content.</p>
+            <a href="https://checkout.xendit.co/od/ccmhpp" target="_blank" class="btn btn-primary" style="display:block; width:100%; text-align:center;">
+                Proceed to Payment - ₱1,500
+            </a>
         </div>
     </div>
 
-    <!-- Verification Modal -->
     <div class="modal" id="verificationModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Verify Certificate</h2>
                 <span class="close-modal" onclick="closeVerificationModal()">×</span>
             </div>
-            <p style="margin-bottom: 20px; color: var(--text-light);">
-                Enter the verification code found on the certificate to validate its authenticity.
-            </p>
+            <p>Enter your verification code to validate authenticity.</p>
             <div class="form-group">
-                <label>Verification Code</label>
-                <input type="text" id="verifyCode" placeholder="CCMHP-36912-2025-0777[USER-NUMBER]" style="text-transform: uppercase;">
+                <input type="text" id="verifyCode" placeholder="CCMHP-36912-2025-077712345" />
             </div>
-            <div class="form-group">
-                <label>User Number *</label>
-                <input type="text" id="userNumber" placeholder="e.g. 12345" required>
-            </div>
-            <button class="btn btn-primary" style="width: 100%; padding: 14px;" onclick="generateVerificationCode()">
-                Generate Verification Code
-            </button>
-            <button class="btn btn-primary" style="width: 100%; padding: 14px; margin-top:10px;" onclick="verifyCertificate()">
-                Verify Certificate
-            </button>
+            <button class="btn btn-primary" onclick="verifyCertificate()" style="width:100%;">Verify</button>
             <div id="verificationResult" class="mt-20"></div>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="scripts.js"></script>
     <script>
-        // Course Data with Pre-Test and Post-Test
-        const courseData = {
-            modules: [
-                {
-                    id: 'module0',
-                    title: 'Module 0: Orientation and Course Structure',
-                    duration: '2 hours',
-                    lessons: [
-                        {
-                            title: 'Pre-Test (15 Items)',
-                            content: `
-                                <h2>Pre-Test</h2>
-                                <p><strong>Instructions:</strong> Select the best answer for each question.</p>
-                                <ol>
-                                    <li><strong>What is the primary goal of Psychological First Aid (PFA)?</strong><br>
-                                        a) To diagnose mental health conditions quickly.<br>
-                                        b) To provide non-intrusive, supportive, and practical help to people in crisis.<br>
-                                        c) To offer long-term cognitive behavioral therapy.<br>
-                                        d) To force distressed individuals to talk about their trauma.
-                                    </li>
-                                    <li><strong>Which Philippine law mandates the integration of mental health services into the basic health care system?</strong><br>
-                                        a) RA 10173 (Data Privacy Act)<br>
-                                        b) RA 11036 (Mental Health Act)<br>
-                                        c) RA 9165 (Comprehensive Dangerous Drugs Act)<br>
-                                        d) RA 7160 (Local Government Code)
-                                    </li>
-                                    <li><strong>The PFA principle of "Look" primarily involves:</strong><br>
-                                        a) Looking for a psychologist.<br>
-                                        b) Identifying immediate safety concerns and urgent basic needs.<br>
-                                        c) Looking through the person's personal notes.<br>
-                                        d) Looking up the person's social media history.
-                                    </li>
-                                    <li><strong>Which ethical principle requires you to act in the client's best interest ("doing good")?</strong><br>
-                                        a) Autonomy<br>
-                                        b) Justice<br>
-                                        c) Beneficence<br>
-                                        d) Non-maleficence
-                                    </li>
-                                    <li><strong>As a paraprofessional, which action is strictly outside your scope of practice?</strong><br>
-                                        a) Teaching breathing exercises.<br>
-                                        b) Making a professional referral.<br>
-                                        c) Diagnosing Bipolar Disorder.<br>
-                                        d) Listening empathetically.
-                                    </li>
-                                    <li><strong>The ethical principle of Autonomy means respecting the client's right to:</strong><br>
-                                        a) Pay you for services.<br>
-                                        b) Make their own choices, including refusing help.<br>
-                                        c) Share your personal life details.<br>
-                                        d) Get immediate, non-stop support.
-                                    </li>
-                                    <li><strong>The Data Privacy Act (RA 10173) governs the handling of Sensitive Personal Information (SPI). Which is an example of SPI?</strong><br>
-                                        a) A client's favorite color.<br>
-                                        b) A client's mental health disclosures.<br>
-                                        c) A client's first name.<br>
-                                        d) A client's preferred time of day.
-                                    </li>
-                                    <li><strong>The PFA action "Link" refers to:</strong><br>
-                                        a) Linking the client's past to their present problem.<br>
-                                        b) Connecting the client to social support and professional resources.<br>
-                                        c) Linking the cause of the crisis to the outcome.<br>
-                                        d) Linking your personal experience to theirs.
-                                    </li>
-                                    <li><strong>What is the primary goal of the WHO Mental Health Gap Action Programme (mhGAP)?</strong><br>
-                                        a) To fund new hospitals globally.<br>
-                                        b) To reduce the treatment gap for mental health disorders.<br>
-                                        c) To train psychiatrists only.<br>
-                                        d) To abolish all mental health stigma.
-                                    </li>
-                                    <li><strong>If a client is experiencing intense emotional distress, the PFA action you should prioritize is:</strong><br>
-                                        a) Look (Check for safety).<br>
-                                        b) Listen (Promote calmness).<br>
-                                        c) Link (Make a referral).<br>
-                                        d) Force (Encourage them to talk).
-                                    </li>
-                                    <li><strong>Professional boundaries are primarily established to protect:</strong><br>
-                                        a) Only the paraprofessional's schedule.<br>
-                                        b) Only the client's reputation.<br>
-                                        c) Both the client and the paraprofessional from harm or exploitation.<br>
-                                        d) Only the client's family.
-                                    </li>
-                                    <li><strong>Why is using non-judgmental language essential in PFA?</strong><br>
-                                        a) To avoid being rude.<br>
-                                        b) To promote connectedness and trust.<br>
-                                        c) To speed up the conversation.<br>
-                                        d) To help you diagnose the problem faster.
-                                    </li>
-                                    <li><strong>Which concept relates to the ethical principle of Justice?</strong><br>
-                                        a) Only serving clients with medical insurance.<br>
-                                        b) Serving all individuals equally regardless of their background.<br>
-                                        c) Giving personal advice only to those who ask nicely.<br>
-                                        d) Keeping every secret the client tells you.
-                                    </li>
-                                    <li><strong>What is the deepest level of listening, according to Otto Scharmer's model, where you listen with an open will to co-create a future possibility?</strong><br>
-                                        a) Factual Listening<br>
-                                        b) Downloading<br>
-                                        c) Empathic Listening<br>
-                                        d) Generative Listening
-                                    </li>
-                                    <li><strong>If a client tells you they are refusing to seek professional help, what action should you take based on the principle of Autonomy?</strong><br>
-                                        a) Gently pressure them to change their mind.<br>
-                                        b) Respect their decision while ensuring they know what support is available.<br>
-                                        c) Immediately end the support session.<br>
-                                        d) Call their family to intervene without their consent.
-                                    </li>
-                                </ol>
-                                <p style="margin-top: 20px; font-style: italic; color: var(--text-light);">
-                                    This pre-test is for self-assessment only.
-                                </p>
-                            `
-                        },
-                        {
-                            title: 'Course Goal and Philosophy',
-                            content: `
-                                <h2>Course Goal and Philosophy</h2>
-                                <p>The central goal of this course is to equip you with the essential knowledge, values, and practical skills to provide <strong>safe, ethical, and compassionate peer-based psychosocial support</strong> in various Philippine contexts.</p>
-                                <h3>Psychological First Aid (PFA) Principles</h3>
-                                <p>The course philosophy applies <strong>Psychological First Aid (PFA)</strong> principles—<em>Look, Listen, Link</em>—to build foundational competencies in immediate support, communication, and safe referral.</p>
-                                <section id="module-0-pfa" style="padding:40px; background-color:#f4f8fb;">
-                                  <h2>PFA CCHeSS Framework: The Five Core Principles</h2>
-                                  <p>PFA is a human, supportive, and practical response to serious stress, promoting immediate well-being and preventing long-term harm (WHO, 2011).</p>
-                                  <ul style="text-align:left; max-width:800px; margin:0 auto; font-size:16px; line-height:1.6;">
-                                    <li><strong>C - Promote Calmness:</strong> Promoting a state of tranquility and helping individuals manage anxiety and stress.</li>
-                                    <li><strong>C - Promote Connectedness:</strong> Fostering relationships and social support, which can help individuals feel less isolated during difficult times.</li>
-                                    <li><strong>H - Promote Hope:</strong> Instilling a sense of optimism and encouraging individuals to believe in positive outcomes and future possibilities.</li>
-                                    <li><strong>S - Promote Self-Efficacy:</strong> Enhancing individuals' confidence in their ability to cope with challenges and navigate their circumstances effectively.</li>
-                                    <li><strong>S - Promote Safety:</strong> Ensuring that individuals feel secure and protected in their environment, which is crucial for emotional recovery.</li>
-                                  </ul>
-                                </section>
-                            `
-                        },
-                        {
-                            title: 'Course Structure',
-                            content: `
-                                <h2>Course Structure</h2>
-                                <p>This comprehensive certification program consists of two main components:</p>
-                                <h3>Part 1: Foundational Training (24 hours)</h3>
-                                <p>Online modules introducing ethics, skills, and principles through:</p>
-                                <ul>
-                                    <li>Video lectures and demonstrations</li>
-                                    <li>Interactive content and case studies</li>
-                                    <li>Knowledge quizzes</li>
-                                    <li>Reflection exercises</li>
-                                </ul>
-                                <h3>Part 2: Practicum (16 hours)</h3>
-                                <p>10 guided online or community support sessions under mentor supervision, including:</p>
-                                <ul>
-                                    <li>Real-world application of skills</li>
-                                    <li>Observation and feedback</li>
-                                    <li>Supervisor evaluation</li>
-                                </ul>
-                                <h3>Assessment Breakdown</h3>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Assessment Type</th>
-                                            <th>Weight</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td>Knowledge Quizzes</td><td>20%</td></tr>
-                                        <tr><td>Skills (Role-plays, simulations)</td><td>30%</td></tr>
-                                        <tr><td>Practicum (Mentor Evaluation)</td><td>35%</td></tr>
-                                        <tr><td>Reflection (Journal and peer discussion)</td><td>15%</td></tr>
-                                    </tbody>
-                                </table>
-                                <p><strong>Overall Passing Grade: 75%</strong></p>
-                            `
-                        }
-                    ]
-                },
-                // ===== MODULES 1-8 (abbreviated for space; full content as in your file) =====
-                {
-                    id: 'module1',
-                    title: 'Module 1: Foundational Frameworks and Your Role',
-                    duration: '3 hours',
-                    lessons: [
-                        { title: '1.1 The Philippine Mental Health Context', content: `<h2>...</h2><p>Full content from your file...</p>` },
-                        { title: '1.2 The Roles and Goal of a Paraprofessional', content: `<h2>...</h2>` },
-                        { title: '1.3 Understanding Stigma', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module2',
-                    title: 'Module 2: Ethical, Legal, and Digital Practice',
-                    duration: '3 hours',
-                    lessons: [
-                        { title: '2.1 Core Ethical Principles', content: `<h2>...</h2>` },
-                        { title: '2.2 The Data Privacy Act and Digital Confidentiality', content: `<h2>...</h2>` },
-                        { title: '2.3 Informed Consent and Professional Boundaries', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module3',
-                    title: 'Module 3: Psychological First Aid (PFA) and Scope',
-                    duration: '3 hours',
-                    lessons: [
-                        { title: '3.1 The Basics of PFA', content: `<h2>...</h2>` },
-                        { title: '3.2 Applying the PFA Action Model: LOOK, LISTEN, LINK', content: `<h2>...</h2>` },
-                        { title: '3.3 What PFA is NOT', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module4',
-                    title: 'Module 4: Core Communication and Basic Coping Skills',
-                    duration: '4 hours',
-                    lessons: [
-                        { title: '4.1 Core Support Skills (Part 1)', content: `<h2>...</h2>` },
-                        { title: '4.2 Core Support Skills (Part 2)', content: `<h2>...</h2>` },
-                        { title: '4.3 Core Support Skills (Part 3)', content: `<h2>...</h2>` },
-                        { title: '4.4 Core Support Skills (Part 4) & Generative Listening', content: `<h2>...</h2>` },
-                        { title: '4.5 Teaching Basic Stabilizing Techniques', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module5',
-                    title: 'Module 5: Crisis Intervention and Safe Referral',
-                    duration: '4 hours',
-                    lessons: [
-                        { title: '5.1 Crisis Recognition', content: `<h2>...</h2>` },
-                        { title: '5.2 4-Step Crisis Response Protocol', content: `<h2>...</h2>` },
-                        { title: '5.3 Safe Referrals within the Philippine System', content: `<h2>...</h2>` },
-                        { title: '5.4 The Seamless Care Process and Warm Handoff', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module6',
-                    title: 'Module 6: Cultural Sensitivity and Inclusive Practice',
-                    duration: '3 hours',
-                    lessons: [
-                        { title: '6.1 Cultural Humility', content: `<h2>...</h2>` },
-                        { title: '6.2 Key Filipino Cultural Values in MHPSS', content: `<h2>...</h2>` },
-                        { title: '6.3 Inclusive Practice', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module7',
-                    title: 'Module 7: Self-Care and Resilience',
-                    duration: '3 hours',
-                    lessons: [
-                        { title: '7.1 Paraprofessional Self-Care', content: `<h2>...</h2>` },
-                        { title: '7.2 Cognitio+ Digital Resilience Tools', content: `<h2>...</h2>` }
-                    ]
-                },
-                {
-                    id: 'module8',
-                    title: 'Module 8: Practicum Preparation and Professional Development',
-                    duration: '4 hours',
-                    lessons: [
-                        { title: '8.1 The Practicum Component', content: `<h2>...</h2>` },
-                        { title: '8.2 Documentation Best Practices', content: `<h2>...</h2>` },
-                        { title: '8.3 Post-Certification Roadmap', content: `<h2>...</h2>` }
-                    ]
-                },
-                // ===== MODULE 9 WITH POST-TEST =====
-                {
-                    id: 'module9',
-                    title: 'Module 9: Certification and Renewal',
-                    duration: '2 hours',
-                    lessons: [
-                        {
-                            title: 'Final Assessment / Post-Test (15 Items)',
-                            content: `
-                                <h2>Final Assessment / Post-Test</h2>
-                                <p><strong>Instructions:</strong> Select the best answer for each question.</p>
-                                <ol>
-                                    <li><strong>Which principle of PFA is demonstrated when you connect a disaster survivor to food, water, and temporary shelter?</strong><br>
-                                        a) Promote Calmness<br>
-                                        b) Promote Safety<br>
-                                        c) Promote Hope<br>
-                                        d) Promote Self-Efficacy
-                                    </li>
-                                    <li><strong>The highest level of listening, Generative Listening, requires the listener to suspend:</strong><br>
-                                        a) Their hearing.<br>
-                                        b) Their judgment and cynicism.<br>
-                                        c) Their notes.<br>
-                                        d) Their compassion.
-                                    </li>
-                                    <li><strong>A paraprofessional is NOT authorized to:</strong><br>
-                                        a) Teach a client the 5-4-3-2-1 Grounding technique.<br>
-                                        b) Conduct formal, long-term psychotherapy.<br>
-                                        c) Refer a client to a psychiatrist.<br>
-                                        d) Validate a client's feelings of sadness.
-                                    </li>
-                                    <li><strong>If a client refuses to provide consent for their data to be stored digitally, what must the paraprofessional do?</strong><br>
-                                        a) Insist on storage for liability.<br>
-                                        b) Respect their autonomy and only take analog (paper) notes, ensuring secure physical storage.<br>
-                                        c) Refuse to provide support.<br>
-                                        d) Store the data secretly.
-                                    </li>
-                                    <li><strong>Which action is considered a boundary violation for a paraprofessional?</strong><br>
-                                        a) Documenting a crisis intervention.<br>
-                                        b) Accepting a large financial gift from a client.<br>
-                                        c) Working in a supervised setting.<br>
-                                        d) Referring a client to a licensed professional.
-                                    </li>
-                                    <li><strong>The Non-maleficence principle is most directly applied by:</strong><br>
-                                        a) Staying within the non-clinical scope of practice.<br>
-                                        b) Giving personalized financial advice.<br>
-                                        c) Discussing the client's case on social media.<br>
-                                        d) Promising the client guaranteed recovery.
-                                    </li>
-                                    <li><strong>The NCMH Crisis Hotline (1553) is considered which level of the Philippine mental health care system?</strong><br>
-                                        a) Level 1 (Primary)<br>
-                                        b) Level 2 (Specialized)<br>
-                                        c) Level 3 (Tertiary/Emergency)<br>
-                                        d) Level 0 (Informal)
-                                    </li>
-                                    <li><strong>Which communication technique is essential for confirming you understood the client's emotional state?</strong><br>
-                                        a) Giving advice.<br>
-                                        b) Asking complex rhetorical questions.<br>
-                                        c) Reflecting and Labeling Emotions.<br>
-                                        d) Asking them about their job history.
-                                    </li>
-                                    <li><strong>Compassion Fatigue is best managed through:</strong><br>
-                                        a) Ignoring its symptoms.<br>
-                                        b) Professional self-care, peer supervision, and active rest.<br>
-                                        c) Working longer hours without breaks.<br>
-                                        d) Increasing workload to distract from stress.
-                                    </li>
-                                    <li><strong>The Seamless Care Guidebook is used primarily to:</strong><br>
-                                        a) Teach meditation.<br>
-                                        b) Ensure safe, documented, and effective transitions of care during a referral.<br>
-                                        c) Help paraprofessionals find a job.<br>
-                                        d) Market the course to others.
-                                    </li>
-                                    <li><strong>Which Filipino cultural value often acts as a barrier to seeking formal mental health support?</strong><br>
-                                        a) Bayanihan (communal unity)<br>
-                                        b) Pakikipagkapwa-tao (shared identity)<br>
-                                        c) Hiya (shame or embarrassment)<br>
-                                        d) Utang na Loob (debt of gratitude)
-                                    </li>
-                                    <li><strong>Why must a paraprofessional secure their client notes with a password?</strong><br>
-                                        a) To hide them from the supervisor.<br>
-                                        b) To comply with the Data Privacy Act (RA 10173).<br>
-                                        c) To save paper.<br>
-                                        d) To make the notes look professional.
-                                    </li>
-                                    <li><strong>When providing support, the best question type to encourage a client to share detailed feelings and experiences is:</strong><br>
-                                        a) Closed-ended questions (Yes/No).<br>
-                                        b) Leading questions.<br>
-                                        c) Open-ended questions (How, What, Tell me more).<br>
-                                        d) Rhetorical questions.
-                                    </li>
-                                    <li><strong>If a client is experiencing high anxiety, the goal of teaching Diaphragmatic Breathing is to:</strong><br>
-                                        a) Increase their heart rate.<br>
-                                        b) Activate the body’s calming parasympathetic nervous system.<br>
-                                        c) Help them run away.<br>
-                                        d) Solve their long-term problems.
-                                    </li>
-                                    <li><strong>If a client has already received help from an LGU counselor (Level 1) but their symptoms persist, the most appropriate LINK action is a referral to:</strong><br>
-                                        a) A peer support group.<br>
-                                        b) A licensed psychologist or psychiatrist (Level 2).<br>
-                                        c) A self-help book.<br>
-                                        d) Another BHW.
-                                    </li>
-                                </ol>
-                                <p style="margin-top: 20px; font-style: italic; color: var(--text-light);">
-                                    Passing score: 75% or higher.
-                                </p>
-                            `
-                        },
-                        {
-                            title: '9.1 Final Assessment',
-                            content: `<h2>Final Assessment</h2><p>The final certification requires...</p>`
-                        },
-                        {
-                            title: '9.2 Renewal Requirements',
-                            content: `<h2>Certification Renewal</h2><p>The certification is valid for...</p>`
-                        },
-                        {
-                            title: '9.3 Course Completion & Next Steps',
-                            content: `<h2>Congratulations on Completing the Course!</h2><p>You are part of the solution.</p>`
-                        }
-                    ]
-                }
-            ]
-        };
-
-        // ============ REMAINDER OF JS LOGIC (UNCHANGED) ============
-        let currentModuleIndex = 0;
-        let currentLessonIndex = 0;
-        let completedLessons = new Set();
-        let certificates = {};
-
-        function initializeCourse() {
-            renderModuleList();
-            loadLesson(0, 0);
-            updateProgress();
-            updateLessonCounts();
+        function scrollToModules() {
+            document.getElementById('modules').scrollIntoView({ behavior: 'smooth' });
         }
-
-        function renderModuleList() {
-            const moduleList = document.getElementById('moduleList');
-            moduleList.innerHTML = courseData.modules.map((module, index) => `
-                <div class="module-item ${index === currentModuleIndex ? 'active' : ''}" onclick="loadModule(${index})">
-                    <div class="module-title">${module.title}</div>
-                    <div class="module-duration">⏱️ ${module.duration}</div>
-                </div>
-            `).join('');
-        }
-
-        function loadModule(moduleIndex) {
-            currentModuleIndex = moduleIndex;
-            currentLessonIndex = 0;
-            loadLesson(moduleIndex, 0);
-            renderModuleList();
-        }
-
-        function loadLesson(moduleIndex, lessonIndex) {
-            const module = courseData.modules[moduleIndex];
-            const lesson = module.lessons[lessonIndex];
-            currentModuleIndex = moduleIndex;
-            currentLessonIndex = lessonIndex;
-            const lessonContent = document.getElementById('lessonContent');
-            lessonContent.innerHTML = `
-                <h2 style="color: var(--primary); margin-bottom: 10px;">${module.title}</h2>
-                <h3 style="color: var(--primary-light); margin-bottom: 20px;">${lesson.title}</h3>
-                <div class="lesson-content">
-                    ${lesson.content}
-                </div>
-            `;
-            const lessonId = `${moduleIndex}-${lessonIndex}`;
-            completedLessons.add(lessonId);
-            updateNavigationButtons();
-            updateProgress();
-            updateLessonCounts();
-            renderModuleList();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function nextLesson() {
-            const currentModule = courseData.modules[currentModuleIndex];
-            if (currentLessonIndex < currentModule.lessons.length - 1) {
-                loadLesson(currentModuleIndex, currentLessonIndex + 1);
-            } else if (currentModuleIndex < courseData.modules.length - 1) {
-                loadLesson(currentModuleIndex + 1, 0);
-            }
-        }
-
-        function previousLesson() {
-            if (currentLessonIndex > 0) {
-                loadLesson(currentModuleIndex, currentLessonIndex - 1);
-            } else if (currentModuleIndex > 0) {
-                const prevModule = courseData.modules[currentModuleIndex - 1];
-                loadLesson(currentModuleIndex - 1, prevModule.lessons.length - 1);
-            }
-        }
-
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            prevBtn.disabled = currentModuleIndex === 0 && currentLessonIndex === 0;
-            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
-            const currentModule = courseData.modules[currentModuleIndex];
-            const isLastLesson = currentLessonIndex === currentModule.lessons.length - 1;
-            const isLastModule = currentModuleIndex === courseData.modules.length - 1;
-            if (isLastLesson && isLastModule) {
-                nextBtn.textContent = 'Course Complete ✓';
-                nextBtn.disabled = true;
-                nextBtn.style.opacity = '0.5';
-            } else {
-                nextBtn.textContent = 'Next →';
-                nextBtn.disabled = false;
-                nextBtn.style.opacity = '1';
-            }
-        }
-
-        function updateProgress() {
-            let totalLessons = 0;
-            courseData.modules.forEach(module => totalLessons += module.lessons.length);
-            const percentage = Math.round((completedLessons.size / totalLessons) * 100);
-            document.getElementById('overallProgress').style.width = percentage + '%';
-            document.getElementById('progressPercentage').textContent = percentage;
-        }
-
-        function updateLessonCounts() {
-            let totalLessons = 0;
-            courseData.modules.forEach(module => totalLessons += module.lessons.length);
-            document.getElementById('completedCount').textContent = completedLessons.size;
-            document.getElementById('totalCount').textContent = totalLessons;
-        }
-
-        function showPurchaseModal() {
-            let totalLessons = 0;
-            courseData.modules.forEach(module => totalLessons += module.lessons.length);
-            if (completedLessons.size < totalLessons) {
-                alert(`Please complete all modules before purchasing your certificate.\nYou have completed ${completedLessons.size} of ${totalLessons} lessons.`);
-                return;
-            }
-            document.getElementById('purchaseModal').classList.add('active');
-        }
-
-        function closePurchaseModal() {
-            document.getElementById('purchaseModal').classList.remove('active');
-            document.getElementById('purchaseForm').classList.remove('hidden');
-            document.getElementById('certificateGeneration').classList.add('hidden');
-        }
-
-        function showVerificationModal() {
-            document.getElementById('verificationModal').classList.add('active');
-        }
-
-        function closeVerificationModal() {
-            document.getElementById('verificationModal').classList.remove('active');
-            document.getElementById('verificationResult').innerHTML = '';
-            document.getElementById('verifyCode').value = '';
-            document.getElementById('userNumber').value = '';
-        }
-
-        function generateUserNumber() {
-            const userNumber = Math.floor(10000 + Math.random() * 90000);
-            localStorage.setItem('userNumber', userNumber);
-            const baseCode = 'CCMHP-36912-2025-0777';
-            const verificationCode = `${baseCode}${userNumber}`;
-            localStorage.setItem('verificationCode', verificationCode);
-            return userNumber;
-        }
-
-        function generateVerificationCode() {
-            const userNumberInput = document.getElementById('userNumber')?.value.trim();
-            if (!userNumberInput) {
-                alert('Please enter your User Number first.');
-                return;
-            }
-            const code = `CCMHP-36912-2025-0777${userNumberInput}`;
-            document.getElementById('verifyCode').value = code.toUpperCase();
-        }
-
-        function verifyCertificate() {
-            const inputCode = document.getElementById('verifyCode')?.value.trim().toUpperCase();
-            const resultDiv = document.getElementById('verificationResult');
-            if (!resultDiv || !inputCode) {
-                if (resultDiv) resultDiv.innerHTML = '<div class="error-message">Please enter a verification code.</div>';
-                return;
-            }
-            const stored = localStorage.getItem('certificates');
-            const certs = stored ? JSON.parse(stored) : {};
-            if (certs[inputCode]) {
-                const cert = certs[inputCode];
-                resultDiv.innerHTML = `
-                    <div style="background: var(--success); color: white; padding: 25px; border-radius: 8px;">
-                        <h3 style="margin-bottom: 15px;">✓ Valid Certificate</h3>
-                        <p><strong>Holder:</strong> ${cert.name}</p>
-                        <p><strong>Date Issued:</strong> ${cert.date}</p>
-                        <p><strong>Course:</strong> Certification Course for Mental Health and Well-Being Paraprofessional</p>
-                        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">This certificate is authentic and recognized by Cognitio+.</p>
-                    </div>
-                `;
-            } else {
-                resultDiv.innerHTML = `
-                    <div style="background: var(--error); color: white; padding: 25px; border-radius: 8px;">
-                        <h3 style="margin-bottom: 15px;">✗ Invalid Certificate</h3>
-                        <p>The verification code you entered does not match our records.</p>
-                        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">Please check the code and try again.</p>
-                    </div>
-                `;
-            }
-        }
-
-        function downloadCertificate() {
-            const canvas = document.getElementById('certificateCanvas');
-            if (!canvas) return;
-            const fullName = document.getElementById('fullName')?.value.trim().replace(/\s+/g, '_') || 'Certificate';
-            const link = document.createElement('a');
-            link.download = `CCMHP_Certificate_${fullName}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-
-        function scrollToContent() {
-            document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const storedCerts = localStorage.getItem('certificates');
-            if (storedCerts) {
-                try { certificates = JSON.parse(storedCerts); } catch (e) { console.warn('Parse error'); }
-            }
-            initializeCourse();
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        });
     </script>
 </body>
 </html>
