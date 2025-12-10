@@ -42,17 +42,7 @@
             padding: 0 20px;
         }
         
-        /* Grid specifically for Reference/Discussion section */
-        .ref-discussion-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-        @media (min-width: 768px) {
-            .ref-discussion-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+        /* Removed .ref-discussion-grid - sections are now full width */
 
 
         .btn {
@@ -183,11 +173,13 @@
         /* Discussion Embed Styling */
         .discussion-embed-container {
             width: 100%;
-            min-height: 800px;
+            min-height: 700px; /* Adjusted height for full-width view */
             border: none;
             background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-
+        
         /* Utility */
         .hidden { display: none; }
         
@@ -574,19 +566,7 @@
         </div>
     </section>
 
- <!-- VIII. Course Discussion  -->
-    <section class="discussion-section" id="discussion" style="padding: 60px 0 0 0; background: white;">
-        <div class="container">
-            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">VIII. Course Discussion</h2>
-            <div class="overview-card" style="padding: 0; margin-bottom: 60px; background: white; box-shadow: none;">
-                <!-- Embedding discussion.html -->
-                <iframe src="discussion.html" class="discussion-embed-container" title="Course Discussion Board"></iframe>
-            </div>
-        </div>
-    </section>
-
-                
- <!-- IX. Required References (NEW FULL-WIDTH SECTION) -->
+    <!-- IX. Required References (NEW FULL-WIDTH SECTION) -->
     <section class="references-section" id="references" style="padding: 60px 0; background: var(--bg-light);">
         <div class="container">
             <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">IX. Required References</h2>
@@ -607,6 +587,17 @@
                     “The goal of the paraprofessional is not to diagnose, fix, or advise—but to listen, hold space, and connect others to help.”<br/>
                     <span style="font-size: 0.85rem; display: block; margin-top: 5px;">— Adapted from WHO QualityRights, 2023</span>
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIII. Course Discussion (NEW FULL-WIDTH SECTION) -->
+    <section class="discussion-section" id="discussion" style="padding: 60px 0 0 0; background: white;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">VIII. Course Discussion</h2>
+            <div class="overview-card" style="padding: 0; margin-bottom: 60px; background: white; box-shadow: none;">
+                <!-- Embedding discussion.html -->
+                <iframe src="discussion.html" class="discussion-embed-container" title="Course Discussion Board"></iframe>
             </div>
         </div>
     </section>
