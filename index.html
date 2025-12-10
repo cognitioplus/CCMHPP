@@ -122,15 +122,185 @@
                 </table>
             </div>
 
-            <!-- Part V: Module Buttons -->
-            <div class="overview-card">
-                <h3>V. Course Modules</h3>
-                <p>Click any module below to begin:</p>
-                <div class="module-button-grid">
-                    <!-- These will be populated by JS for consistency -->
-                    <div id="moduleButtons"></div>
-                </div>
-            </div>
+            <!-- Part V: Course Modules -->
+<div class="overview-card">
+  <h3>V. Course Modules</h3>
+
+  <!-- Module 0 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 0: Introduction and Orientation</h4>
+        <p><strong>Duration:</strong> 1 hour</p>
+        <p><strong>Objectives:</strong></p>
+        <ul>
+          <li>Orient learners to course structure, purpose, and ethical commitments.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(0); scrollToContent();">Go to Module 0</button>
+    </div>
+  </div>
+
+  <!-- Module 1 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 1: Foundations of Mental Health and Well-Being</h4>
+        <p><strong>Duration:</strong> 3 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Define mental health, mental illness, and psychosocial well-being.</li>
+          <li>Describe key components of the Philippine Mental Health Act (RA 11036).</li>
+          <li>Explain community and online support within the mental health continuum.</li>
+          <li>Introduce the role of the paraprofessional within the mental health ecosystem.</li>
+          <li>Introduce WHO’s “Stepped Care” model (community → paraprofessional → professional).</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(1); scrollToContent();">Go to Module 1</button>
+    </div>
+  </div>
+
+  <!-- Module 2 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 2: Ethics, Boundaries, and Digital Confidentiality</h4>
+        <p><strong>Duration:</strong> 2 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Demonstrate respect for confidentiality and privacy.</li>
+          <li>Identify ethical risks in online peer support.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(2); scrollToContent();">Go to Module 2</button>
+    </div>
+  </div>
+
+  <!-- Module 3 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 3: Psychological First Aid (Look–Listen–Link)</h4>
+        <p><strong>Duration:</strong> 3 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Apply PFA principles to emotional and mental distress.</li>
+          <li>Recognize common reactions to crisis or trauma.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(3); scrollToContent();">Go to Module 3</button>
+    </div>
+  </div>
+
+  <!-- Module 4 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 4: Core Support Skills</h4>
+        <p><strong>Duration:</strong> 6 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Demonstrate eight core MH support and communication skills:
+            <ol style="margin: 8px 0 8px 20px;">
+              <li>Building Rapport</li>
+              <li>Showing Empathy</li>
+              <li>Reflecting</li>
+              <li>Labeling Emotions</li>
+              <li>Asking the Right Questions</li>
+              <li>Giving No Advice</li>
+              <li>Identifying Strengths</li>
+              <li>Generative Listening</li>
+            </ol>
+          </li>
+        </ul>
+        <p><em>Assessment: Recorded or observed conversation using WHO Active Listening rubric.</em></p>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(4); scrollToContent();">Go to Module 4</button>
+    </div>
+  </div>
+
+  <!-- Module 5 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 5: Recognizing and Responding to Crisis</h4>
+        <p><strong>Duration:</strong> 4 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Identify warning signs of suicide or acute distress.</li>
+          <li>Demonstrate appropriate response and referral steps.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(5); scrollToContent();">Go to Module 5</button>
+    </div>
+  </div>
+
+  <!-- Module 6 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 6: Cultural Sensitivity and Community Context</h4>
+        <p><strong>Duration:</strong> 2 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Adapt communication and support to diverse cultural and linguistic settings.</li>
+          <li>Recognize indigenous, faith-based, and family-centered approaches.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(6); scrollToContent();">Go to Module 6</button>
+    </div>
+  </div>
+
+  <!-- Module 7 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 7: Paraprofessional Self-Care</h4>
+        <p><strong>Duration:</strong> 3 hours</p>
+        <p><strong>Learning Outcomes:</strong></p>
+        <ul>
+          <li>Recognize signs of burnout and compassion fatigue.</li>
+          <li>Develop a personalized self-care plan and mindfulness routine.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(7); scrollToContent();">Go to Module 7</button>
+    </div>
+  </div>
+
+  <!-- Module 8 -->
+  <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 8: Practicum and Mentorship (Part 2)</h4>
+        <p><strong>Duration:</strong> 16 hours</p>
+        <p><strong>Objectives:</strong></p>
+        <ul>
+          <li>Apply all eight skills in supervised online or community sessions.</li>
+          <li>Receive mentor feedback on ethics, empathy, and communication.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(8); scrollToContent();">Go to Module 8</button>
+    </div>
+  </div>
+
+  <!-- Module 9 -->
+  <div style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h4 style="color: var(--primary); margin: 0;">Module 9: Integration and Certification</h4>
+        <p><strong>Duration:</strong> 1 hour</p>
+        <p><strong>Activities:</strong></p>
+        <ul>
+          <li>Post-test (minimum passing score 80%)</li>
+          <li>Feedback survey and self-assessment</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="loadModule(9); scrollToContent();">Go to Module 9</button>
+    </div>
+  </div>
+</div>
+
+
 
             <!-- Part VI: Assessment -->
             <div class="overview-card">
