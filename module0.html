@@ -528,5 +528,66 @@
     // Run on DOM load
     document.addEventListener('DOMContentLoaded', Module0App.init);
   </script>
+  <script>
+  // List of all Module 0 lesson IDs
+  const MODULE_0_LESSONS = ['0-1', '0-2', '0-3', '0-4'];
+
+  // Function to mark a lesson as complete
+  function markLessonComplete(lessonId) {
+    let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+    if (!completed.includes(lessonId)) {
+      completed.push(lessonId);
+      localStorage.setItem('completedLessons', JSON.stringify(completed));
+    }
+    checkAndShowMarkCompleteButton();
+  }
+
+  // Check if all Module 0 lessons are done → show "Mark as Complete" button
+  function checkAndShowMarkCompleteButton() {
+    const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+    const allDone = MODULE_0_LESSONS.every(id => completed.includes(id));
+    
+    const button = document.getElementById('mark-complete-btn');
+    if (button) {
+      button.style.display = allDone ? 'inline-block' : 'none';
+    }
+  }
+
+  // Mark non-interactive lessons (0-2, 0-3, 0-4) as complete on page load
+  window.addEventListener('DOMContentLoaded', () => {
+    ['0-2', '0-3', '0-4'].forEach(id => markLessonComplete(id));
+    
+    // Also check if button should appear (e.g., if pre-test already done)
+    checkAndShowMarkCompleteButton();
+  });
+
+  // Handle "Mark as Complete" click
+  function markModule0Complete() {
+    // Ensure all lessons are recorded
+    MODULE_0_LESSONS.forEach(id => markLessonComplete(id));
+
+    // Optional: Update a global course progress tracker
+    let courseProgress = JSON.parse(localStorage.getItem('courseProgress') || '{}');
+    courseProgress['module0'] = true;
+    localStorage.setItem('courseProgress', JSON.stringify(courseProgress));
+
+    // Navigate to next module
+    window.location.href = 'module1.html';
+  }
+</script>
+
+<!-- Add this button near the bottom of your content (e.g., in navigation section) -->
+<div class="navigation">
+  <span style="color: var(--text-light); font-style: italic;">Start of Course</span>
+  
+  <!-- This button starts hidden -->
+  <button 
+    id="mark-complete-btn" 
+    class="btn" 
+    onclick="markModule0Complete()"
+    style="display: none;">
+    ✅ Mark Module 0 as Complete
+  </button>
+</div>
 </body>
 </html>
