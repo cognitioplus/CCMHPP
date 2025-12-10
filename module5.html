@@ -303,6 +303,40 @@
             <a href="module6.html" class="btn">Module 6: Cultural Sensitivity and Inclusive Practice →</a>
         </div>
     </div>
+    
+<script>
+        // Mark Module 5 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 5 has 4 lessons: [Crisis Recognition, 4-Step Crisis Response Protocol, Safe Referrals, Seamless Care and Warm Handoff]
+            const module1Lessons = ['5-1', '5-2', '5-3', '5-4'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 5 lessons if not already present
+            module0Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 5 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+</script>
+
+<script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module5Lessons = ['5-1', '5-2', '5-3', '5-4'];
+
+</script>
 </body>
 </html>
-
