@@ -1,327 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 6: Cultural Sensitivity and Inclusive Practice</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-    <style>
-        :root {
-            --primary: #b425aa;
-            --primary-light: #c80ec9;
-            --accent: #D4AF37;
-            --bg-dark: #1a1a1a;
-            --bg-light: #f5f5f5;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --border: #e0e0e0;
-            --success: #4caf50;
-            --error: #f44336;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 25px 0 15px;
-        }
-        h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-        p, ul, ol, table {
-            margin-bottom: 15px;
-        }
-        ul, ol {
-            padding-left: 30px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid var(--border);
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background: var(--primary);
-            color: white;
-        }
-        blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-light);
-        }
-        .canva-embed {
-            margin: 25px 0;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border);
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: var(--primary-light);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 6: Cultural Sensitivity and Inclusive Practice</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #b425aa;
+      --primary-light: #c80ec9;
+      --accent: #d4af37;
+      --bg-light: #f5f5f5;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --success: #4caf50;
+      --error: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.6;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 16px;
+    }
+
+    h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    p, ul, ol, table, blockquote {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      padding-left: 28px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    .canva-embed {
+      margin: 24px 0;
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border);
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .navigation {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+        margin: 4px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Module 6: Cultural Sensitivity and Inclusive Practice</h1>
-        <p><strong>Duration:</strong> 3 hours</p>
+  <div class="container">
+    <h1>Module 6: Cultural Sensitivity and Inclusive Practice</h1>
+    <p><strong>Duration:</strong> 3 hours</p>
 
-        <!-- Module 6 Presentation -->
-        <div class="canva-embed">
-            <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-                <iframe 
-                    loading="lazy" 
-                    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
-                    src="https://www.canva.com/design/DAG4htSUDUE/v72-JsOfYY-kObohRljxKQ/view?embed"
-                    allowfullscreen="allowfullscreen" 
-                    allow="fullscreen">
-                </iframe>
-            </div>
-            <a href="https://www.canva.com/design/DAG4htSUDUE/v72-JsOfYY-kObohRljxKQ/view?utm_content=DAG4htSUDUE&utm_campaign=designshare&utm_medium=embeds&utm_source=link" 
-               target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none;">
-                View Full Module 6 Presentation
-            </a>
-        </div>
-
-        <!-- Lesson 1: Cultural Humility -->
-        <h2>6.1 Cultural Humility</h2>
-        <p><strong>Cultural humility</strong> is the continuous process of self-reflection and learning about a client's cultural background without assuming expertise.</p>
-        <h3>Key Principles of Cultural Humility</h3>
-        <ul>
-            <li><strong>Lifelong Learning:</strong> Recognize that cultural learning never ends</li>
-            <li><strong>Self-Reflection:</strong> Acknowledge your own cultural biases and assumptions</li>
-            <li><strong>Power Imbalance:</strong> Address the inherent power dynamics in helping relationships</li>
-            <li><strong>Client as Expert:</strong> The client is the expert on their own culture</li>
-        </ul>
-        <h3>Cultural Humility vs. Cultural Competence</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Cultural Competence</th>
-                    <th>Cultural Humility</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>"I know about your culture"</td>
-                    <td>"I'm learning about your culture from you"</td>
-                </tr>
-                <tr>
-                    <td>Assumes mastery is achievable</td>
-                    <td>Recognizes learning is ongoing</td>
-                </tr>
-                <tr>
-                    <td>Expert-centered</td>
-                    <td>Client-centered</td>
-                </tr>
-            </tbody>
-        </table>
-        <h3>Practicing Cultural Humility</h3>
-        <ul>
-            <li>Ask, don't assume: "Can you help me understand...?"</li>
-            <li>Acknowledge when you don't know something</li>
-            <li>Be open to correction</li>
-            <li>Recognize your own cultural lens</li>
-            <li>Avoid stereotyping based on cultural identity</li>
-        </ul>
-
-        <!-- Lesson 2: Key Filipino Cultural Values in MHPSS -->
-        <h2>6.2 Key Filipino Cultural Values in MHPSS</h2>
-        <h3>Hiya (Shame/Modesty)</h3>
-        <p>Often prevents individuals from admitting distress or seeking help outside the family.</p>
-        <p><strong>How it affects help-seeking:</strong></p>
-        <ul>
-            <li>Reluctance to share personal problems</li>
-            <li>Fear of bringing shame to the family</li>
-            <li>Preference for handling issues privately</li>
-        </ul>
-        <p><strong>Your response:</strong> Emphasize confidentiality and normalize seeking help</p>
-        
-        <h3>Pakikisama (Harmony/Group Solidarity)</h3>
-        <p>Pressure to maintain peace may lead individuals to suppress personal distress.</p>
-        <p><strong>How it manifests:</strong></p>
-        <ul>
-            <li>Avoiding conflict even at personal cost</li>
-            <li>Prioritizing group needs over individual needs</li>
-            <li>Difficulty expressing disagreement</li>
-        </ul>
-        <p><strong>Your response:</strong> Validate their feelings while gently empowering them to prioritize self-care</p>
-        
-        <h3>Utang na Loob (Debt of Gratitude)</h3>
-        <p>Deep sense of obligation to repay kindness.</p>
-        <p><strong>In mental health context:</strong></p>
-        <ul>
-            <li>May feel obligated to "repay" support</li>
-            <li>Difficulty setting boundaries with helpful people</li>
-        </ul>
-        <p><strong>Your response:</strong> Clarify that support is freely given with no strings attached</p>
-        
-        <h3>Family-Centered Healing</h3>
-        <p>The family is the primary source of support and decision-making.</p>
-        <p><strong>Your response:</strong></p>
-        <ul>
-            <li>In non-crisis situations, explore how family can be safely included</li>
-            <li>Respect family input while maintaining client autonomy</li>
-            <li>Understand family dynamics before making recommendations</li>
-        </ul>
-        
-        <h3>Bahala Na (Fatalistic Acceptance)</h3>
-        <p>"Leave it to fate" or "God will provide"</p>
-        <p><strong>Your response:</strong></p>
-        <ul>
-            <li>Respect religious/spiritual beliefs</li>
-            <li>Balance acceptance with empowerment</li>
-            <li>Collaborate with faith leaders when appropriate</li>
-        </ul>
-
-        <!-- Lesson 3: Inclusive Practice -->
-        <h2>6.3 Inclusive Practice</h2>
-        <p>Always adapt your language and approach to be inclusive of all groups.</p>
-        <h3>LGBTQIA+ Individuals</h3>
-        <p><strong>Best Practices:</strong></p>
-        <ul>
-            <li>Ask about and use preferred pronouns</li>
-            <li>Don't assume gender identity or sexual orientation</li>
-            <li>Use inclusive language ("partner" instead of "boyfriend/girlfriend")</li>
-            <li>Understand unique mental health challenges (minority stress, discrimination)</li>
-            <li>Know LGBTQIA+-affirming resources</li>
-        </ul>
-        
-        <h3>Persons With Disabilities (PWDs)</h3>
-        <p><strong>Best Practices:</strong></p>
-        <ul>
-            <li>Ensure physical accessibility of services</li>
-            <li>Ask about accommodations needed</li>
-            <li>Don't make assumptions about capabilities</li>
-            <li>Use person-first language: "person with a disability"</li>
-            <li>Provide materials in accessible formats (large print, braille, audio)</li>
-        </ul>
-        
-        <h3>Indigenous Communities</h3>
-        <p><strong>Best Practices:</strong></p>
-        <ul>
-            <li>Respect traditional healing practices</li>
-            <li>Involve community elders when appropriate</li>
-            <li>Understand historical trauma and colonial impact</li>
-            <li>Learn about specific cultural protocols</li>
-            <li>Collaborate with indigenous healers</li>
-        </ul>
-        
-        <h3>Muslim Communities</h3>
-        <p><strong>Best Practices:</strong></p>
-        <ul>
-            <li>Respect prayer times and Ramadan fasting</li>
-            <li>Understand gender-related considerations</li>
-            <li>Be aware of Islamic perspectives on mental health</li>
-            <li>Consider gender matching for support sessions</li>
-            <li>Respect dietary restrictions in any group settings</li>
-        </ul>
-        
-        <h3>Elderly Individuals</h3>
-        <p><strong>Best Practices:</strong></p>
-        <ul>
-            <li>Allow extra time for communication</li>
-            <li>Respect intergenerational values</li>
-            <li>Address physical health considerations</li>
-            <li>Honor their life experience and wisdom</li>
-        </ul>
-        
-        <h3>General Principles for Inclusive Practice</h3>
-        <ol>
-            <li><strong>Ask, don't assume</strong></li>
-            <li><strong>Listen to lived experience</strong></li>
-            <li><strong>Adapt your approach</strong></li>
-            <li><strong>Challenge your own biases</strong></li>
-            <li><strong>Create safe spaces for all</strong></li>
-        </ol>
-
-        <!-- Navigation -->
-        <div class="navigation">
-            <a href="module5.html" class="btn">← Module 5: Crisis Intervention and Safe Referral</a>
-            <a href="module7.html" class="btn">Module 7: Self-Care and Resilience →</a>
-        </div>
+    <!-- Canva Presentation -->
+    <div class="canva-embed">
+      <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; box-shadow: 0 2px 8px rgba(63,69,81,0.16); border-radius: 8px; overflow: hidden;">
+        <iframe
+          loading="lazy"
+          style="position: absolute; width: 100%; height: 100%; border: none;"
+          src="https://www.canva.com/design/DAG4htSUDUE/v72-JsOfYY-kObohRljxKQ/view?embed"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <a href="https://www.canva.com/design/DAG4htSUDUE/v72-JsOfYY-kObohRljxKQ/view" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; display: inline-block; margin-top: 8px;">
+        View Full Module 6 Presentation
+      </a>
     </div>
-    
-<script>
-        // Mark Module 6 as complete and sync with index.html progress
-        function markModuleComplete() {
-            // Module 6 has 3 lessons: [Cultural Humility, Key Filipino Cultural Values, Inclusive Practice]
-            const module6Lessons = ['6-1', '6-2', '6-3'];
-            
-            // Retrieve existing progress or initialize
-            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-            
-            // Add all Module 6 lessons if not already present
-            module6Lessons.forEach(lessonId => {
-                if (!completedLessons.includes(lessonId)) {
-                    completedLessons.push(lessonId);
-                }
-            });
-            
-            // Save back to localStorage
-            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-            
-            // Show success feedback
-            alert('✅ Module 6 marked as complete! Your progress has been saved.');
-            
-            // Redirect to index.html (which will load progress from localStorage)
-            window.location.href = 'index.html';
+
+    <!-- Lesson 6.1 -->
+    <h2>6.1 Cultural Humility</h2>
+    <p><strong>Cultural humility</strong> is the continuous process of self-reflection and learning about a client's cultural background without assuming expertise.</p>
+
+    <h3>Key Principles of Cultural Humility</h3>
+    <ul>
+      <li><strong>Lifelong Learning:</strong> Recognize that cultural learning never ends</li>
+      <li><strong>Self-Reflection:</strong> Acknowledge your own cultural biases and assumptions</li>
+      <li><strong>Power Imbalance:</strong> Address the inherent power dynamics in helping relationships</li>
+      <li><strong>Client as Expert:</strong> The client is the expert on their own culture</li>
+    </ul>
+
+    <h3>Cultural Humility vs. Cultural Competence</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Cultural Competence</th>
+          <th>Cultural Humility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"I know about your culture"</td>
+          <td>"I'm learning about your culture from you"</td>
+        </tr>
+        <tr>
+          <td>Assumes mastery is achievable</td>
+          <td>Recognizes learning is ongoing</td>
+        </tr>
+        <tr>
+          <td>Expert-centered</td>
+          <td>Client-centered</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Practicing Cultural Humility</h3>
+    <ul>
+      <li>Ask, don't assume: "Can you help me understand...?"</li>
+      <li>Acknowledge when you don't know something</li>
+      <li>Be open to correction</li>
+      <li>Recognize your own cultural lens</li>
+      <li>Avoid stereotyping based on cultural identity</li>
+    </ul>
+
+    <!-- Lesson 6.2 -->
+    <h2>6.2 Key Filipino Cultural Values in MHPSS</h2>
+
+    <h3>Hiya (Shame/Modesty)</h3>
+    <p>Often prevents individuals from admitting distress or seeking help outside the family.</p>
+    <p><strong>How it affects help-seeking:</strong></p>
+    <ul>
+      <li>Reluctance to share personal problems</li>
+      <li>Fear of bringing shame to the family</li>
+      <li>Preference for handling issues privately</li>
+    </ul>
+    <p><strong>Your response:</strong> Emphasize confidentiality and normalize seeking help</p>
+
+    <h3>Pakikisama (Harmony/Group Solidarity)</h3>
+    <p>Pressure to maintain peace may lead individuals to suppress personal distress.</p>
+    <p><strong>How it manifests:</strong></p>
+    <ul>
+      <li>Avoiding conflict even at personal cost</li>
+      <li>Prioritizing group needs over individual needs</li>
+      <li>Difficulty expressing disagreement</li>
+    </ul>
+    <p><strong>Your response:</strong> Validate their feelings while gently empowering them to prioritize self-care</p>
+
+    <h3>Utang na Loob (Debt of Gratitude)</h3>
+    <p>Deep sense of obligation to repay kindness.</p>
+    <p><strong>In mental health context:</strong></p>
+    <ul>
+      <li>May feel obligated to "repay" support</li>
+      <li>Difficulty setting boundaries with helpful people</li>
+    </ul>
+    <p><strong>Your response:</strong> Clarify that support is freely given with no strings attached</p>
+
+    <h3>Family-Centered Healing</h3>
+    <p>The family is the primary source of support and decision-making.</p>
+    <p><strong>Your response:</strong></p>
+    <ul>
+      <li>In non-crisis situations, explore how family can be safely included</li>
+      <li>Respect family input while maintaining client autonomy</li>
+      <li>Understand family dynamics before making recommendations</li>
+    </ul>
+
+    <h3>Bahala Na (Fatalistic Acceptance)</h3>
+    <p>"Leave it to fate" or "God will provide"</p>
+    <p><strong>Your response:</strong></p>
+    <ul>
+      <li>Respect religious/spiritual beliefs</li>
+      <li>Balance acceptance with empowerment</li>
+      <li>Collaborate with faith leaders when appropriate</li>
+    </ul>
+
+    <!-- Lesson 6.3 -->
+    <h2>6.3 Inclusive Practice</h2>
+    <p>Always adapt your language and approach to be inclusive of all groups.</p>
+
+    <h3>LGBTQIA+ Individuals</h3>
+    <p><strong>Best Practices:</strong></p>
+    <ul>
+      <li>Ask about and use preferred pronouns</li>
+      <li>Don't assume gender identity or sexual orientation</li>
+      <li>Use inclusive language ("partner" instead of "boyfriend/girlfriend")</li>
+      <li>Understand unique mental health challenges (minority stress, discrimination)</li>
+      <li>Know LGBTQIA+-affirming resources</li>
+    </ul>
+
+    <h3>Persons With Disabilities (PWDs)</h3>
+    <p><strong>Best Practices:</strong></p>
+    <ul>
+      <li>Ensure physical accessibility of services</li>
+      <li>Ask about accommodations needed</li>
+      <li>Don't make assumptions about capabilities</li>
+      <li>Use person-first language: "person with a disability"</li>
+      <li>Provide materials in accessible formats (large print, braille, audio)</li>
+    </ul>
+
+    <h3>Indigenous Communities</h3>
+    <p><strong>Best Practices:</strong></p>
+    <ul>
+      <li>Respect traditional healing practices</li>
+      <li>Involve community elders when appropriate</li>
+      <li>Understand historical trauma and colonial impact</li>
+      <li>Learn about specific cultural protocols</li>
+      <li>Collaborate with indigenous healers</li>
+    </ul>
+
+    <h3>Muslim Communities</h3>
+    <p><strong>Best Practices:</strong></p>
+    <ul>
+      <li>Respect prayer times and Ramadan fasting</li>
+      <li>Understand gender-related considerations</li>
+      <li>Be aware of Islamic perspectives on mental health</li>
+      <li>Consider gender matching for support sessions</li>
+      <li>Respect dietary restrictions in any group settings</li>
+    </ul>
+
+    <h3>Elderly Individuals</h3>
+    <p><strong>Best Practices:</strong></p>
+    <ul>
+      <li>Allow extra time for communication</li>
+      <li>Respect intergenerational values</li>
+      <li>Address physical health considerations</li>
+      <li>Honor their life experience and wisdom</li>
+    </ul>
+
+    <h3>General Principles for Inclusive Practice</h3>
+    <ol>
+      <li><strong>Ask, don't assume</strong></li>
+      <li><strong>Listen to lived experience</strong></li>
+      <li><strong>Adapt your approach</strong></li>
+      <li><strong>Challenge your own biases</strong></li>
+      <li><strong>Create safe spaces for all</strong></li>
+    </ol>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <a href="module5.html" class="btn">← Module 5</a>
+      <button id="mark-complete-btn" class="btn" style="display: none;" onclick="Module6App.markModuleComplete()">
+        ✅ Mark Module 6 as Complete
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Encapsulated Module 6 logic
+    const Module6App = (function () {
+      const MODULE_6_LESSONS = ['6-1', '6-2', '6-3'];
+
+      function markLessonComplete(lessonId) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+          completed.push(lessonId);
+          localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-</script>
+        checkAndShowMarkCompleteButton();
+      }
 
-<script>
-                              // In index.html
-let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+      function checkAndShowMarkCompleteButton() {
+        const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        const allDone = MODULE_6_LESSONS.every(id => completed.includes(id));
+        const btn = document.getElementById('mark-complete-btn');
+        if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
+      }
 
-const module6Lessons = ['6-1', '6-2', '6-3'];
+      function markModuleComplete() {
+        MODULE_6_LESSONS.forEach(markLessonComplete);
+        localStorage.setItem('courseProgress', JSON.stringify({ ...JSON.parse(localStorage.getItem('courseProgress') || '{}'), module6: true }));
+        window.location.href = 'module7.html';
+      }
 
-</script>
+      // Initialize: auto-mark all lessons complete on load
+      function init() {
+        MODULE_6_LESSONS.forEach(markLessonComplete);
+      }
+
+      return {
+        markModuleComplete,
+        init
+      };
+    })();
+
+    // Run on DOM load
+    document.addEventListener('DOMContentLoaded', Module6App.init);
+  </script>
 </body>
 </html>
