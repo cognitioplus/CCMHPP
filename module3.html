@@ -1,317 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 3: Psychological First Aid (PFA) and Scope</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-    <style>
-        :root {
-            --primary: #b425aa;
-            --primary-light: #c80ec9;
-            --accent: #D4AF37;
-            --bg-dark: #1a1a1a;
-            --bg-light: #f5f5f5;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --border: #e0e0e0;
-            --success: #4caf50;
-            --error: #f44336;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 25px 0 15px;
-        }
-        h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-        p, ul, ol, table {
-            margin-bottom: 15px;
-        }
-        ul, ol {
-            padding-left: 30px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid var(--border);
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background: var(--primary);
-            color: white;
-        }
-        blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-light);
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            margin: 25px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #000;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .canva-embed {
-            margin: 25px 0;
-        }
-        .pfa-section {
-            padding: 40px;
-            background-color: #f4f8fb;
-            border-radius: 12px;
-            margin: 30px 0;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border);
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: var(--primary-light);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 3: Psychological First Aid (PFA) and Scope</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #b425aa;
+      --primary-light: #c80ec9;
+      --accent: #d4af37;
+      --bg-light: #f5f5f5;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --success: #4caf50;
+      --error: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.6;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 16px;
+    }
+
+    h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    p, ul, ol, table, blockquote {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      padding-left: 28px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin: 24px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .canva-embed {
+      margin: 24px 0;
+    }
+
+    .pfa-section {
+      padding: 32px;
+      background-color: #f4f8fb;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border);
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .navigation {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+        margin: 4px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Module 3: Psychological First Aid (PFA) and Scope</h1>
-        <p><strong>Duration:</strong> 3 hours</p>
+  <div class="container">
+    <h1>Module 3: Psychological First Aid (PFA) and Scope</h1>
+    <p><strong>Duration:</strong> 3 hours</p>
 
-        <!-- Module 3 Presentation -->
-        <div class="canva-embed">
-            <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-                <iframe 
-                    loading="lazy" 
-                    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
-                    src="https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view?embed"
-                    allowfullscreen="allowfullscreen" 
-                    allow="fullscreen">
-                </iframe>
-            </div>
-            <a href="https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view?utm_content=DAG4fzboQ34&utm_campaign=designshare&utm_medium=embeds&utm_source=link" 
-               target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none;">
-                View Full Module 3 Presentation
-            </a>
-        </div>
-
-        <!-- Lesson 1: The Basics of PFA -->
-        <h2>3.1 The Basics of PFA</h2>
-        <p>Psychological First Aid (PFA) is a human, supportive, and practical response to serious stress, promoting immediate well-being and preventing long-term harm.</p>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/sGooy-cS9G4" allowfullscreen></iframe>
-        </div>
-        <div class="pfa-section">
-            <h3>PFA CCHeSS Framework: The Five Core Principles</h3>
-            <p>The course philosophy applies <strong>Psychological First Aid (PFA)</strong> principles—<em>Look, Listen, Link</em>—to build foundational competencies in immediate support, communication, and safe referral.</p>
-            <ul>
-                <li><strong>C - Promote Calmness:</strong> Helping individuals manage anxiety and stress.</li>
-                <li><strong>C - Promote Connectedness:</strong> Fostering relationships and social support.</li>
-                <li><strong>H - Promote Hope:</strong> Instilling optimism and belief in positive outcomes.</li>
-                <li><strong>S - Promote Self-Efficacy:</strong> Enhancing confidence in coping with challenges.</li>
-                <li><strong>S - Promote Safety:</strong> Ensuring individuals feel secure and protected.</li>
-            </ul>
-        </div>
-
-        <!-- Lesson 2: Applying the PFA Action Model -->
-        <h2>3.2 Applying the PFA Action Model: LOOK, LISTEN, LINK</h2>
-        <p>The PFA action model provides a simple, practical framework for responding to people in distress.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>PFA Action</th>
-                    <th>Focus</th>
-                    <th>Paraprofessional Goal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>LOOK 👀</strong></td>
-                    <td>Observation and Assessment of Needs</td>
-                    <td>Identify urgent basic needs (water, shelter, medical) and immediate safety concerns (signs of severe distress or danger)</td>
-                </tr>
-                <tr>
-                    <td><strong>LISTEN 👂</strong></td>
-                    <td>Engagement and Active Listening</td>
-                    <td>Establish rapport, accept the person's story without pressure, and validate their feelings</td>
-                </tr>
-                <tr>
-                    <td><strong>LINK 🔗</strong></td>
-                    <td>Connecting to Resources</td>
-                    <td>Provide practical help, connect them to social supports, and facilitate referral to appropriate professional services</td>
-                </tr>
-            </tbody>
-        </table>
-        <h3>LOOK: What to Observe</h3>
-        <ul>
-            <li><strong>Safety concerns:</strong> Is the person in immediate danger?</li>
-            <li><strong>Basic needs:</strong> Do they need water, food, shelter, medical attention?</li>
-            <li><strong>Distress cues:</strong> Body language, facial expressions, tone of voice</li>
-            <li><strong>People who need urgent help:</strong> Those with serious injuries, severe distress, or special needs</li>
-        </ul>
-        <h3>LISTEN: How to Engage</h3>
-        <ul>
-            <li><strong>Approach respectfully:</strong> Introduce yourself</li>
-            <li><strong>Ask about needs:</strong> "How can I help you right now?"</li>
-            <li><strong>Listen actively:</strong> Full attention, no judgment</li>
-            <li><strong>Accept their story:</strong> Don't pressure them to talk</li>
-            <li><strong>Validate feelings:</strong> "It makes sense that you feel this way"</li>
-            <li><strong>Offer comfort:</strong> Calm presence and reassurance</li>
-        </ul>
-        <h3>LINK: How to Connect</h3>
-        <ul>
-            <li><strong>Address immediate needs:</strong> Help with practical problems</li>
-            <li><strong>Connect to support:</strong> Family, friends, community</li>
-            <li><strong>Provide information:</strong> About available services</li>
-            <li><strong>Facilitate referrals:</strong> To professional help when needed</li>
-            <li><strong>Follow up:</strong> Check in on their well-being</li>
-        </ul>
-
-        <!-- Lesson 3: What PFA is NOT -->
-        <h2>3.3 What PFA is NOT</h2>
-        <p>Understanding what PFA is <em>not</em> is just as important as knowing what it is.</p>
-        <h3>❌ Not Professional Counseling</h3>
-        <p>PFA is <strong>immediate, temporary, and non-clinical</strong>. It's not:</p>
-        <ul>
-            <li>Psychotherapy or counseling</li>
-            <li>Long-term treatment</li>
-            <li>A substitute for professional mental health care</li>
-        </ul>
-        <h3>❌ Not Forced Debriefing</h3>
-        <p><strong>Never pressure a person to tell their story.</strong></p>
-        <ul>
-            <li>Let them share at their own pace</li>
-            <li>Respect if they don't want to talk</li>
-            <li>Forced disclosure can cause more harm</li>
-        </ul>
-        <h3>❌ Not Diagnosis</h3>
-        <p><strong>Never label the person with a mental health condition.</strong></p>
-        <ul>
-            <li>Don't say "You have PTSD" or "This is anxiety"</li>
-            <li>Focus on supporting them, not diagnosing them</li>
-            <li>Diagnosis requires professional training</li>
-        </ul>
-        <h3>❌ Not For Everyone</h3>
-        <p>Some people may not want or need PFA:</p>
-        <ul>
-            <li>Those who want to be alone</li>
-            <li>Those already receiving adequate support</li>
-            <li>Those who are coping well on their own</li>
-        </ul>
-        <h3>❌ Not A One-Size-Fits-All Approach</h3>
-        <ul>
-            <li>Adapt to individual needs and cultural context</li>
-            <li>Be flexible in your approach</li>
-            <li>Consider age, gender, culture, and circumstances</li>
-        </ul>
-        <h2>✓ 3.4 What PFA IS</h2>
-        <p>PFA is:</p>
-        <ul>
-            <li>✓ Immediate, practical support</li>
-            <li>✓ Non-intrusive and respectful</li>
-            <li>✓ Focused on safety and basic needs</li>
-            <li>✓ Empowering and hopeful</li>
-            <li>✓ A bridge to professional care when needed</li>
-        </ul>
-
-        <!-- Navigation -->
-        <div class="navigation">
-            <a href="module2.html" class="btn">← Module 2: Ethical, Legal, and Digital Practice</a>
-            <a href="module4.html" class="btn">Module 4: Core Communication and Basic Coping Skills →</a>
-        </div>
+    <!-- Canva Presentation -->
+    <div class="canva-embed">
+      <div style="position: relative; width: 100%; height: 0; padding-top: 56.25%; box-shadow: 0 2px 8px rgba(63,69,81,0.16); border-radius: 8px; overflow: hidden;">
+        <iframe
+          loading="lazy"
+          style="position: absolute; width: 100%; height: 100%; border: none;"
+          src="https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view?embed"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <a href="https://www.canva.com/design/DAG4fzboQ34/ME67xdgJdgksumYOCIPszw/view" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none; display: inline-block; margin-top: 8px;">
+        View Full Module 3 Presentation
+      </a>
     </div>
+
+    <!-- Lesson 3.1 -->
+    <h2>3.1 The Basics of PFA</h2>
+    <p>Psychological First Aid (PFA) is a human, supportive, and practical response to serious stress, promoting immediate well-being and preventing long-term harm.</p>
     
-<script>
-        // Mark Module 3 as complete and sync with index.html progress
-        function markModuleComplete() {
-            // Module 3 has 4 lessons: [Basics of PFA, PFA Action Model, What PFA is Not, What PFA IS]
-            const module3Lessons = ['3-1', '3-2', '3-3', '3-4'];
-            
-            // Retrieve existing progress or initialize
-            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-            
-            // Add all Module 3 lessons if not already present
-            module3Lessons.forEach(lessonId => {
-                if (!completedLessons.includes(lessonId)) {
-                    completedLessons.push(lessonId);
-                }
-            });
-            
-            // Save back to localStorage
-            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-            
-            // Show success feedback
-            alert('✅ Module 3 marked as complete! Your progress has been saved.');
-            
-            // Redirect to index.html (which will load progress from localStorage)
-            window.location.href = 'index.html';
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/sGooy-cS9G4" allowfullscreen></iframe>
+    </div>
+
+    <div class="pfa-section">
+      <h3>PFA CCHeSS Framework: The Five Core Principles</h3>
+      <p>The course philosophy applies <strong>Psychological First Aid (PFA)</strong> principles—<em>Look, Listen, Link</em>—to build foundational competencies in immediate support, communication, and safe referral.</p>
+      <ul>
+        <li><strong>C - Promote Calmness:</strong> Helping individuals manage anxiety and stress.</li>
+        <li><strong>C - Promote Connectedness:</strong> Fostering relationships and social support.</li>
+        <li><strong>H - Promote Hope:</strong> Instilling optimism and belief in positive outcomes.</li>
+        <li><strong>S - Promote Self-Efficacy:</strong> Enhancing confidence in coping with challenges.</li>
+        <li><strong>S - Promote Safety:</strong> Ensuring individuals feel secure and protected.</li>
+      </ul>
+    </div>
+
+    <!-- Lesson 3.2 -->
+    <h2>3.2 Applying the PFA Action Model: LOOK, LISTEN, LINK</h2>
+    <p>The PFA action model provides a simple, practical framework for responding to people in distress.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>PFA Action</th>
+          <th>Focus</th>
+          <th>Paraprofessional Goal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>LOOK 👀</strong></td>
+          <td>Observation and Assessment of Needs</td>
+          <td>Identify urgent basic needs (water, shelter, medical) and immediate safety concerns (signs of severe distress or danger)</td>
+        </tr>
+        <tr>
+          <td><strong>LISTEN 👂</strong></td>
+          <td>Engagement and Active Listening</td>
+          <td>Establish rapport, accept the person's story without pressure, and validate their feelings</td>
+        </tr>
+        <tr>
+          <td><strong>LINK 🔗</strong></td>
+          <td>Connecting to Resources</td>
+          <td>Provide practical help, connect them to social supports, and facilitate referral to appropriate professional services</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>LOOK: What to Observe</h3>
+    <ul>
+      <li><strong>Safety concerns:</strong> Is the person in immediate danger?</li>
+      <li><strong>Basic needs:</strong> Do they need water, food, shelter, medical attention?</li>
+      <li><strong>Distress cues:</strong> Body language, facial expressions, tone of voice</li>
+      <li><strong>People who need urgent help:</strong> Those with serious injuries, severe distress, or special needs</li>
+    </ul>
+
+    <h3>LISTEN: How to Engage</h3>
+    <ul>
+      <li><strong>Approach respectfully:</strong> Introduce yourself</li>
+      <li><strong>Ask about needs:</strong> "How can I help you right now?"</li>
+      <li><strong>Listen actively:</strong> Full attention, no judgment</li>
+      <li><strong>Accept their story:</strong> Don't pressure them to talk</li>
+      <li><strong>Validate feelings:</strong> "It makes sense that you feel this way"</li>
+      <li><strong>Offer comfort:</strong> Calm presence and reassurance</li>
+    </ul>
+
+    <h3>LINK: How to Connect</h3>
+    <ul>
+      <li><strong>Address immediate needs:</strong> Help with practical problems</li>
+      <li><strong>Connect to support:</strong> Family, friends, community</li>
+      <li><strong>Provide information:</strong> About available services</li>
+      <li><strong>Facilitate referrals:</strong> To professional help when needed</li>
+      <li><strong>Follow up:</strong> Check in on their well-being</li>
+    </ul>
+
+    <!-- Lesson 3.3 -->
+    <h2>3.3 What PFA is NOT</h2>
+    <p>Understanding what PFA is <em>not</em> is just as important as knowing what it is.</p>
+
+    <h3>❌ Not Professional Counseling</h3>
+    <p>PFA is <strong>immediate, temporary, and non-clinical</strong>. It's not:</p>
+    <ul>
+      <li>Psychotherapy or counseling</li>
+      <li>Long-term treatment</li>
+      <li>A substitute for professional mental health care</li>
+    </ul>
+
+    <h3>❌ Not Forced Debriefing</h3>
+    <p><strong>Never pressure a person to tell their story.</strong></p>
+    <ul>
+      <li>Let them share at their own pace</li>
+      <li>Respect if they don't want to talk</li>
+      <li>Forced disclosure can cause more harm</li>
+    </ul>
+
+    <h3>❌ Not Diagnosis</h3>
+    <p><strong>Never label the person with a mental health condition.</strong></p>
+    <ul>
+      <li>Don't say "You have PTSD" or "This is anxiety"</li>
+      <li>Focus on supporting them, not diagnosing them</li>
+      <li>Diagnosis requires professional training</li>
+    </ul>
+
+    <h3>❌ Not For Everyone</h3>
+    <p>Some people may not want or need PFA:</p>
+    <ul>
+      <li>Those who want to be alone</li>
+      <li>Those already receiving adequate support</li>
+      <li>Those who are coping well on their own</li>
+    </ul>
+
+    <h3>❌ Not A One-Size-Fits-All Approach</h3>
+    <ul>
+      <li>Adapt to individual needs and cultural context</li>
+      <li>Be flexible in your approach</li>
+      <li>Consider age, gender, culture, and circumstances</li>
+    </ul>
+
+    <!-- Lesson 3.4 -->
+    <h2>3.4 What PFA IS</h2>
+    <p>PFA is:</p>
+    <ul>
+      <li>✓ Immediate, practical support</li>
+      <li>✓ Non-intrusive and respectful</li>
+      <li>✓ Focused on safety and basic needs</li>
+      <li>✓ Empowering and hopeful</li>
+      <li>✓ A bridge to professional care when needed</li>
+    </ul>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <a href="module2.html" class="btn">← Module 2</a>
+      <button id="mark-complete-btn" class="btn" style="display: none;" onclick="Module3App.markModuleComplete()">
+        ✅ Mark Module 3 as Complete
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Encapsulated Module 3 logic
+    const Module3App = (function () {
+      const MODULE_3_LESSONS = ['3-1', '3-2', '3-3', '3-4'];
+
+      function markLessonComplete(lessonId) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+          completed.push(lessonId);
+          localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-</script>
+        checkAndShowMarkCompleteButton();
+      }
 
-<script>
-                              // In index.html
-let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+      function checkAndShowMarkCompleteButton() {
+        const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        const allDone = MODULE_3_LESSONS.every(id => completed.includes(id));
+        const btn = document.getElementById('mark-complete-btn');
+        if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
+      }
 
-const module3Lessons = ['3-1', '3-2', '3-3', '3-4'];
+      function markModuleComplete() {
+        MODULE_3_LESSONS.forEach(markLessonComplete);
+        localStorage.setItem('courseProgress', JSON.stringify({ ...JSON.parse(localStorage.getItem('courseProgress') || '{}'), module3: true }));
+        window.location.href = 'module4.html';
+      }
 
-</script>
+      // Initialize: auto-mark all lessons complete on load
+      function init() {
+        MODULE_3_LESSONS.forEach(markLessonComplete);
+      }
+
+      return {
+        markModuleComplete,
+        init
+      };
+    })();
+
+    // Run on DOM load
+    document.addEventListener('DOMContentLoaded', Module3App.init);
+  </script>
 </body>
 </html>
