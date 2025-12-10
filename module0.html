@@ -144,7 +144,7 @@
 
         <!-- Pre-Test -->
         <div class="assessment-section">
-            <h2>Pre-Test (15 Items)</h2>
+            <h2>0.1 Pre-Test (15 Items)</h2>
             <p><strong>Instructions:</strong> Select the best answer for each question.</p>
             <ol>
                 <li><strong>What is the primary goal of Psychological First Aid (PFA)?</strong><br>
@@ -244,7 +244,7 @@
         </div>
 
         <!-- Introduction Videos -->
-        <h2>Module 0: Introduction</h2>
+        <h2>0.2 Introduction</h2>
         <p>Welcome to Module 0 of the Certification Course for Mental Health and Well-being Paraprofessional.</p>
         
         <!-- Introduction Video -->
@@ -275,7 +275,7 @@
         </div>
 
         <!-- Course Goal and Philosophy -->
-        <h2>Course Goal and Philosophy</h2>
+        <h2>0.3 Course Goal and Philosophy</h2>
         <p>The central goal of this course is to equip you with the essential knowledge, values, and practical skills to provide <strong>safe, ethical, and compassionate peer-based psychosocial support</strong> in various Philippine contexts.</p>
         
         <h3>Psychological First Aid (PFA) Principles</h3>
@@ -294,7 +294,7 @@
         </div>
 
         <!-- Course Structure -->
-        <h2>Course Structure</h2>
+        <h2>0.4 Course Structure</h2>
         <p>This comprehensive certification program consists of two main components:</p>
         <h3>Part 1: Foundational Training (24 hours)</h3>
         <p>Online modules introducing ethics, skills, and principles through:</p>
@@ -338,8 +338,8 @@
     <script>
         // Mark Module 0 as complete and sync with index.html progress
         function markModuleComplete() {
-            // Module 0 has 3 lessons: [Pre-Test, Course Goal, Course Structure]
-            const module0Lessons = ['0-0', '0-1', '0-2'];
+            // Module 0 has 4 lessons: [Pre-Test, Introduction, Course Goal, Course Structure]
+            const module0Lessons = ['0-1', '0-2', '0-3', '0-4'];
             
             // Retrieve existing progress or initialize
             let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
@@ -366,9 +366,8 @@
                               // In index.html
 let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
 
-const module9Lessons = ['9-0', '9-1', '9-2', '9-3'];
+const module0Lessons = ['0-1', '0-2', '0-3', '0-4'];
 
-
-              </script>
+ </script>
 </body>
 </html>
