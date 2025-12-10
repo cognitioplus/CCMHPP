@@ -88,7 +88,7 @@
 
     .video-container {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
       height: 0;
       margin: 24px 0;
       border-radius: 8px;
@@ -139,6 +139,7 @@
       transition: background 0.3s;
       white-space: nowrap;
       text-align: center;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -201,11 +202,10 @@
     <h1>Module 0: Orientation and Course Structure</h1>
     <p><strong>Duration:</strong> 2 hours</p>
 
-    <!-- Interactive Pre-Test -->
-    <div class="assessment-section" id="pretest-section">
+    <!-- Pre-Test -->
+    <div class="assessment-section">
       <h2>0.1 Pre-Test (15 Items)</h2>
       <p><strong>Instructions:</strong> Select the best answer for each question.</p>
-
       <form id="pretest-form">
         <!-- Q1 -->
         <div class="question" data-correct="b">
@@ -267,11 +267,98 @@
           <div class="feedback" id="fb6"></div>
         </div>
 
-        <!-- Add Q7–Q15 here using the same pattern if needed -->
+        <!-- Q7 -->
+        <div class="question" data-correct="b">
+          <p><strong>7. The Data Privacy Act (RA 10173) governs the handling of Sensitive Personal Information (SPI). Which is an example of SPI?</strong></p>
+          <label><input type="radio" name="q7" value="a"> a) A client's favorite color.</label>
+          <label><input type="radio" name="q7" value="b"> b) A client's mental health disclosures.</label>
+          <label><input type="radio" name="q7" value="c"> c) A client's first name.</label>
+          <label><input type="radio" name="q7" value="d"> d) A client's preferred time of day.</label>
+          <div class="feedback" id="fb7"></div>
+        </div>
 
-        <button type="button" class="btn" onclick="submitPretest()">Submit Pre-test</button>
+        <!-- Q8 -->
+        <div class="question" data-correct="b">
+          <p><strong>8. The PFA action "Link" refers to:</strong></p>
+          <label><input type="radio" name="q8" value="a"> a) Linking the client's past to their present problem.</label>
+          <label><input type="radio" name="q8" value="b"> b) Connecting the client to social support and professional resources.</label>
+          <label><input type="radio" name="q8" value="c"> c) Linking the cause of the crisis to the outcome.</label>
+          <label><input type="radio" name="q8" value="d"> d) Linking your personal experience to theirs.</label>
+          <div class="feedback" id="fb8"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question" data-correct="b">
+          <p><strong>9. What is the primary goal of the WHO Mental Health Gap Action Programme (mhGAP)?</strong></p>
+          <label><input type="radio" name="q9" value="a"> a) To fund new hospitals globally.</label>
+          <label><input type="radio" name="q9" value="b"> b) To reduce the treatment gap for mental health disorders.</label>
+          <label><input type="radio" name="q9" value="c"> c) To train psychiatrists only.</label>
+          <label><input type="radio" name="q9" value="d"> d) To abolish all mental health stigma.</label>
+          <div class="feedback" id="fb9"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question" data-correct="a">
+          <p><strong>10. If a client is experiencing intense emotional distress, the PFA action you should prioritize is:</strong></p>
+          <label><input type="radio" name="q10" value="a"> a) Look (Check for safety).</label>
+          <label><input type="radio" name="q10" value="b"> b) Listen (Promote calmness).</label>
+          <label><input type="radio" name="q10" value="c"> c) Link (Make a referral).</label>
+          <label><input type="radio" name="q10" value="d"> d) Force (Encourage them to talk).</label>
+          <div class="feedback" id="fb10"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question" data-correct="c">
+          <p><strong>11. Professional boundaries are primarily established to protect:</strong></p>
+          <label><input type="radio" name="q11" value="a"> a) Only the paraprofessional's schedule.</label>
+          <label><input type="radio" name="q11" value="b"> b) Only the client's reputation.</label>
+          <label><input type="radio" name="q11" value="c"> c) Both the client and the paraprofessional from harm or exploitation.</label>
+          <label><input type="radio" name="q11" value="d"> d) Only the client's family.</label>
+          <div class="feedback" id="fb11"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question" data-correct="b">
+          <p><strong>12. Why is using non-judgmental language essential in PFA?</strong></p>
+          <label><input type="radio" name="q12" value="a"> a) To avoid being rude.</label>
+          <label><input type="radio" name="q12" value="b"> b) To promote connectedness and trust.</label>
+          <label><input type="radio" name="q12" value="c"> c) To speed up the conversation.</label>
+          <label><input type="radio" name="q12" value="d"> d) To help you diagnose the problem faster.</label>
+          <div class="feedback" id="fb12"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question" data-correct="b">
+          <p><strong>13. Which concept relates to the ethical principle of Justice?</strong></p>
+          <label><input type="radio" name="q13" value="a"> a) Only serving clients with medical insurance.</label>
+          <label><input type="radio" name="q13" value="b"> b) Serving all individuals equally regardless of their background.</label>
+          <label><input type="radio" name="q13" value="c"> c) Giving personal advice only to those who ask nicely.</label>
+          <label><input type="radio" name="q13" value="d"> d) Keeping every secret the client tells you.</label>
+          <div class="feedback" id="fb13"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question" data-correct="d">
+          <p><strong>14. What is the deepest level of listening, according to Otto Scharmer's model, where you listen with an open will to co-create a future possibility?</strong></p>
+          <label><input type="radio" name="q14" value="a"> a) Factual Listening</label>
+          <label><input type="radio" name="q14" value="b"> b) Downloading</label>
+          <label><input type="radio" name="q14" value="c"> c) Empathic Listening</label>
+          <label><input type="radio" name="q14" value="d"> d) Generative Listening</label>
+          <div class="feedback" id="fb14"></div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question" data-correct="b">
+          <p><strong>15. If a client tells you they are refusing to seek professional help, what action should you take based on the principle of Autonomy?</strong></p>
+          <label><input type="radio" name="q15" value="a"> a) Gently pressure them to change their mind.</label>
+          <label><input type="radio" name="q15" value="b"> b) Respect their decision while ensuring they know what support is available.</label>
+          <label><input type="radio" name="q15" value="c"> c) Immediately end the support session.</label>
+          <label><input type="radio" name="q15" value="d"> d) Call their family to intervene without their consent.</label>
+          <div class="feedback" id="fb15"></div>
+        </div>
+
+        <button type="button" class="btn" onclick="Module0App.submitPretest()">Submit Pre-test</button>
       </form>
-
       <p style="margin-top: 20px; font-style: italic; color: var(--text-light);">
         This pre-test is for self-assessment only. Feedback will help you identify learning gaps.
       </p>
@@ -359,83 +446,87 @@
     </table>
     <p><strong>Overall Passing Grade: 75%</strong></p>
 
-    <!-- Navigation with Mark as Complete -->
+    <!-- Navigation -->
     <div class="navigation">
       <span style="color: var(--text-light); font-style: italic;">Start of Course</span>
-      <button
-        id="mark-complete-btn"
-        class="btn"
-        onclick="markModule0Complete()"
-        style="display: none;"
-      >
+      <button id="mark-complete-btn" class="btn" style="display: none;" onclick="Module0App.markModule0Complete()">
         ✅ Mark Module 0 as Complete
       </button>
     </div>
   </div>
 
   <script>
-    const MODULE_0_LESSONS = ['0-1', '0-2', '0-3', '0-4'];
+    // Encapsulated module logic to avoid global leakage
+    const Module0App = (function () {
+      const MODULE_0_LESSONS = ['0-1', '0-2', '0-3', '0-4'];
 
-    // Mark lesson as complete in localStorage
-    function markLessonComplete(lessonId) {
-      let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-      if (!completed.includes(lessonId)) {
-        completed.push(lessonId);
-        localStorage.setItem('completedLessons', JSON.stringify(completed));
-      }
-      checkAndShowMarkCompleteButton();
-    }
-
-    // Show "Mark as Complete" only when all lessons done
-    function checkAndShowMarkCompleteButton() {
-      const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-      const allDone = MODULE_0_LESSONS.every(id => completed.includes(id));
-      const btn = document.getElementById('mark-complete-btn');
-      if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
-    }
-
-    // Submit pre-test and provide feedback
-    function submitPretest() {
-      const questions = document.querySelectorAll('.question');
-      let allAnswered = true;
-
-      questions.forEach((q, idx) => {
-        const qNum = idx + 1;
-        const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
-        const correct = q.dataset.correct;
-        const fb = document.getElementById(`fb${qNum}`);
-
-        if (!selected) {
-          allAnswered = false;
-          fb.textContent = 'Please select an answer.';
-          fb.className = 'feedback incorrect';
-        } else {
-          fb.textContent = selected.value === correct
-            ? '✓ Correct!'
-            : '✗ Incorrect. Review this concept during the module.';
-          fb.className = selected.value === correct
-            ? 'feedback correct'
-            : 'feedback incorrect';
+      function markLessonComplete(lessonId) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+          completed.push(lessonId);
+          localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-        fb.style.display = 'block';
-      });
-
-      if (allAnswered) {
-        markLessonComplete('0-1'); // Mark pre-test done
+        checkAndShowMarkCompleteButton();
       }
-    }
 
-    // Final completion handler
-    function markModule0Complete() {
-      MODULE_0_LESSONS.forEach(markLessonComplete);
-      localStorage.setItem('courseProgress', JSON.stringify({ module0: true }));
-      window.location.href = 'module1.html';
-    }
+      function checkAndShowMarkCompleteButton() {
+        const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        const allDone = MODULE_0_LESSONS.every(id => completed.includes(id));
+        const btn = document.getElementById('mark-complete-btn');
+        if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
+      }
 
-    // Auto-mark non-interactive lessons on load
-    document.addEventListener('DOMContentLoaded', () => {
-      ['0-2', '0-3', '0-4'].forEach(markLessonComplete);
-    });
+      function submitPretest() {
+        const questions = document.querySelectorAll('.question');
+        let allAnswered = true;
+
+        questions.forEach((q, idx) => {
+          const qNum = idx + 1;
+          const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
+          const correct = q.dataset.correct;
+          const fb = document.getElementById(`fb${qNum}`);
+
+          if (!selected) {
+            allAnswered = false;
+            fb.textContent = 'Please select an answer.';
+            fb.className = 'feedback incorrect';
+          } else {
+            fb.textContent = selected.value === correct
+              ? '✓ Correct!'
+              : '✗ Incorrect. Review this concept during the module.';
+            fb.className = selected.value === correct
+              ? 'feedback correct'
+              : 'feedback incorrect';
+          }
+          fb.style.display = 'block';
+        });
+
+        if (allAnswered) {
+          markLessonComplete('0-1');
+        }
+      }
+
+      function markModule0Complete() {
+        MODULE_0_LESSONS.forEach(markLessonComplete);
+        localStorage.setItem('courseProgress', JSON.stringify({ module0: true }));
+        window.location.href = 'module1.html';
+      }
+
+      // Initialize on load
+      function init() {
+        ['0-2', '0-3', '0-4'].forEach(markLessonComplete);
+      }
+
+      // Expose public methods
+      return {
+        submitPretest,
+        markModule0Complete,
+        init
+      };
+    })();
+
+    // Run on DOM load
+    document.addEventListener('DOMContentLoaded', Module0App.init);
   </script>
 </body>
 </html>
