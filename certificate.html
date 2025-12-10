@@ -8,6 +8,11 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap"
     rel="stylesheet"
   />
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.0/qrious.min.js"></script>
+  <!-- PDF & Screenshot Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --primary-dark: #b425aa;
@@ -44,6 +49,34 @@
       overflow: hidden;
     }
 
+    /* Digital Watermark */
+    .watermark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 120px;
+      font-weight: 700;
+      color: var(--text-dark);
+      transform: rotate(-30deg);
+      text-align: center;
+      line-height: 1.8;
+      background: repeating-linear-gradient(
+        transparent 0%,
+        transparent 45%,
+        var(--text-dark) 45%,
+        var(--text-dark) 55%,
+        transparent 55%
+      );
+      -webkit-mask-image: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
+      mask-image: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
+    }
+
     @media print {
       body {
         background: white;
@@ -53,94 +86,18 @@
         box-shadow: none;
         padding: 50px 30px;
         border: none;
+        position: static;
       }
-      .no-print {
+      .no-print, .watermark {
         display: none !important;
       }
     }
 
-    /* Corner Decorations */
-    .corner {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      z-index: -1;
-    }
-
-    .top-left {
-      top: 0;
-      left: 0;
-      transform: rotate(-45deg);
-      transform-origin: 0 0;
-    }
-
-    .top-right {
-      top: 0;
-      right: 0;
-      transform: rotate(45deg);
-      transform-origin: 100% 0;
-    }
-
-    .bottom-left {
-      bottom: 0;
-      left: 0;
-      transform: rotate(45deg);
-      transform-origin: 0 100%;
-    }
-
-    .bottom-right {
-      bottom: 0;
-      right: 0;
-      transform: rotate(-45deg);
-      transform-origin: 100% 100%;
-    }
-
-    .deco-layer {
-      position: absolute;
+    /* Header Banner */
+    .header-banner {
       width: 100%;
-      height: 100%;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-
-    .deco-1 {
-      background: linear-gradient(135deg, #9c27b0, #ba68c8);
-    }
-
-    .deco-2 {
-      background: linear-gradient(135deg, #ab47bc, #ce93d8);
-      transform: translateX(-15px) translateY(-15px);
-    }
-
-    .deco-3 {
-      background: linear-gradient(135deg, #8e24aa, #e1bee7);
-      transform: translateX(-30px) translateY(-30px);
-    }
-
-    .deco-dots {
-      background: linear-gradient(135deg, #d81b60, #f06292);
-      transform: translateX(-45px) translateY(-45px);
-    }
-
-    .deco-dots::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 10px 10px, transparent 10px, #fff 11px),
-        radial-gradient(circle at 30px 30px, transparent 10px, #fff 11px),
-        radial-gradient(circle at 50px 50px, transparent 10px, #fff 11px),
-        radial-gradient(circle at 70px 70px, transparent 10px, #fff 11px),
-        radial-gradient(circle at 90px 90px, transparent 10px, #fff 11px);
-      background-size: 100px 100px;
-      opacity: 0.8;
-    }
-
-    /* Main Content */
-    .header {
-      text-align: center;
+      height: 120px;
+      background: url('https://cognitioplus.aiwaapp.live/cache/media_cache/ad5ecb8027d304ccfaef1e1773cae67b.png') center/cover no-repeat;
       margin-bottom: 40px;
     }
 
@@ -151,19 +108,27 @@
       letter-spacing: 6px;
       color: #000;
       text-transform: uppercase;
-      margin: 0;
+      text-align: center;
+      margin: 0 0 10px 0;
+      position: relative;
+      z-index: 1;
     }
 
     .subtitle {
       font-size: 1.5rem;
       font-weight: 600;
-      margin-top: 10px;
+      text-align: center;
       color: #333;
+      margin: 0 0 40px 0;
+      position: relative;
+      z-index: 1;
     }
 
     .recipient-line {
       text-align: center;
       margin: 60px 0 40px;
+      position: relative;
+      z-index: 1;
     }
 
     .recipient-name {
@@ -179,6 +144,8 @@
       border-bottom: 2px solid #333;
       padding-bottom: 8px;
       line-height: 1.4;
+      position: relative;
+      z-index: 1;
     }
 
     .body-text {
@@ -187,26 +154,8 @@
       line-height: 1.6;
       margin: 20px 0 40px;
       padding: 0 20px;
-    }
-
-    .date-line {
-      text-align: center;
-      font-size: 1.1rem;
-      margin: 30px 0 50px;
-    }
-
-    .date-text {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .date-underline {
-      display: inline-block;
-      width: 200px;
-      height: 1px;
-      background: #333;
-      margin: 0 8px;
-      vertical-align: middle;
+      position: relative;
+      z-index: 1;
     }
 
     .signature-section {
@@ -216,6 +165,8 @@
       margin-top: 50px;
       flex-wrap: wrap;
       gap: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .signature-block {
@@ -223,10 +174,12 @@
       width: 200px;
     }
 
-    .signature-line {
-      height: 1px;
-      background: #333;
-      margin: 12px 0 6px;
+    .signature-img {
+      width: 100%;
+      height: auto;
+      max-height: 60px;
+      object-fit: contain;
+      margin-bottom: 8px;
     }
 
     .signer-name {
@@ -246,7 +199,7 @@
       width: 120px;
       height: 120px;
       margin: 0 auto;
-      z-index: 1;
+      z-index: 2;
     }
 
     .seal img {
@@ -255,15 +208,30 @@
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
     }
 
-    .verification-code {
+    .footer {
       text-align: center;
+      margin-top: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .verification-code {
       font-family: monospace;
       font-size: 1.1rem;
       font-weight: 600;
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px dashed #ccc;
       color: #666;
+      margin-bottom: 16px;
+    }
+
+    .qr-container {
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    .qr-label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 6px;
     }
 
     .no-print {
@@ -281,6 +249,7 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       margin-top: 12px;
+      margin-right: 10px;
     }
 
     .btn:hover {
@@ -289,38 +258,16 @@
   </style>
 </head>
 <body>
-  <div class="certificate">
-    <!-- Corner Decorations -->
-    <div class="corner top-left">
-      <div class="deco-layer deco-1"></div>
-      <div class="deco-layer deco-2"></div>
-      <div class="deco-layer deco-3"></div>
-      <div class="deco-layer deco-dots"></div>
-    </div>
-    <div class="corner top-right">
-      <div class="deco-layer deco-1"></div>
-      <div class="deco-layer deco-2"></div>
-      <div class="deco-layer deco-3"></div>
-      <div class="deco-layer deco-dots"></div>
-    </div>
-    <div class="corner bottom-left">
-      <div class="deco-layer deco-1"></div>
-      <div class="deco-layer deco-2"></div>
-      <div class="deco-layer deco-3"></div>
-      <div class="deco-layer deco-dots"></div>
-    </div>
-    <div class="corner bottom-right">
-      <div class="deco-layer deco-1"></div>
-      <div class="deco-layer deco-2"></div>
-      <div class="deco-layer deco-3"></div>
-      <div class="deco-layer deco-dots"></div>
-    </div>
+  <div class="certificate" id="certificate">
+    <!-- Watermark -->
+    <div class="watermark">CERTIFIED</div>
 
-    <!-- Header -->
-    <div class="header">
-      <h1 class="title">CERTIFICATE</h1>
-      <p class="subtitle">OF COMPLETION</p>
-    </div>
+    <!-- Header Banner -->
+    <div class="header-banner"></div>
+
+    <!-- Title -->
+    <h1 class="title">CERTIFICATE</h1>
+    <p class="subtitle">OF COMPLETION</p>
 
     <!-- Recipient Line -->
     <div class="recipient-line">
@@ -331,52 +278,50 @@
     <!-- Body Text -->
     <div class="body-text">
       For rigorously completing the 40-hour blended format of the<br>
-      <strong>"Certification Course for Mental Health and Well-Being Paraprofessional"</strong><br>
-      on <span class="date-underline"></span>
-    </div>
-
-    <!-- Date Line -->
-    <div class="date-line">
-      <span class="date-text">on</span>
-      <span class="date-underline" id="date-underline"></span>
+      <strong>"Certification Course for Mental Health and Well-Being Paraprofessional"</strong>.
     </div>
 
     <!-- Signature Section -->
     <div class="signature-section">
       <!-- Left Signature -->
       <div class="signature-block">
-        <div class="signature-line"></div>
+        <img src="https://cognitioplus.aiwaapp.live/cache/media_cache/Thelma-Barrera-esig.png" alt="Signature of Thelma S. Barrera" class="signature-img">
         <div class="signer-name">Thelma S. Barrera, MHPSS Expert</div>
         <div class="signer-title">CHIEF TRAINING OFFICER</div>
       </div>
 
       <!-- Seal -->
       <div class="seal">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgc3Ryb2tlPSIjZjEwMDY1IiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NCIgc3Ryb2tlPSIjYzQwMDU1IiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlPSIjZDAwMDQ1IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIzNiIgc3Ryb2tlPSIjZTAwMDQ1IiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz4KICA8dGV4dCB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJNb250c2errarhdCIsIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiPgpDPC90ZXh0Pgo8L3N2Zz4=" alt="Cognitio+ Seal">
+        <img src="https://cognitioplus.aiwaapp.live/cache/media_cache/Cognitio+ Certificate-Seal.png" alt="Cognitio+ Certificate Seal">
       </div>
 
       <!-- Right Signature -->
       <div class="signature-block">
-        <div class="signature-line"></div>
+        <img src="https://cognitioplus.aiwaapp.live/cache/media_cache/Bernardino-Vicente-esig.png" alt="Signature of Bernardino A. Vicente" class="signature-img">
         <div class="signer-name">Bernardino A. Vicente, MD, MHA, FPPA</div>
         <div class="signer-title">CHIEF MENTAL HEALTH OFFICER</div>
       </div>
     </div>
 
-    <!-- Verification Code -->
-    <div class="verification-code" id="verification-code">
-      CMHH-36912-2025-00077001
+    <!-- Footer with QR Code -->
+    <div class="footer">
+      <div class="verification-code" id="verification-code">
+        CMHH-36912-2025-00077001
+      </div>
+      <div class="qr-container" id="qr-code"></div>
+      <p class="qr-label">Scan to verify this certificate</p>
     </div>
 
-    <!-- Print Button -->
+    <!-- Print & Download Buttons -->
     <div class="no-print">
+      <button class="btn" onclick="downloadPDF()">📥 Download as PDF</button>
       <button class="btn" onclick="window.print()">🖨️ Print Certificate</button>
-      <a href="index.html" class="btn" style="background:#666; margin-left:12px;">🏠 Return to Dashboard</a>
+      <a href="index.html" class="btn" style="background:#666;">🏠 Return to Dashboard</a>
     </div>
   </div>
 
   <script>
-    // Generate unique verification code with user number
+    // Generate unique verification code
     function generateVerificationCode(userNumber = '001') {
       const year = new Date().getFullYear();
       return `CMHH-36912-${year}-00077${userNumber}`;
@@ -386,47 +331,64 @@
     function getUrlParams() {
       const params = new URLSearchParams(window.location.search);
       return {
-        name: params.get('name') || 'Alvin M. Silva',
-        date: params.get('date') || new Date().toISOString().split('T')[0]
+        name: params.get('name') || 'Alvin M. Silva'
       };
     }
 
-    // Format date as "December 10, 2025"
-    function formatDate(isoDate) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(isoDate).toLocaleDateString('en-US', options);
+    // Generate QR Code
+    function generateQRCode(verCode) {
+      const verifyUrl = `https://verify.mhparaprofessional.ph?code=${encodeURIComponent(verCode)}`;
+      const qr = new QRious({
+        element: document.getElementById('qr-code'),
+        value: verifyUrl,
+        size: 120
+      });
+    }
+
+    // Download as PDF
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      
+      html2canvas(document.getElementById('certificate'), {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`Certificate_${new Date().toISOString().slice(0,10)}.pdf`);
+      });
     }
 
     // Initialize certificate
     document.addEventListener('DOMContentLoaded', () => {
-      const { name, date } = getUrlParams();
-      const formattedDate = formatDate(date);
+      const { name } = getUrlParams();
 
       // Set recipient name
       document.getElementById('recipient-name').textContent = name;
 
-      // Set date under "on"
-      const dateUnderline = document.getElementById('date-underline');
-      dateUnderline.style.width = '250px';
-      dateUnderline.textContent = formattedDate;
-
-      // Generate or retrieve verification code
-      let userNumber = localStorage.getItem('userNumber');
-      if (!userNumber) {
-        userNumber = '001'; // Start from 001
-        localStorage.setItem('userNumber', userNumber);
-      } else {
-        // Increment for next user
-        const nextNumber = parseInt(userNumber) + 1;
-        localStorage.setItem('userNumber', nextNumber.toString().padStart(3, '0'));
-      }
-
+      // Generate verification code
+      let userNumber = localStorage.getItem('userNumber') || '001';
       const verCode = generateVerificationCode(userNumber);
       document.getElementById('verification-code').textContent = verCode;
 
-      // Mark course as fully completed
+      // Generate QR code
+      generateQRCode(verCode);
+
+      // Save state
       localStorage.setItem('courseCompleted', 'true');
       localStorage.setItem('certificateGenerated', 'true');
+      localStorage.setItem('userNumber', userNumber);
     });
   </script>
 </body>
