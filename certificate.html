@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate of Completion</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #b425aa;
+      --primary-dark: #8a1c83;
+      --accent: #d4af37;
+      --text-dark: #333;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      background: #f9f9f9;
+      color: var(--text-dark);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .certificate {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      padding: 60px 40px;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
+      page-break-inside: avoid;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .certificate {
+        box-shadow: none;
+        border: none;
+        padding: 50px 30px;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 20px 0;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .recipient {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      margin: 30px 0;
+      text-align: center;
+      color: #222;
+    }
+
+    .body-text {
+      text-align: center;
+      line-height: 1.6;
+      font-size: 1.15rem;
+      margin: 20px 0 40px;
+      padding: 0 20px;
+    }
+
+    .date-line {
+      text-align: center;
+      margin: 30px 0;
+      font-size: 1.1rem;
+    }
+
+    .signature-section {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .signature-block {
+      text-align: center;
+      width: 200px;
+    }
+
+    .signature-line {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 8px;
+    }
+
+    .verification {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border);
+      text-align: center;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    .code {
+      font-family: monospace;
+      background: #f0f0f0;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .no-print {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .btn:hover {
+      background: #9f2095;
+    }
+
+    .accent-bar {
+      height: 4px;
+      background: var(--accent);
+      margin: 24px 0;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <div class="header">
+      <div class="logo">Mental Health Paraprofessional Certification Program</div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <h1 class="title">Certificate of Completion</h1>
+
+    <p class="body-text">
+      This is to certify that
+    </p>
+
+    <div class="recipient" id="recipient-name">[Name]</div>
+
+    <p class="body-text">
+      has successfully completed the <strong>40-hour Certification Course for Mental Health and Well-being Paraprofessional</strong>,
+      in accordance with the standards of the Philippine Mental Health Act (RA 11036) and the PCMH Strategic Framework.
+    </p>
+
+    <p class="date-line">
+      Awarded on: <strong id="award-date">[Date]</strong>
+    </p>
+
+    <div class="signature-section">
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <p>Program Director</p>
+      </div>
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <p>Chief Training Officer</p>
+      </div>
+    </div>
+
+    <div class="verification">
+      <p>Verification Code: <span class="code" id="ver-code">MHP-XXXX-XXXX</span></p>
+      <p>To verify this certificate, visit: <strong>verify.mhparaprofessional.ph</strong></p>
+    </div>
+
+    <div class="no-print">
+      <p>This certificate is valid and recognized under DOH-PCMH guidelines.</p>
+      <button class="btn" onclick="window.print()">🖨️ Print Certificate</button>
+      <a href="index.html" class="btn" style="background:#666; margin-left:12px;">🏠 Return to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    // Generate a pseudo-unique verification code (in real app, this would come from backend)
+    function generateVerificationCode() {
+      const prefix = 'MHP';
+      const randomPart1 = Math.floor(1000 + Math.random() * 9000);
+      const randomPart2 = Math.floor(1000 + Math.random() * 9000);
+      return `${prefix}-${randomPart1}-${randomPart2}`;
+    }
+
+    // Parse URL parameters
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        name: params.get('name') || 'Alvin Silva',
+        date: params.get('date') || new Date().toISOString().split('T')[0]
+      };
+    }
+
+    // Format date as "December 10, 2025"
+    function formatDate(isoDate) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(isoDate).toLocaleDateString('en-US', options);
+    }
+
+    // Initialize certificate
+    document.addEventListener('DOMContentLoaded', () => {
+      const { name, date } = getUrlParams();
+      const formattedDate = formatDate(date);
+
+      document.getElementById('recipient-name').textContent = name;
+      document.getElementById('award-date').textContent = formattedDate;
+
+      // Generate or retrieve verification code
+      const storedCode = localStorage.getItem('certVerificationCode');
+      const verCode = storedCode || generateVerificationCode();
+      if (!storedCode) {
+        localStorage.setItem('certVerificationCode', verCode);
+      }
+      document.getElementById('ver-code').textContent = verCode;
+
+      // Mark course as fully completed
+      localStorage.setItem('courseCompleted', 'true');
+      localStorage.setItem('certificateGenerated', 'true');
+    });
+  </script>
+</body>
+</html>
