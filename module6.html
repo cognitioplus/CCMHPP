@@ -293,13 +293,13 @@
         // Mark Module 6 as complete and sync with index.html progress
         function markModuleComplete() {
             // Module 6 has 3 lessons: [Cultural Humility, Key Filipino Cultural Values, Inclusive Practice]
-            const module1Lessons = ['6-1', '6-2', '6-3'];
+            const module6Lessons = ['6-1', '6-2', '6-3'];
             
             // Retrieve existing progress or initialize
             let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
             
             // Add all Module 6 lessons if not already present
-            module0Lessons.forEach(lessonId => {
+            module6Lessons.forEach(lessonId => {
                 if (!completedLessons.includes(lessonId)) {
                     completedLessons.push(lessonId);
                 }
