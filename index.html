@@ -41,6 +41,19 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+        
+        /* Grid specifically for Reference/Discussion section */
+        .ref-discussion-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .ref-discussion-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
 
         .btn {
             display: inline-block;
@@ -235,50 +248,121 @@
         </div>
     </section>
 
-    <!-- Course Overview -->
+    <!-- New Detailed Course Overview Section (I, II, III, IV) -->
     <section class="course-overview" id="overview" style="background: white; padding: 60px 0;">
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Course Overview</h2>
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Course Deep Dive</h2>
 
-            <!-- I. Purpose & Frameworks -->
+            <!-- I. Course Overview (Purpose, Frameworks, Philosophy) -->
             <div class="overview-card">
-                <h3>I. Course Overview</h3>
-                <p><strong>Purpose:</strong> This certification course equips entry-level mental health and well-being paraprofessionals with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support online and in community contexts.</p>
-                <p><strong>Guiding Frameworks:</strong></p>
-                <ul>
+                <h3>I. Course Overview: Purpose, Frameworks, and Philosophy</h3>
+                <p><strong>Purpose:</strong> This certification course equips mental health and well-being paraprofessionals with the essential knowledge, values, and practical skills to provide safe, ethical, and compassionate peer-based psychosocial support online and in community contexts.</p>
+                
+                <h4 style="color: var(--text-dark); margin-top: 20px; margin-bottom: 10px; font-size: 1.1rem;">Guiding Frameworks</h4>
+                <ul style="list-style: disc; margin-left: 20px; padding-left: 0;">
                     <li>WHO Mental Health Gap Action Programme (mhGAP), 2023 update</li>
                     <li>WHO QualityRights Initiative: Dignity, Recovery, and Human Rights in Mental Health</li>
-                    <li>Philippine Council for Mental Health (PCMH) Strategic Framework 2024–2028</li>
+                    <li>Philippine Council for Mental Health (PCMH) Strategic Framework 2024–2028:
+                        <ul style="list-style: circle; margin-top: 5px; margin-left: 20px;">
+                            <li>Pillar 1: Service Delivery and Workforce Development</li>
+                            <li>Pillar 2: Mental Health Promotion and Prevention</li>
+                            <li>Pillar 3: Governance, Data, and Research</li>
+                            <li>Pillar 4: Cross-Sectoral Collaboration</li>
+                        </ul>
+                    </li>
                 </ul>
-                <p><strong>Course Philosophy:</strong> Applies Psychological First Aid (PFA) principles—<em>Look, Listen, Link</em>.</p>
+                <p><strong>Course Philosophy:</strong> The course applies Psychological First Aid (PFA) principles—Look, Listen, Link—and builds foundational competencies in empathy, communication, and referral, ensuring participants can respond to mental health needs safely within their scope.</p>
             </div>
 
             <!-- II. Certification Structure -->
             <div class="overview-card">
                 <h3>II. Certification Structure</h3>
-                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; table-layout: fixed;">
                     <thead>
-                        <tr style="border-bottom: 2px solid var(--border); text-align: left;">
-                            <th style="padding: 10px;">Component</th>
-                            <th style="padding: 10px;">Description</th>
-                            <th style="padding: 10px;">Duration</th>
+                        <tr style="border-bottom: 2px solid var(--primary-light); text-align: left;">
+                            <th style="padding: 10px; width: 25%;">Component</th>
+                            <th style="padding: 10px; width: 35%;">Description</th>
+                            <th style="padding: 10px; width: 20%;">Duration</th>
+                            <th style="padding: 10px; width: 20%;">Assessment</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="border-bottom: 1px solid var(--border);">
                             <td style="padding: 10px;">Part 1 – Foundational Training</td>
-                            <td style="padding: 10px;">Online modules</td>
+                            <td style="padding: 10px;">Online modules introducing ethics, skills, and principles</td>
                             <td style="padding: 10px;">24 hours</td>
+                            <td style="padding: 10px;">Knowledge quizzes, reflection exercises</td>
                         </tr>
                         <tr style="border-bottom: 1px solid var(--border);">
                             <td style="padding: 10px;">Part 2 – Practicum</td>
-                            <td style="padding: 10px;">10 supervised sessions</td>
-                            <td style="padding: 10px;">16 hours</td>
+                            <td style="padding: 10px;">10 guided online or community support sessions under mentor supervision</td>
+                            <td style="padding: 10px;">10 hours</td>
+                            <td style="padding: 10px;">Observation checklist, supervisor evaluation</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px;">Certification Validity</td>
-                            <td style="padding: 10px;">2 years (renewable)</td>
+                            <td style="padding: 10px;">2 years (renewable via refresher module and updated practicum)</td>
                             <td style="padding: 10px;">—</td>
+                            <td style="padding: 10px;">—</td>
+                        </tr>
+                        <tr style="border-top: 1px solid var(--primary-light);">
+                            <td style="padding: 10px; font-weight: 600;">Part 3 – Certification and Integration</td>
+                            <td style="padding: 10px;" colspan="3">Final assessment, feedback, and certificate issuance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- III. Course Learning Outcomes -->
+            <div class="overview-card">
+                <h3>III. Course Learning Outcomes</h3>
+                <p>Upon completion, trainees will be able to:</p>
+                <ol style="margin-left: 20px; padding-left: 0;">
+                    <li>Apply generative listening, empathy, and rapport-building in online or face-to-face conversations.</li>
+                    <li>Demonstrate ethical communication, confidentiality, and data privacy in online interactions.</li>
+                    <li>Recognize and respond appropriately to psychological distress and crisis indicators.</li>
+                    <li>Identify when and how to refer individuals to professional mental health or community services.</li>
+                    <li>Apply self-care, boundaries, and mindfulness practices to sustain personal resilience.</li>
+                    <li>Uphold human rights, cultural sensitivity, and inclusivity in all interactions.</li>
+                </ol>
+            </div>
+
+            <!-- IV. Competency Domains -->
+            <div class="overview-card">
+                <h3>IV. Competency Domains</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; table-layout: fixed;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--primary-light); text-align: left;">
+                            <th style="padding: 10px; width: 30%;">Domain</th>
+                            <th style="padding: 10px; width: 50%;">Competency Standard</th>
+                            <th style="padding: 10px; width: 20%;">Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Communication and Support</td>
+                            <td style="padding: 10px;">Demonstrates empathy, reflective listening, and rapport-building</td>
+                            <td style="padding: 10px;">WHO mhGAP (2023)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Ethics and Confidentiality</td>
+                            <td style="padding: 10px;">Adheres to data privacy and informed consent practices</td>
+                            <td style="padding: 10px;">WHO QualityRights, RA 10173</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Crisis Response and Referral</td>
+                            <td style="padding: 10px;">Applies Look–Listen–Link in crisis; initiates safe referrals</td>
+                            <td style="padding: 10px;">WHO PFA Guide</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Cultural and Community Sensitivity</td>
+                            <td style="padding: 10px;">Integrates local and cultural contexts</td>
+                            <td style="padding: 10px;">PCMH Framework</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Personal and Peer Resilience</td>
+                            <td style="padding: 10px;">Practices mindfulness, self-care, and supervision</td>
+                            <td style="padding: 10px;">DOH–PCMH Workforce Pillar</td>
                         </tr>
                     </tbody>
                 </table>
@@ -286,108 +370,150 @@
         </div>
     </section>
 
-    <!-- Module Navigation Section -->
+    <!-- V. Course Modules Navigation Section -->
     <section class="modules-section" id="modules" style="padding: 60px 0; background: var(--bg-light);">
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Course Modules</h2>
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">V. Course Modules (Foundational Training)</h2>
             
             <div class="module-grid">
-                <!-- Module 0 -->
+                
+                <!-- Module 0: Introduction and Orientation -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 0: Orientation and Course Structure</h3>
-                        <p><strong>Duration:</strong> 2 hours</p>
-                        <p>Includes Pre-Test, course philosophy, and structure.</p>
+                        <h3>Module 0: Introduction and Orientation</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 1 hour</p>
+                        <p><strong>Objectives:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Orient learners to course structure, purpose, and ethical commitments.</li>
+                            <li>Introduce the role of the paraprofessional within the mental health ecosystem.</li>
+                        </ul>
                     </div>
                     <a href="module0.html" class="btn btn-primary">Go to Module 0</a>
                 </div>
 
-                <!-- Module 1 -->
+                <!-- Module 1: Foundations of Mental Health and Well-Being -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 1: Foundational Frameworks and Your Role</h3>
-                        <p><strong>Duration:</strong> 3 hours</p>
-                        <p>RA 11036, WHO mhGAP, and the paraprofessional role.</p>
+                        <h3>Module 1: Foundations of Mental Health and Well-Being</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 3 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Define mental health, mental illness, and psychosocial well-being.</li>
+                            <li>Describe key components of the Philippine Mental Health Act (RA 11036).</li>
+                            <li>Explain community and online support within the mental health continuum.</li>
+                        </ul>
                     </div>
                     <a href="module1.html" class="btn btn-primary">Go to Module 1</a>
                 </div>
 
-                <!-- Module 2 -->
+                <!-- Module 2: Ethics, Boundaries, and Digital Confidentiality -->
                 <div class="module-card">
                     <div>
                         <h3>Module 2: Ethics, Boundaries, and Digital Confidentiality</h3>
-                        <p><strong>Duration:</strong> 3 hours</p>
-                        <p>RA 10173, informed consent, and professional boundaries.</p>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 2 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Demonstrate respect for confidentiality and privacy.</li>
+                            <li>Identify ethical risks in online peer support.</li>
+                        </ul>
                     </div>
                     <a href="module2.html" class="btn btn-primary">Go to Module 2</a>
                 </div>
 
-                <!-- Module 3 -->
+                <!-- Module 3: Psychological First Aid (Look–Listen–Link) -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 3: Psychological First Aid (PFA) and Scope</h3>
-                        <p><strong>Duration:</strong> 3 hours</p>
-                        <p>Look–Listen–Link model and PFA principles.</p>
+                        <h3>Module 3: Psychological First Aid (Look–Listen–Link)</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 3 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Apply PFA principles to emotional and mental distress.</li>
+                            <li>Recognize common reactions to crisis or trauma.</li>
+                        </ul>
                     </div>
                     <a href="module3.html" class="btn btn-primary">Go to Module 3</a>
                 </div>
 
-                <!-- Module 4 -->
+                <!-- Module 4: Core Support and Basic Coping Skills -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 4: Core Communication and Basic Coping Skills</h3>
-                        <p><strong>Duration:</strong> 4 hours</p>
-                        <p>8 core skills: rapport, empathy, reflection, grounding, etc.</p>
+                        <h3>Module 4: Core Support and Basic Coping Skills</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 6 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Demonstrate eight core support and communication skills.</li>
+                            <li>Demonstrate skill in sharing basic coping skills.</li>
+                        </ul>
                     </div>
                     <a href="module4.html" class="btn btn-primary">Go to Module 4</a>
                 </div>
 
-                <!-- Module 5 -->
+                <!-- Module 5: Recognizing and Responding to Crisis -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 5: Crisis Intervention and Safe Referral</h3>
-                        <p><strong>Duration:</strong> 4 hours</p>
-                        <p>Suicide risk, crisis protocol, and Philippine referral pathways.</p>
+                        <h3>Module 5: Recognizing and Responding to Crisis</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 4 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Identify warning signs of suicide or acute distress.</li>
+                            <li>Demonstrate appropriate response and referral steps.</li>
+                        </ul>
                     </div>
                     <a href="module5.html" class="btn btn-primary">Go to Module 5</a>
                 </div>
 
-                <!-- Module 6 -->
+                <!-- Module 6: Cultural Sensitivity and Community Context -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 6: Cultural Sensitivity and Inclusive Practice</h3>
-                        <p><strong>Duration:</strong> 3 hours</p>
-                        <p>Filipino values (Hiya, Utang na Loob), LGBTQIA+, PWDs, and indigenous contexts.</p>
+                        <h3>Module 6: Cultural Sensitivity and Community Context</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 2 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Adapt communication and support to diverse cultural and linguistic settings.</li>
+                            <li>Recognize indigenous, faith-based, and family-centered approaches.</li>
+                        </ul>
                     </div>
                     <a href="module6.html" class="btn btn-primary">Go to Module 6</a>
                 </div>
 
-                <!-- Module 7 -->
+                <!-- Module 7: Self-Care and Resilience -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 7: Paraprofessional Self-Care</h3>
-                        <p><strong>Duration:</strong> 3 hours</p>
-                        <p>Compassion fatigue, burnout, and Cognitio+ digital tools.</p>
+                        <h3>Module 7: Self-Care and Resilience</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 3 hours</p>
+                        <p><strong>Learning Outcomes:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Recognize signs of burnout and compassion fatigue.</li>
+                            <li>Develop a personalized self-care plan and mindfulness routine.</li>
+                        </ul>
                     </div>
                     <a href="module7.html" class="btn btn-primary">Go to Module 7</a>
                 </div>
 
-                <!-- Module 8 -->
+                <!-- Module 8: Practicum and Mentorship (Part 2) -->
                 <div class="module-card">
                     <div>
-                        <h3>Module 8: Practicum and Mentorship</h3>
-                        <p><strong>Duration:</strong> 16 hours</p>
-                        <p>Supervised sessions, documentation, and observation rubric.</p>
+                        <h3>Module 8: Practicum and Mentorship (Part 2)</h3>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 16 hours (field + supervision)</p>
+                        <p><strong>Objectives:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Apply all eight core support skills in supervised online or community sessions.</li>
+                            <li>Receive mentor feedback on ethics, empathy, and communication.</li>
+                        </ul>
                     </div>
                     <a href="module8.html" class="btn btn-primary">Go to Module 8</a>
                 </div>
 
-                <!-- Module 9 -->
+                <!-- Module 9: Integration and Certification -->
                 <div class="module-card">
                     <div>
                         <h3>Module 9: Integration and Certification</h3>
-                        <p><strong>Duration:</strong> 1 hour</p>
-                        <p>Final Assessment (Post-Test) and certification process.</p>
+                        <p style="font-weight: 600; color: var(--primary);">Duration: 1 hour</p>
+                        <p><strong>Activities:</strong></p>
+                        <ul style="list-style: disc; margin-left: 15px; padding-left: 0; font-size: 0.9rem;">
+                            <li>Post-test (minimum passing score 80%)</li>
+                            <li>Feedback survey and self-assessment</li>
+                        </ul>
                     </div>
                     <a href="module9.html" class="btn btn-primary">Go to Module 9</a>
                 </div>
@@ -395,7 +521,86 @@
         </div>
     </section>
 
-    <!-- Embedded Discussion Section -->
+    <!-- VI. Assessment Framework and X. Certification Renewal -->
+    <section class="assessment-section" style="padding: 60px 0; background: white;">
+        <div class="container">
+            <!-- VI. Assessment Framework -->
+            <div class="overview-card">
+                <h3>VI. Assessment Framework</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; table-layout: fixed;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--primary-light); text-align: left;">
+                            <th style="padding: 10px; width: 30%;">Assessment Type</th>
+                            <th style="padding: 10px; width: 30%;">Tool</th>
+                            <th style="padding: 10px; width: 20%;">Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Knowledge</td>
+                            <td style="padding: 10px;">Pre and Post-Test</td>
+                            <td style="padding: 10px;">20%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Skills</td>
+                            <td style="padding: 10px;">Role-plays and simulations</td>
+                            <td style="padding: 10px;">30%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 10px;">Practicum</td>
+                            <td style="padding: 10px;">Observation & mentor evaluation</td>
+                            <td style="padding: 10px;">40%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Reflection</td>
+                            <td style="padding: 10px;">Reflections and peer discussion</td>
+                            <td style="padding: 10px;">10%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-weight: 700; color: var(--primary);">Passing Grade: 75% overall</p>
+            </div>
+            
+            <!-- X. Certification Renewal -->
+            <div class="overview-card">
+                <h3>X. Certification Renewal</h3>
+                <p><strong>Validity:</strong> 2 years</p>
+                <p><strong>Renewal Requirements:</strong></p>
+                <ul style="list-style: disc; margin-left: 20px; padding-left: 0;">
+                    <li>Completion of refresher course (minimum 6 hours)</li>
+                    <li>Mentor endorsement</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIII. Course Discussion and IX. Required References -->
+    <section class="discussion-section" id="references-discussion" style="padding: 60px 0; background: var(--bg-light);">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Resources & Community</h2>
+            
+            <div class="ref-discussion-grid">
+                <!-- IX. Required References -->
+                <div class="overview-card">
+                    <h3>IX. Required References</h3>
+                    <ol style="margin-left: 20px; padding-left: 0; font-size: 0.95rem;">
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">World Health Organization (2023). mhGAP Intervention Guide: Version 3.0.</a></li>
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">World Health Organization (2022). QualityRights Mental Health, Disability and Human Rights Toolkit.</a></li>
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">Philippine Council for Mental Health (2024). Strategic Framework for Mental Health 2024–2028.</a></li>
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">Department of Health (2021). Guidelines on Community-Based Mental Health Services.</a></li>
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">Republic Act 11036. The Mental Health Act of the Philippines.</a></li>
+                        <li><a href="#" style="color: var(--primary-light); text-decoration: none;">Republic Act 10173. Data Privacy Act of 2012.</a></li>
+                        <li><a href="https://cognitioplus.aiwaapp.live/guidebook" target="_blank" style="color: var(--primary-light); text-decoration: none;">Cognitio+ Comprehensive Guidebook for Mental Health and Well-Being Paraprofessional</a></li>
+                        <li><a href="https://cognitioplus.aiwaapp.live/paraprofessional-course-manual" target="_blank" style="color: var(--primary-light); text-decoration: none;">Course Manual</a></li>
+                        <li><a href="https://cognitio-plus.com" target="_blank" style="color: var(--primary-light); text-decoration: none;">Cognitio+ Web App</a></li>
+                    </ol>
+                    <p style="margin-top: 30px; font-style: italic; color: var(--text-dark); border-top: 1px dashed var(--border); padding-top: 20px;">
+                        “The goal of the paraprofessional is not to diagnose, fix, or advise—but to listen, hold space, and connect others to help.”<br/>
+                        <span style="font-size: 0.85rem; display: block; margin-top: 5px;">— Adapted from WHO QualityRights, 2023</span>
+                    </p>
+                </div>
+                
+               <!-- Embedded Discussion Section -->
     <section class="discussion-section" id="discussion" style="padding: 60px 0; background: white;">
         <div class="container">
             <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px;">Community Discussion</h2>
@@ -447,7 +652,7 @@
     <script src="discussionRoutes.js"></script>
 
     <script>
-        // ========== SUPABASE & CORE LOGIC ==========
+        // ========== SUPABASE & CORE LOGIC (Preserved) ==========
         
         // Define variables globally before assignment
         let supabaseClient;
