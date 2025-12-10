@@ -465,7 +465,7 @@
             let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
             
             // Add all Module 8 lessons if not already present
-            module0Lessons.forEach(lessonId => {
+            module8Lessons.forEach(lessonId => {
                 if (!completedLessons.includes(lessonId)) {
                     completedLessons.push(lessonId);
                 }
