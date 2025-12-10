@@ -1,430 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 9: Certification and Renewal</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-    <style>
-        :root {
-            --primary: #b425aa;
-            --primary-light: #c80ec9;
-            --accent: #D4AF37;
-            --bg-dark: #1a1a1a;
-            --bg-light: #f5f5f5;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --border: #e0e0e0;
-            --success: #4caf50;
-            --error: #f44336;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 25px 0 15px;
-        }
-        h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-        p, ul, ol, table {
-            margin-bottom: 15px;
-        }
-        ul, ol {
-            padding-left: 30px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid var(--border);
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background: var(--primary);
-            color: white;
-        }
-        blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-light);
-        }
-        .assessment-section {
-            background: #f9f9f9;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border);
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: var(--primary-light);
-        }
-        .completion-message {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, rgba(180, 37, 170, 0.1) 0%, rgba(200, 14, 201, 0.1) 100%);
-            border-radius: 12px;
-            margin: 30px 0;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 9: Certification and Renewal</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #b425aa;
+      --primary-light: #c80ec9;
+      --accent: #d4af37;
+      --bg-light: #f5f5f5;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --success: #4caf50;
+      --error: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.6;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 16px;
+    }
+
+    h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    p, ul, ol, table {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      padding-left: 28px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    .assessment-section {
+      background: #f9f9f9;
+      padding: 24px;
+      border-radius: 10px;
+      margin: 24px 0;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .question label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+
+    .feedback {
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback.correct {
+      background-color: #e8f5e9;
+      color: var(--success);
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background-color: #ffebee;
+      color: var(--error);
+      display: block;
+    }
+
+    .completion-message {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(180, 37, 170, 0.1) 0%, rgba(200, 14, 201, 0.1) 100%);
+      border-radius: 12px;
+      margin: 30px 0;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border);
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .navigation {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+        margin: 4px 0;
+      }
+      .completion-message {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Module 9: Certification and Renewal</h1>
-        <p><strong>Duration:</strong> 2 hours</p>
+  <div class="container">
+    <h1>Module 9: Certification and Renewal</h1>
+    <p><strong>Duration:</strong> 2 hours</p>
 
-         <!-- Final Assessment Summary -->
-        <h2>9.1 Final Assessment</h2>
-        <p>The final certification requires an overall passing grade of <strong>75%</strong>, incorporating all knowledge and practical components.</p>
+    <!-- Final Assessment -->
+    <h2>9.1 Final Assessment</h2>
+    <p>The final certification requires an overall passing grade of <strong>75%</strong>, incorporating all knowledge and practical components.</p>
 
-        <!-- Final Assessment (Post-Test) -->
-        <div class="assessment-section">
-            <h2>Final Assessment / Post-Test (15 Items)</h2>
-            <p><strong>Instructions:</strong> Select the best answer for each question.</p>
-            <ol>
-                <li><strong>Which principle of PFA is demonstrated when you connect a disaster survivor to food, water, and temporary shelter?</strong><br>
-                    a) Promote Calmness<br>
-                    b) Promote Safety<br>
-                    c) Promote Hope<br>
-                    d) Promote Self-Efficacy
-                </li>
-                <li><strong>The highest level of listening, Generative Listening, requires the listener to suspend:</strong><br>
-                    a) Their hearing.<br>
-                    b) Their judgment and cynicism.<br>
-                    c) Their notes.<br>
-                    d) Their compassion.
-                </li>
-                <li><strong>A paraprofessional is NOT authorized to:</strong><br>
-                    a) Teach a client the 5-4-3-2-1 Grounding technique.<br>
-                    b) Conduct formal, long-term psychotherapy.<br>
-                    c) Refer a client to a psychiatrist.<br>
-                    d) Validate a client's feelings of sadness.
-                </li>
-                <li><strong>If a client refuses to provide consent for their data to be stored digitally, what must the paraprofessional do?</strong><br>
-                    a) Insist on storage for liability.<br>
-                    b) Respect their autonomy and only take analog (paper) notes, ensuring secure physical storage.<br>
-                    c) Refuse to provide support.<br>
-                    d) Store the data secretly.
-                </li>
-                <li><strong>Which action is considered a boundary violation for a paraprofessional?</strong><br>
-                    a) Documenting a crisis intervention.<br>
-                    b) Accepting a large financial gift from a client.<br>
-                    c) Working in a supervised setting.<br>
-                    d) Referring a client to a licensed professional.
-                </li>
-                <li><strong>The Non-maleficence principle is most directly applied by:</strong><br>
-                    a) Staying within the non-clinical scope of practice.<br>
-                    b) Giving personalized financial advice.<br>
-                    c) Discussing the client's case on social media.<br>
-                    d) Promising the client guaranteed recovery.
-                </li>
-                <li><strong>The NCMH Crisis Hotline (1553) is considered which level of the Philippine mental health care system?</strong><br>
-                    a) Level 1 (Primary)<br>
-                    b) Level 2 (Specialized)<br>
-                    c) Level 3 (Tertiary/Emergency)<br>
-                    d) Level 0 (Informal)
-                </li>
-                <li><strong>Which communication technique is essential for confirming you understood the client's emotional state?</strong><br>
-                    a) Giving advice.<br>
-                    b) Asking complex rhetorical questions.<br>
-                    c) Reflecting and Labeling Emotions.<br>
-                    d) Asking them about their job history.
-                </li>
-                <li><strong>Compassion Fatigue is best managed through:</strong><br>
-                    a) Ignoring its symptoms.<br>
-                    b) Professional self-care, peer supervision, and active rest.<br>
-                    c) Working longer hours without breaks.<br>
-                    d) Increasing workload to distract from stress.
-                </li>
-                <li><strong>The Seamless Care Guidebook is used primarily to:</strong><br>
-                    a) Teach meditation.<br>
-                    b) Ensure safe, documented, and effective transitions of care during a referral.<br>
-                    c) Help paraprofessionals find a job.<br>
-                    d) Market the course to others.
-                </li>
-                <li><strong>Which Filipino cultural value often acts as a barrier to seeking formal mental health support?</strong><br>
-                    a) Bayanihan (communal unity)<br>
-                    b) Pakikipagkapwa-tao (shared identity)<br>
-                    c) Hiya (shame or embarrassment)<br>
-                    d) Utang na Loob (debt of gratitude)
-                </li>
-                <li><strong>Why must a paraprofessional secure their client notes with a password?</strong><br>
-                    a) To hide them from the supervisor.<br>
-                    b) To comply with the Data Privacy Act (RA 10173).<br>
-                    c) To save paper.<br>
-                    d) To make the notes look professional.
-                </li>
-                <li><strong>When providing support, the best question type to encourage a client to share detailed feelings and experiences is:</strong><br>
-                    a) Closed-ended questions (Yes/No).<br>
-                    b) Leading questions.<br>
-                    c) Open-ended questions (How, What, Tell me more).<br>
-                    d) Rhetorical questions.
-                </li>
-                <li><strong>If a client is experiencing high anxiety, the goal of teaching Diaphragmatic Breathing is to:</strong><br>
-                    a) Increase their heart rate.<br>
-                    b) Activate the body’s calming parasympathetic nervous system.<br>
-                    c) Help them run away.<br>
-                    d) Solve their long-term problems.
-                </li>
-                <li><strong>If a client has already received help from an LGU counselor (Level 1) but their symptoms persist, the most appropriate LINK action is a referral to:</strong><br>
-                    a) A peer support group.<br>
-                    b) A licensed psychologist or psychiatrist (Level 2).<br>
-                    c) A self-help book.<br>
-                    d) Another BHW.
-                </li>
-            </ol>
-            <p style="margin-top: 20px; font-style: italic; color: var(--text-light);">
-                <strong>Passing Grade:</strong> 75% or higher (minimum 12 correct answers)
-            </p>
-        </div>
-        <h3>Assessment Components</h3>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Assessment Type</th>
-                    <th>Description</th>
-                    <th>Weight</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Knowledge Quizzes</strong></td>
-                    <td>Online quizzes for Modules 0-8</td>
-                    <td>20%</td>
-                </tr>
-                <tr>
-                    <td><strong>Skills Assessment</strong></td>
-                    <td>Role-plays and simulations</td>
-                    <td>30%</td>
-                </tr>
-                <tr>
-                    <td><strong>Practicum</strong></td>
-                    <td>Mentor evaluation of 10 sessions</td>
-                    <td>35%</td>
-                </tr>
-                <tr>
-                    <td><strong>Reflection</strong></td>
-                    <td>Journal and peer discussion</td>
-                    <td>15%</td>
-                </tr>
-            </tbody>
-        </table>
-        <h3>Passing Requirements</h3>
-        <ul>
-            <li>Overall grade of <strong>75% or higher</strong></li>
-            <li>Completion of all 9 modules</li>
-            <li>Completion of 10 supervised practicum sessions</li>
-            <li>Mentor endorsement</li>
-            <li>Submission of reflection journal</li>
-        </ul>
-        <h3>Upon Successful Completion</h3>
-        <ul>
-            <li>Digital Certificate of Completion</li>
-            <li>Unique verification code</li>
-            <li>Recognition as a Certified Mental Health and Well-Being Paraprofessional</li>
-            <li>Access to alumni network</li>
-        </ul>
+    <div class="assessment-section">
+      <h2>Final Assessment / Post-Test (15 Items)</h2>
+      <p><strong>Instructions:</strong> Select the best answer for each question.<br>
+        <strong>Passing Grade:</strong> 75% or higher (minimum 12 correct answers)<br>
+        <strong>Attempts:</strong> 2
+      </p>
 
-        <!-- Renewal Requirements -->
-        <h2>9.2 Renewal Requirements</h2>
-        <p>The certification is valid for <strong>two years</strong>. Maintaining your credential requires ongoing commitment to professional standards.</p>
-        <h3>Renewal Requirements</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Requirement</th>
-                    <th>Details</th>
-                    <th>Frequency</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Refresher Course</strong></td>
-                    <td>Minimum 6-hour DOH-recognized refresher course</td>
-                    <td>Every 2 years</td>
-                </tr>
-                <tr>
-                    <td><strong>Case Reflections</strong></td>
-                    <td>Submission of 3 new, supervised case reflections</td>
-                    <td>Every 2 years</td>
-                </tr>
-                <tr>
-                    <td><strong>Mentor Endorsement</strong></td>
-                    <td>Confirmation of continued ethical practice</td>
-                    <td>Every 2 years</td>
-                </tr>
-                <tr>
-                    <td><strong>Continuing Education</strong></td>
-                    <td>12 hours of approved CPD activities</td>
-                    <td>Every 2 years</td>
-                </tr>
-            </tbody>
-        </table>
-        <h3>Approved CPD Activities</h3>
-        <ul>
-            <li>Workshops and seminars on mental health</li>
-            <li>Participation in supervision groups</li>
-            <li>Conference attendance</li>
-            <li>Advanced training courses</li>
-            <li>Case consultation sessions</li>
-            <li>Mental health advocacy activities</li>
-        </ul>
-        <h3>Renewal Process</h3>
-        <ol>
-            <li><strong>6 months before expiry:</strong> Receive renewal reminder</li>
-            <li><strong>3 months before expiry:</strong> Submit renewal application</li>
-            <li><strong>Include:</strong> Proof of CPD, case reflections, mentor endorsement</li>
-            <li><strong>Review:</strong> Application reviewed by certification board</li>
-            <li><strong>Approval:</strong> New certificate issued for 2 years</li>
-        </ol>
-        <h3>Maintaining Your Certification</h3>
-        <p><strong>Tips for staying current:</strong></p>
-        <ul>
-            <li>Keep a CPD log throughout the 2-year period</li>
-            <li>Maintain regular supervision</li>
-            <li>Stay connected to professional networks</li>
-            <li>Document your practice consistently</li>
-            <li>Engage in ongoing self-reflection</li>
-        </ul>
-
-        <!-- Course Completion Message -->
-        <h2>9.3 Course Completion & Next Steps</h2>
-        <div class="completion-message">
-            "You came to learn how to support others.<br>You leave knowing you are already part of the healing."
-        </div>
-        <h3>What You've Accomplished</h3>
-        <ul>
-            <li>✓ Completed 40 hours of comprehensive training</li>
-            <li>✓ Mastered Psychological First Aid principles (Look, Listen, Link)</li>
-            <li>✓ Learned ethical and legal foundations (RA 11036, RA 10173)</li>
-            <li>✓ Developed core communication skills</li>
-            <li>✓ Prepared for crisis intervention and safe referral</li>
-            <li>✓ Embraced cultural sensitivity and inclusive practice</li>
-            <li>✓ Committed to self-care and resilience</li>
-            <li>✓ Ready for practicum and professional practice</li>
-        </ul>
-        <h3>Your Impact</h3>
-        <p>As a certified Mental Health and Well-Being Paraprofessional, you are now equipped to:</p>
-        <ul>
-            <li><strong>Bridge the treatment gap</strong> in Philippine mental health services</li>
-            <li><strong>Provide immediate support</strong> to those in distress</li>
-            <li><strong>Combat stigma</strong> through compassionate, person-first practice</li>
-            <li><strong>Connect people</strong> to appropriate professional care</li>
-            <li><strong>Promote recovery</strong> and hope in your community</li>
-        </ul>
-        <h3>Stay Connected</h3>
-        <p>Join our community of certified paraprofessionals:</p>
-        <ul>
-            <li>Access to alumni network</li>
-            <li>Ongoing professional development opportunities</li>
-            <li>Quarterly supervision circles</li>
-            <li>Updates on mental health policies and practices</li>
-        </ul>
-        <h3>Resources for Your Practice</h3>
-        <ul>
-            <li><strong>Seamless Care Guidebook:</strong> <a href="https://cognitioplus.aiwaapp.live/seamless-care" target="_blank">cognitioplus.aiwaapp.live/seamless-care</a></li>
-            <li><strong>Digital Resilience Tools:</strong> Well-Be, Smart Emotion Tracker, Habit Design Studio, Oasis, Resilience Navigator</li>
-            <li><strong>Crisis Hotlines:</strong> NCMH (1553), Hopeline PH (804-HOPE / 0917-558-HOPE)</li>
-        </ul>
-        <div style="text-align: center; margin-top: 50px; padding: 30px; background: var(--bg-light); border-radius: 12px;">
-            <h3 style="color: var(--primary); margin-bottom: 15px;">Thank You for Your Commitment</h3>
-            <p>Your dedication to mental health and well-being makes a difference in people's lives.</p>
-            <p><strong>You are part of the solution.</strong></p>
+      <form id="posttest-form">
+        <!-- Q1 -->
+        <div class="question" data-correct="b">
+          <p><strong>1. Which principle of PFA is demonstrated when you connect a disaster survivor to food, water, and temporary shelter?</strong></p>
+          <label><input type="radio" name="q1" value="a"> a) Promote Calmness</label>
+          <label><input type="radio" name="q1" value="b"> b) Promote Safety</label>
+          <label><input type="radio" name="q1" value="c"> c) Promote Hope</label>
+          <label><input type="radio" name="q1" value="d"> d) Promote Self-Efficacy</label>
+          <div class="feedback" id="fb1"></div>
         </div>
 
-        <!-- Navigation -->
-        <div class="navigation">
-            <a href="module8.html" class="btn">← Module 8: Practicum Preparation and Professional Development</a>
-            <span style="color: var(--text-light); font-style: italic;">End of Course</span>
+        <!-- Q2 -->
+        <div class="question" data-correct="b">
+          <p><strong>2. The highest level of listening, Generative Listening, requires the listener to suspend:</strong></p>
+          <label><input type="radio" name="q2" value="a"> a) Their hearing.</label>
+          <label><input type="radio" name="q2" value="b"> b) Their judgment and cynicism.</label>
+          <label><input type="radio" name="q2" value="c"> c) Their notes.</label>
+          <label><input type="radio" name="q2" value="d"> d) Their compassion.</label>
+          <div class="feedback" id="fb2"></div>
         </div>
+
+        <!-- Q3 -->
+        <div class="question" data-correct="b">
+          <p><strong>3. A paraprofessional is NOT authorized to:</strong></p>
+          <label><input type="radio" name="q3" value="a"> a) Teach a client the 5-4-3-2-1 Grounding technique.</label>
+          <label><input type="radio" name="q3" value="b"> b) Conduct formal, long-term psychotherapy.</label>
+          <label><input type="radio" name="q3" value="c"> c) Refer a client to a psychiatrist.</label>
+          <label><input type="radio" name="q3" value="d"> d) Validate a client's feelings of sadness.</label>
+          <div class="feedback" id="fb3"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question" data-correct="b">
+          <p><strong>4. If a client refuses to provide consent for their data to be stored digitally, what must the paraprofessional do?</strong></p>
+          <label><input type="radio" name="q4" value="a"> a) Insist on storage for liability.</label>
+          <label><input type="radio" name="q4" value="b"> b) Respect their autonomy and only take analog (paper) notes, ensuring secure physical storage.</label>
+          <label><input type="radio" name="q4" value="c"> c) Refuse to provide support.</label>
+          <label><input type="radio" name="q4" value="d"> d) Store the data secretly.</label>
+          <div class="feedback" id="fb4"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question" data-correct="b">
+          <p><strong>5. Which action is considered a boundary violation for a paraprofessional?</strong></p>
+          <label><input type="radio" name="q5" value="a"> a) Documenting a crisis intervention.</label>
+          <label><input type="radio" name="q5" value="b"> b) Accepting a large financial gift from a client.</label>
+          <label><input type="radio" name="q5" value="c"> c) Working in a supervised setting.</label>
+          <label><input type="radio" name="q5" value="d"> d) Referring a client to a licensed professional.</label>
+          <div class="feedback" id="fb5"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question" data-correct="a">
+          <p><strong>6. The Non-maleficence principle is most directly applied by:</strong></p>
+          <label><input type="radio" name="q6" value="a"> a) Staying within the non-clinical scope of practice.</label>
+          <label><input type="radio" name="q6" value="b"> b) Giving personalized financial advice.</label>
+          <label><input type="radio" name="q6" value="c"> c) Discussing the client's case on social media.</label>
+          <label><input type="radio" name="q6" value="d"> d) Promising the client guaranteed recovery.</label>
+          <div class="feedback" id="fb6"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question" data-correct="c">
+          <p><strong>7. The NCMH Crisis Hotline (1553) is considered which level of the Philippine mental health care system?</strong></p>
+          <label><input type="radio" name="q7" value="a"> a) Level 1 (Primary)</label>
+          <label><input type="radio" name="q7" value="b"> b) Level 2 (Specialized)</label>
+          <label><input type="radio" name="q7" value="c"> c) Level 3 (Tertiary/Emergency)</label>
+          <label><input type="radio" name="q7" value="d"> d) Level 0 (Informal)</label>
+          <div class="feedback" id="fb7"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question" data-correct="c">
+          <p><strong>8. Which communication technique is essential for confirming you understood the client's emotional state?</strong></p>
+          <label><input type="radio" name="q8" value="a"> a) Giving advice.</label>
+          <label><input type="radio" name="q8" value="b"> b) Asking complex rhetorical questions.</label>
+          <label><input type="radio" name="q8" value="c"> c) Reflecting and Labeling Emotions.</label>
+          <label><input type="radio" name="q8" value="d"> d) Asking them about their job history.</label>
+          <div class="feedback" id="fb8"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question" data-correct="b">
+          <p><strong>9. Compassion Fatigue is best managed through:</strong></p>
+          <label><input type="radio" name="q9" value="a"> a) Ignoring its symptoms.</label>
+          <label><input type="radio" name="q9" value="b"> b) Professional self-care, peer supervision, and active rest.</label>
+          <label><input type="radio" name="q9" value="c"> c) Working longer hours without breaks.</label>
+          <label><input type="radio" name="q9" value="d"> d) Increasing workload to distract from stress.</label>
+          <div class="feedback" id="fb9"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question" data-correct="b">
+          <p><strong>10. The Seamless Care Guidebook is used primarily to:</strong></p>
+          <label><input type="radio" name="q10" value="a"> a) Teach meditation.</label>
+          <label><input type="radio" name="q10" value="b"> b) Ensure safe, documented, and effective transitions of care during a referral.</label>
+          <label><input type="radio" name="q10" value="c"> c) Help paraprofessionals find a job.</label>
+          <label><input type="radio" name="q10" value="d"> d) Market the course to others.</label>
+          <div class="feedback" id="fb10"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question" data-correct="c">
+          <p><strong>11. Which Filipino cultural value often acts as a barrier to seeking formal mental health support?</strong></p>
+          <label><input type="radio" name="q11" value="a"> a) Bayanihan (communal unity)</label>
+          <label><input type="radio" name="q11" value="b"> b) Pakikipagkapwa-tao (shared identity)</label>
+          <label><input type="radio" name="q11" value="c"> c) Hiya (shame or embarrassment)</label>
+          <label><input type="radio" name="q11" value="d"> d) Utang na Loob (debt of gratitude)</label>
+          <div class="feedback" id="fb11"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question" data-correct="b">
+          <p><strong>12. Why must a paraprofessional secure their client notes with a password?</strong></p>
+          <label><input type="radio" name="q12" value="a"> a) To hide them from the supervisor.</label>
+          <label><input type="radio" name="q12" value="b"> b) To comply with the Data Privacy Act (RA 10173).</label>
+          <label><input type="radio" name="q12" value="c"> c) To save paper.</label>
+          <label><input type="radio" name="q12" value="d"> d) To make the notes look professional.</label>
+          <div class="feedback" id="fb12"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question" data-correct="c">
+          <p><strong>13. When providing support, the best question type to encourage a client to share detailed feelings and experiences is:</strong></p>
+          <label><input type="radio" name="q13" value="a"> a) Closed-ended questions (Yes/No).</label>
+          <label><input type="radio" name="q13" value="b"> b) Leading questions.</label>
+          <label><input type="radio" name="q13" value="c"> c) Open-ended questions (How, What, Tell me more).</label>
+          <label><input type="radio" name="q13" value="d"> d) Rhetorical questions.</label>
+          <div class="feedback" id="fb13"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question" data-correct="b">
+          <p><strong>14. If a client is experiencing high anxiety, the goal of teaching Diaphragmatic Breathing is to:</strong></p>
+          <label><input type="radio" name="q14" value="a"> a) Increase their heart rate.</label>
+          <label><input type="radio" name="q14" value="b"> b) Activate the body’s calming parasympathetic nervous system.</label>
+          <label><input type="radio" name="q14" value="c"> c) Help them run away.</label>
+          <label><input type="radio" name="q14" value="d"> d) Solve their long-term problems.</label>
+          <div class="feedback" id="fb14"></div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question" data-correct="b">
+          <p><strong>15. If a client has already received help from an LGU counselor (Level 1) but their symptoms persist, the most appropriate LINK action is a referral to:</strong></p>
+          <label><input type="radio" name="q15" value="a"> a) A peer support group.</label>
+          <label><input type="radio" name="q15" value="b"> b) A licensed psychologist or psychiatrist (Level 2).</label>
+          <label><input type="radio" name="q15" value="c"> c) A self-help book.</label>
+          <label><input type="radio" name="q15" value="d"> d) Another BHW.</label>
+          <div class="feedback" id="fb15"></div>
+        </div>
+
+        <button type="button" class="btn" onclick="Module9App.submitPostTest()">Submit Final Assessment</button>
+      </form>
     </div>
-<script>
-        // Mark Module 9 as complete and sync with index.html progress
-        function markModuleComplete() {
-            // Module 9 has 3 lessons: [Final Assessment, Renewal Requirements, Course Completion and Next Steps]
-            const module9Lessons = ['9-1', '9-2', '9-3'];
-            
-            // Retrieve existing progress or initialize
-            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-            
-            // Add all Module 9 lessons if not already present
-            module9Lessons.forEach(lessonId => {
-                if (!completedLessons.includes(lessonId)) {
-                    completedLessons.push(lessonId);
-                }
-            });
-            
-            // Save back to localStorage
-            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-            
-            // Show success feedback
-            alert('✅ Module 9 marked as complete! Your progress has been saved.');
-            
-            // Redirect to index.html (which will load progress from localStorage)
-            window.location.href = 'index.html';
+
+    <!-- Assessment Components Table -->
+    <h3>Assessment Components</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Assessment Type</th>
+          <th>Description</th>
+          <th>Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Knowledge Quizzes</strong></td>
+          <td>Online quizzes for Modules 0–8</td>
+          <td>20%</td>
+        </tr>
+        <tr>
+          <td><strong>Skills Assessment</strong></td>
+          <td>Role-plays and simulations</td>
+          <td>30%</td>
+        </tr>
+        <tr>
+          <td><strong>Practicum</strong></td>
+          <td>Mentor evaluation of 10 sessions</td>
+          <td>35%</td>
+        </tr>
+        <tr>
+          <td><strong>Reflection</strong></td>
+          <td>Journal and peer discussion</td>
+          <td>15%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Passing Requirements</h3>
+    <ul>
+      <li>Overall grade of <strong>75% or higher</strong></li>
+      <li>Completion of all 9 modules</li>
+      <li>Completion of 10 supervised practicum sessions</li>
+      <li>Mentor endorsement</li>
+      <li>Submission of reflection journal</li>
+    </ul>
+
+    <!-- Renewal Requirements -->
+    <h2>9.2 Renewal Requirements</h2>
+    <p>The certification is valid for <strong>two years</strong>. Maintaining your credential requires ongoing commitment to professional standards.</p>
+    
+    <h3>Renewal Requirements</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Requirement</th>
+          <th>Details</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Refresher Course</strong></td>
+          <td>Minimum 6-hour DOH-recognized refresher course</td>
+          <td>Every 2 years</td>
+        </tr>
+        <tr>
+          <td><strong>Case Reflections</strong></td>
+          <td>Submission of 3 new, supervised case reflections</td>
+          <td>Every 2 years</td>
+        </tr>
+        <tr>
+          <td><strong>Mentor Endorsement</strong></td>
+          <td>Confirmation of continued ethical practice</td>
+          <td>Every 2 years</td>
+        </tr>
+        <tr>
+          <td><strong>Continuing Education</strong></td>
+          <td>12 hours of approved CPD activities</td>
+          <td>Every 2 years</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Approved CPD Activities</h3>
+    <ul>
+      <li>Workshops and seminars on mental health</li>
+      <li>Participation in supervision groups</li>
+      <li>Conference attendance</li>
+      <li>Advanced training courses</li>
+      <li>Case consultation sessions</li>
+      <li>Mental health advocacy activities</li>
+    </ul>
+
+    <!-- Course Completion -->
+    <h2>9.3 Course Completion & Next Steps</h2>
+    <div class="completion-message">
+      "You came to learn how to support others.<br>You leave knowing you are already part of the healing."
+    </div>
+
+    <h3>Your Impact</h3>
+    <p>As a certified Mental Health and Well-Being Paraprofessional, you are now equipped to:</p>
+    <ul>
+      <li><strong>Bridge the treatment gap</strong> in Philippine mental health services</li>
+      <li><strong>Provide immediate support</strong> to those in distress</li>
+      <li><strong>Combat stigma</strong> through compassionate, person-first practice</li>
+      <li><strong>Connect people</strong> to appropriate professional care</li>
+      <li><strong>Promote recovery</strong> and hope in your community</li>
+    </ul>
+
+    <h3>Resources for Your Practice</h3>
+    <ul>
+      <li><strong>Oasis:</strong> <a href="https://cognitioplus.aiwaapp.live/oasis/" target="_blank">cognitioplus.aiwaapp.live/oasis</a></li>
+      <li><strong>Resilience Navigator:</strong> <a href="https://cognitioplus.aiwaapp.live/resilience-navigator/" target="_blank">cognitioplus.aiwaapp.live/resilience-navigator</a></li>
+      <li><strong>Well-Be:</strong> <a href="https://cognitioplus.aiwaapp.live/well-be/" target="_blank">cognitioplus.aiwaapp.live/well-be</a></li>
+      <li><strong>Crisis Hotlines:</strong> NCMH (1553), Hopeline PH (804-HOPE / 0917-558-HOPE)</li>
+    </ul>
+
+    <!-- Lesson 9.4: Certification Generation -->
+    <h2>9.4 Certification</h2>
+    <p>Upon passing the Final Assessment and meeting all requirements, your <strong>Digital Certificate of Completion</strong> will be automatically generated with a unique verification code.</p>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <a href="module8.html" class="btn">← Module 8</a>
+      <button id="mark-complete-btn" class="btn" style="display: none;" onclick="Module9App.markModuleComplete()">
+        ✅ Mark Module 9 as Complete
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Encapsulated Module 9 logic
+    const Module9App = (function () {
+      const MODULE_9_LESSONS = ['9-1', '9-2', '9-3', '9-4'];
+      let attempts = 0;
+      const MAX_ATTEMPTS = 2;
+
+      // Correct answers for the post-test
+      const correctAnswers = {
+        q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b',
+        q6: 'a', q7: 'c', q8: 'c', q9: 'b', q10: 'b',
+        q11: 'c', q12: 'b', q13: 'c', q14: 'b', q15: 'b'
+      };
+
+      function markLessonComplete(lessonId) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+          completed.push(lessonId);
+          localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-    </script>
-           <script>
-                              // In index.html
-let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+        checkAndShowMarkCompleteButton();
+      }
 
-const module9Lessons = ['9-0', '9-1', '9-2', '9-3'];
+      function checkAndShowMarkCompleteButton() {
+        const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        const allDone = MODULE_9_LESSONS.every(id => completed.includes(id));
+        const btn = document.getElementById('mark-complete-btn');
+        if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
+      }
 
-              </script>
+      function submitPostTest() {
+        if (attempts >= MAX_ATTEMPTS) {
+          alert('❌ You have used all 2 attempts. Please contact your mentor for support.');
+          return;
+        }
 
+        const questions = document.querySelectorAll('.question');
+        let score = 0;
+
+        questions.forEach((q, idx) => {
+          const qNum = idx + 1;
+          const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
+          const correct = correctAnswers[`q${qNum}`];
+          const fb = document.getElementById(`fb${qNum}`);
+
+          if (!selected) {
+            fb.textContent = 'Please select an answer.';
+            fb.className = 'feedback incorrect';
+            return;
+          }
+
+          if (selected.value === correct) {
+            score++;
+            fb.textContent = '✓ Correct!';
+            fb.className = 'feedback correct';
+          } else {
+            fb.textContent = '✗ Incorrect.';
+            fb.className = 'feedback incorrect';
+          }
+          fb.style.display = 'block';
+        });
+
+        attempts++;
+        const passed = score >= 12; // 75% of 15
+
+        if (passed) {
+          alert(`🎉 Congratulations! You scored ${score}/15 (${Math.round((score/15)*100)}%). You have passed the Final Assessment!`);
+          // Mark all lessons as complete
+          MODULE_9_LESSONS.forEach(markLessonComplete);
+          // Simulate certificate generation
+          setTimeout(() => {
+            window.location.href = 'certificate.html?name=Alvin%20Silva&date=' + new Date().toISOString().split('T')[0];
+          }, 1000);
+        } else if (attempts < MAX_ATTEMPTS) {
+          alert(`❌ You scored ${score}/15 (${Math.round((score/15)*100)}%). You need 12+ to pass. You have ${MAX_ATTEMPTS - attempts} attempt(s) left.`);
+        } else {
+          alert('❌ You did not pass after 2 attempts. Please contact your mentor.');
+        }
+      }
+
+      function markModuleComplete() {
+        MODULE_9_LESSONS.forEach(markLessonComplete);
+        localStorage.setItem('courseProgress', JSON.stringify({ ...JSON.parse(localStorage.getItem('courseProgress') || '{}'), module9: true, completed: true }));
+        window.location.href = 'certificate.html?name=Alvin%20Silva&date=' + new Date().toISOString().split('T')[0];
+      }
+
+      // Initialize: auto-mark lessons 9-2, 9-3, 9-4 as complete on load
+      function init() {
+        ['9-2', '9-3', '9-4'].forEach(markLessonComplete);
+        // Note: 9-1 (Final Assessment) is only marked complete upon passing
+      }
+
+      return {
+        submitPostTest,
+        markModuleComplete,
+        init
+      };
+    })();
+
+    // Run on DOM load
+    document.addEventListener('DOMContentLoaded', Module9App.init);
+  </script>
 </body>
 </html>
