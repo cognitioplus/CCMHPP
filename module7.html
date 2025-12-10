@@ -297,7 +297,8 @@
             </ul>
             <a href="https://cognitioplus.aiwaapp.live/resilience-navigator/" target="_blank" class="btn">Access Resilience Navigator →</a>
         </div>
-
+ 
+        <h2>7.3 Personal Self-Care Plan</h2>
         <h3>Creating Your Personal Self-Care Plan</h3>
         <ol>
             <li>Assess your current self-care across all four dimensions</li>
@@ -313,6 +314,40 @@
             <a href="module8.html" class="btn-nav">Module 8: Practicum Preparation and Professional Development →</a>
         </div>
     </div>
+     <script>
+        // Mark Module 7 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 7 has 3 lessons: [Parapprofessional Self-Care, Cognitio+ Digital Resilience Tools, Personal Self-Care Plan]
+            const module7Lessons = ['7-1', '7-2', '7-3'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 7 lessons if not already present
+            module0Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 7 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module7Lessons = ['7-1', '7-12', '7-3'];
+
+
+              </script>
 </body>
 </html>
 
