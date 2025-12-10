@@ -334,6 +334,41 @@
             <a href="module1.html" class="btn">Module 1: Foundational Frameworks and Your Role →</a>
         </div>
     </div>
+
+    <script>
+        // Mark Module 0 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 0 has 3 lessons: [Pre-Test, Course Goal, Course Structure]
+            const module0Lessons = ['0-0', '0-1', '0-2'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 0 lessons if not already present
+            module0Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 0 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+    </script>
+
+              <script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module9Lessons = ['9-0', '9-1', '9-2', '9-3'];
+
+
+              </script>
 </body>
 </html>
-
