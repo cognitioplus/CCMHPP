@@ -1,492 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 8: Practicum Preparation and Professional Development</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
-        rel="stylesheet"
-    />
-    <style>
-        :root {
-            --primary: #b425aa;
-            --primary-light: #c80ec9;
-            --accent: #D4AF37;
-            --bg-dark: #1a1a1a;
-            --bg-light: #f5f5f5;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --border: #e0e0e0;
-            --success: #4caf50;
-            --error: #f44336;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 25px 0 15px;
-        }
-        p, ul, ol {
-            margin-bottom: 15px;
-        }
-        ul, ol {
-            padding-left: 30px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .rubric-section {
-            margin: 30px 0;
-            padding: 25px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: #fafafa;
-        }
-        .rubric-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        .rubric-table th,
-        .rubric-table td {
-            border: 1px solid var(--border);
-            padding: 8px;
-            text-align: left;
-            vertical-align: top;
-        }
-        .rubric-table th {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-        .rubric-table td:first-child {
-            width: 40%;
-        }
-        .rubric-table td:not(:first-child):not(:last-child) {
-            text-align: center;
-            width: 50px;
-        }
-        .rating-scale {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-            font-size: 0.95rem;
-        }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid var(--border);
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: var(--primary-light);
-        }
-        .signature-line {
-            border-top: 1px solid var(--border);
-            margin-top: 5px;
-            width: 250px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 8: Practicum Preparation and Professional Development</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --primary: #b425aa;
+      --primary-light: #c80ec9;
+      --accent: #d4af37;
+      --bg-light: #f5f5f5;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --success: #4caf50;
+      --error: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.6;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 24px 0 16px;
+    }
+
+    p, ul, ol {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      padding-left: 28px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    .rubric-section {
+      margin: 32px 0;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.92rem;
+    }
+
+    .rubric-table th,
+    .rubric-table td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .rubric-table th {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+
+    .rubric-table td:first-child {
+      width: 45%;
+    }
+
+    .rubric-table td:not(:first-child):not(:last-child) {
+      text-align: center;
+      width: 40px;
+    }
+
+    .rating-scale {
+      background: #f0f0f0;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+
+    .signature-line {
+      border-top: 1px solid var(--border);
+      margin-top: 5px;
+      width: 250px;
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border);
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      transition: background 0.3s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .navigation {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+        margin: 4px 0;
+      }
+      .rubric-table {
+        font-size: 0.85rem;
+      }
+      .rubric-table td:first-child {
+        width: auto;
+        word-break: break-word;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Module 8: Practicum Preparation and Professional Development</h1>
-        <p><strong>Duration:</strong> 4 hours</p>
+  <div class="container">
+    <h1>Module 8: Practicum Preparation and Professional Development</h1>
+    <p><strong>Duration:</strong> 4 hours</p>
 
-        <!-- Lesson 1: The Practicum Component -->
-        <h2>8.1 The Practicum Component</h2>
-        <p>The 16-hour practicum requires <strong>10 guided support sessions</strong> under the supervision of a licensed mentor.</p>
-        <h3>Practicum Objectives</h3>
-        <p>This phase is designed to:</p>
-        <ul>
-            <li>Translate theoretical knowledge into safe practice</li>
-            <li>Refine communication and boundary skills</li>
-            <li>Apply the <em>Look-Listen-Link</em> model in real or simulated scenarios</li>
-            <li>Document cases ethically and professionally</li>
-            <li>Receive feedback and supervision</li>
-        </ul>
-        <h3>What to Expect</h3>
-        <h4>Session Types</h4>
-        <ul>
-            <li><strong>Role-plays:</strong> Practice with simulated clients</li>
-            <li><strong>Observed sessions:</strong> Real sessions with mentor observation</li>
-            <li><strong>Case presentations:</strong> Present and discuss cases</li>
-            <li><strong>Reflection sessions:</strong> Process experiences with mentor</li>
-        </ul>
-        <h4>Mentor Evaluation Criteria</h4>
-        <ul>
-            <li>Application of PFA principles (Look, Listen, Link)</li>
-            <li>Communication skills (empathy, active listening)</li>
-            <li>Ethical practice and boundary maintenance</li>
-            <li>Appropriate referral and documentation</li>
-            <li>Self-awareness and reflection</li>
-        </ul>
-        <h3>Preparing for Your Practicum</h3>
-        <ol>
-            <li><strong>Review all modules</strong> before starting</li>
-            <li><strong>Practice skills</strong> with peers or family</li>
-            <li><strong>Prepare questions</strong> for your mentor</li>
-            <li><strong>Set learning goals</strong> for each session</li>
-            <li><strong>Maintain a reflection journal</strong></li>
-        </ol>
-
-        <!-- Lesson 2: Documentation Best Practices -->
-        <h2>8.2 Documentation Best Practices</h2>
-        <p>Documentation should be factual, professional, and secured under RA 10173.</p>
-        <h3>Key Principles</h3>
-        <ul>
-            <li><strong>Factual only:</strong> Record only what was said and done, not assumptions or diagnoses</li>
-            <li><strong>Objective language:</strong> Avoid judgmental terms</li>
-            <li><strong>Specific details:</strong> Include dates, times, and concrete information</li>
-            <li><strong>Rationale:</strong> Explain why you made certain decisions</li>
-            <li><strong>Secure storage:</strong> Password-protected and encrypted</li>
-        </ul>
-        <h3>What to Document</h3>
-        <ul>
-            <li>Date, time, and duration of session</li>
-            <li>Presenting concerns</li>
-            <li>Observations (what you saw and heard)</li>
-            <li>Interventions provided (e.g., breathing exercises)</li>
-            <li>Referrals made (include contact details)</li>
-            <li>Safety concerns identified</li>
-            <li>Follow-up plans</li>
-        </ul>
-        <h3>Documentation Template</h3>
-        <blockquote style="border-left: 4px solid var(--primary); padding-left: 20px; font-style: italic;">
-            <strong>Date:</strong> December 4, 2024<br>
-            <strong>Time:</strong> 2:00 PM - 2:45 PM<br>
-            <strong>Session Type:</strong> Online support<br>
-            <strong>Presenting Concerns:</strong> Client reported chronic worry about finances and difficulty sleeping for the past 3 weeks<br>
-            <strong>Observations:</strong> Client appeared tired, spoke softly, but maintained good eye contact<br>
-            <strong>Interventions:</strong> Discussed 5-4-3-2-1 grounding technique; practiced diaphragmatic breathing<br>
-            <strong>Referral:</strong> Referred to LGU MHPSS Desk (Contact: Maria Santos, 0912-345-6789) for ongoing support<br>
-            <strong>Safety Concerns:</strong> None identified<br>
-            <strong>Follow-up:</strong> Client agreed to contact referral within one week; I will check in via message in 3 days
-        </blockquote>
-        <h3>What NOT to Document</h3>
-        <ul>
-            <li>❌ Diagnoses ("Client has depression")</li>
-            <li>❌ Judgments ("Client is lazy")</li>
-            <li>❌ Assumptions ("Client probably...")</li>
-            <li>❌ Irrelevant personal details</li>
-            <li>❌ Information without consent</li>
-        </ul>
-        <h3>Data Security Checklist</h3>
-        <ul>
-            <li>✓ Use password-protected files</li>
-            <li>✓ Encrypt sensitive documents</li>
-            <li>✓ Store in secure location</li>
-            <li>✓ Use anonymized identifiers when possible</li>
-            <li>✓ Delete or archive per data retention policy</li>
-            <li>✓ Never discuss cases in public spaces</li>
-        </ul>
-
-        <!-- Lesson 3: Post-Certification Roadmap -->
-        <h2>8.3 Post-Certification Roadmap</h2>
-        <p>Your professional journey continues after certification. Here's how to grow and sustain your practice:</p>
-        <h3>Immediate Next Steps</h3>
-        <ol>
-            <li><strong>Download your certificate</strong> and keep your verification code safe</li>
-            <li><strong>Join a paraprofessional network</strong> for ongoing support</li>
-            <li><strong>Connect with your mentor</strong> for post-certification supervision</li>
-            <li><strong>Identify your practice setting</strong> (online, community, both)</li>
-        </ol>
-        <h3>Continuing Professional Development</h3>
-        <h4>1. Join a Paraprofessional Network</h4>
-        <ul>
-            <li>Connect with fellow paraprofessionals</li>
-            <li>Share experiences and resources</li>
-            <li>Stay updated on best practices</li>
-        </ul>
-        <h4>2. Volunteer Opportunities</h4>
-        <ul>
-            <li>Barangay MHPSS desks</li>
-            <li>Community health centers</li>
-            <li>Crisis hotlines</li>
-            <li>Online peer support platforms</li>
-        </ul>
-        <h4>3. Ongoing Supervision</h4>
-        <ul>
-            <li>Participate in quarterly peer supervision circles</li>
-            <li>Seek individual supervision for complex cases</li>
-            <li>Engage in case consultation</li>
-        </ul>
-        <h4>4. Additional Training</h4>
-        <ul>
-            <li>Specialized workshops (trauma, substance use, youth)</li>
-            <li>Advanced communication skills</li>
-            <li>Cultural competency training</li>
-            <li>Digital mental health tools</li>
-        </ul>
-        <h3>Career Pathways</h3>
-        <p>As a certified paraprofessional, you can:</p>
-        <ul>
-            <li>Provide peer support in community settings</li>
-            <li>Work with NGOs and mental health organizations</li>
-            <li>Support online mental health platforms</li>
-            <li>Serve as a bridge between communities and professionals</li>
-            <li>Train other paraprofessionals</li>
-            <li>Advocate for mental health policy</li>
-        </ul>
-        <h3>Setting Up Your Practice</h3>
-        <ol>
-            <li><strong>Define your scope:</strong> What populations will you serve?</li>
-            <li><strong>Establish boundaries:</strong> Working hours, availability, limits</li>
-            <li><strong>Build your network:</strong> Referral resources and supervisors</li>
-            <li><strong>Create systems:</strong> Documentation, scheduling, self-care</li>
-            <li><strong>Stay connected:</strong> Join professional communities</li>
-        </ol>
-
-        <!-- Observation Rubric -->
-        <div class="rubric-section">
-            <h2>Practicum Observation Rubric for Mental Health Paraprofessionals</h2>
-            <p><strong>Paraprofessional Name:</strong> ___________________<br>
-            <strong>Date:</strong> ___________________<br>
-            <strong>Observer:</strong> ___________________<br>
-            <strong>Context/Setting:</strong> ___________________</p>
-
-            <div class="rating-scale">
-                <strong>Rating Scale:</strong><br>
-                • <strong>1 - Emerging:</strong> Skill is absent or ineffective; requires significant intervention.<br>
-                • <strong>2 - Developing:</strong> Skill is present but inconsistent; requires some prompting.<br>
-                • <strong>3 - Proficient:</strong> Skill is applied effectively and independently in most situations.<br>
-                • <strong>4 - Advanced:</strong> Skill is applied with high competence, nuance, and adaptability.
-            </div>
-
-            <!-- Section I -->
-            <h3>I. Core Support and Communication Skills</h3>
-            <p><em>Standard: Demonstrates empathy, reflective listening, and rapport-building. (Source: WHO mhGAP, 2023)</em></p>
-            <table class="rubric-table">
-                <thead>
-                    <tr>
-                        <th>Indicators</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>Notes/Evidence</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Active Listening:</strong> Uses non-verbal cues (eye contact, nodding) and verbal encouragers ("I see," "Go on") to show attention.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Reflective Listening:</strong> Accurately paraphrases and summarizes the client's story to confirm understanding.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Empathy:</strong> Validates feelings without judgment (e.g., "It sounds like you are carrying a heavy burden").</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rapport:</strong> Establishes a warm, trusting, and safe atmosphere immediately upon engagement.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Section II -->
-            <h3>II. Ethics and Confidentiality</h3>
-            <p><em>Standard: Adheres to data privacy and informed consent practices. (Source: WHO QualityRights, RA 10173)</em></p>
-            <table class="rubric-table">
-                <tbody>
-                    <tr>
-                        <td><strong>Informed Consent:</strong> Clearly explains the purpose of the session, limits of confidentiality, and obtains consent before proceeding.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Data Privacy:</strong> Handles client information securely; discusses sensitive topics only in private settings (RA 10173 compliance).</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Boundaries:</strong> Maintains professional distance; avoids dual relationships or over-involvement in client's personal life.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rights-Based Approach:</strong> Respects the client’s autonomy and right to make their own decisions.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Section III -->
-            <h3>III. Crisis Response and Referral</h3>
-            <p><em>Standard: Applies Look–Listen–Link in crisis; initiates safe referrals. (Source: WHO PFA Guide)</em></p>
-            <table class="rubric-table">
-                <tbody>
-                    <tr>
-                        <td><strong>LOOK (Safety Check):</strong> Quickly assesses for urgent needs and serious distress/safety risks.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>LISTEN (Support):</strong> Approaches people who may need support, asks about needs/concerns, and listens calmly.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>LINK (Connection):</strong> helps people address basic needs and access services/information.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Referral Protocol:</strong> Identifies when a case exceeds their competency (e.g., suicide risk) and initiates the correct referral pathway immediately.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Section IV -->
-            <h3>IV. Cultural and Community Sensitivity</h3>
-            <p><em>Standard: Integrates local and cultural contexts. (Source: PCMH Framework)</em></p>
-            <table class="rubric-table">
-                <tbody>
-                    <tr>
-                        <td><strong>Cultural Humility:</strong> Respects local beliefs and practices regarding mental health (e.g., religious coping) without imposing own views.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Language & Tone:</strong> Uses language that is culturally appropriate, non-stigmatizing, and easily understood by the community member.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Contextual Awareness:</strong> Adapts interventions to fit the client's socioeconomic reality and available community resources.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Section V -->
-            <h3>V. Personal and Peer Resilience</h3>
-            <p><em>Standard: Practices mindfulness, self-care, and supervision. (Source: DOH–PCMH Workforce Pillar)</em></p>
-            <table class="rubric-table">
-                <tbody>
-                    <tr>
-                        <td><strong>Emotional Regulation:</strong> Maintains composure and manages own stress responses during challenging interactions.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Supervision Utilization:</strong> Actively seeks feedback and debriefing from supervisors; admits when they don't know the answer.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Self-Correction:</strong> Demonstrates ability to reflect on performance and adjust behavior based on feedback.</td>
-                        <td></td><td></td><td></td><td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Summary -->
-            <h3>Summary of Observation</h3>
-            <p><strong>Top Strengths:</strong></p>
-            <p>1. ____________________________________________________</p>
-            <p>2. ____________________________________________________</p>
-            <p><strong>Areas for Improvement:</strong></p>
-            <p>1. ____________________________________________________</p>
-            <p>2. ____________________________________________________</p>
-
-            <p style="margin-top: 30px;">
-                <strong>Observer Signature:</strong><br>
-                <span class="signature-line"></span>
-            </p>
-            <p>
-                <strong>Paraprofessional Signature:</strong><br>
-                <span class="signature-line"></span>
-            </p>
-        </div>
-
-        <!-- Navigation -->
-        <div class="navigation">
-            <a href="module7.html" class="btn">← Module 7: Self-Care and Resilience</a>
-            <a href="module9.html" class="btn">Module 9: Certification and Renewal →</a>
-        </div>
-    </div>
+    <!-- Lesson 8.1 -->
+    <h2>8.1 The Practicum Component</h2>
+    <p>The 16-hour practicum requires <strong>10 guided support sessions</strong> under the supervision of a licensed mentor.</p>
     
-     <script>
-        // Mark Module 8 as complete and sync with index.html progress
-        function markModuleComplete() {
-            // Module 8 has 3 lessons: [Practicum Component, Post-Certification Roadmap]
-            const module8Lessons = ['8-1', '8-2', '8-3'];
-            
-            // Retrieve existing progress or initialize
-            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-            
-            // Add all Module 8 lessons if not already present
-            module8Lessons.forEach(lessonId => {
-                if (!completedLessons.includes(lessonId)) {
-                    completedLessons.push(lessonId);
-                }
-            });
-            
-            // Save back to localStorage
-            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-            
-            // Show success feedback
-            alert('✅ Module 8 marked as complete! Your progress has been saved.');
-            
-            // Redirect to index.html (which will load progress from localStorage)
-            window.location.href = 'index.html';
+    <h3>Practicum Objectives</h3>
+    <p>This phase is designed to:</p>
+    <ul>
+      <li>Translate theoretical knowledge into safe practice</li>
+      <li>Refine communication and boundary skills</li>
+      <li>Apply the <em>Look-Listen-Link</em> model in real or simulated scenarios</li>
+      <li>Document cases ethically and professionally</li>
+      <li>Receive feedback and supervision</li>
+    </ul>
+
+    <h3>What to Expect</h3>
+    <h4>Session Types</h4>
+    <ul>
+      <li><strong>Role-plays:</strong> Practice with simulated clients</li>
+      <li><strong>Observed sessions:</strong> Real sessions with mentor observation</li>
+      <li><strong>Case presentations:</strong> Present and discuss cases</li>
+      <li><strong>Reflection sessions:</strong> Process experiences with mentor</li>
+    </ul>
+
+    <h4>Mentor Evaluation Criteria</h4>
+    <ul>
+      <li>Application of PFA principles (Look, Listen, Link)</li>
+      <li>Communication skills (empathy, active listening)</li>
+      <li>Ethical practice and boundary maintenance</li>
+      <li>Appropriate referral and documentation</li>
+      <li>Self-awareness and reflection</li>
+    </ul>
+
+    <h3>Preparing for Your Practicum</h3>
+    <ol>
+      <li><strong>Review all modules</strong> before starting</li>
+      <li><strong>Practice skills</strong> with peers or family</li>
+      <li><strong>Prepare questions</strong> for your mentor</li>
+      <li><strong>Set learning goals</strong> for each session</li>
+      <li><strong>Maintain a reflection journal</strong></li>
+    </ol>
+
+    <!-- Lesson 8.2 -->
+    <h2>8.2 Documentation Best Practices</h2>
+    <p>Documentation should be factual, professional, and secured under RA 10173.</p>
+
+    <h3>Key Principles</h3>
+    <ul>
+      <li><strong>Factual only:</strong> Record only what was said and done, not assumptions or diagnoses</li>
+      <li><strong>Objective language:</strong> Avoid judgmental terms</li>
+      <li><strong>Specific details:</strong> Include dates, times, and concrete information</li>
+      <li><strong>Rationale:</strong> Explain why you made certain decisions</li>
+      <li><strong>Secure storage:</strong> Password-protected and encrypted</li>
+    </ul>
+
+    <h3>What to Document</h3>
+    <ul>
+      <li>Date, time, and duration of session</li>
+      <li>Presenting concerns</li>
+      <li>Observations (what you saw and heard)</li>
+      <li>Interventions provided (e.g., breathing exercises)</li>
+      <li>Referrals made (include contact details)</li>
+      <li>Safety concerns identified</li>
+      <li>Follow-up plans</li>
+    </ul>
+
+    <h3>Documentation Template</h3>
+    <blockquote>
+      <strong>Date:</strong> December 4, 2024<br>
+      <strong>Time:</strong> 2:00 PM – 2:45 PM<br>
+      <strong>Session Type:</strong> Online support<br>
+      <strong>Presenting Concerns:</strong> Client reported chronic worry about finances and difficulty sleeping for the past 3 weeks<br>
+      <strong>Observations:</strong> Client appeared tired, spoke softly, but maintained good eye contact<br>
+      <strong>Interventions:</strong> Discussed 5-4-3-2-1 grounding technique; practiced diaphragmatic breathing<br>
+      <strong>Referral:</strong> Referred to LGU MHPSS Desk (Contact: Maria Santos, 0912-345-6789) for ongoing support<br>
+      <strong>Safety Concerns:</strong> None identified<br>
+      <strong>Follow-up:</strong> Client agreed to contact referral within one week; I will check in via message in 3 days
+    </blockquote>
+
+    <h3>What NOT to Document</h3>
+    <ul>
+      <li>❌ Diagnoses ("Client has depression")</li>
+      <li>❌ Judgments ("Client is lazy")</li>
+      <li>❌ Assumptions ("Client probably...")</li>
+      <li>❌ Irrelevant personal details</li>
+      <li>❌ Information without consent</li>
+    </ul>
+
+    <h3>Data Security Checklist</h3>
+    <ul>
+      <li>✓ Use password-protected files</li>
+      <li>✓ Encrypt sensitive documents</li>
+      <li>✓ Store in secure location</li>
+      <li>✓ Use anonymized identifiers when possible</li>
+      <li>✓ Delete or archive per data retention policy</li>
+      <li>✓ Never discuss cases in public spaces</li>
+    </ul>
+
+    <!-- Lesson 8.3 -->
+    <h2>8.3 Post-Certification Roadmap</h2>
+    <p>Your professional journey continues after certification. Here's how to grow and sustain your practice:</p>
+
+    <h3>Immediate Next Steps</h3>
+    <ol>
+      <li><strong>Download your certificate</strong> and keep your verification code safe</li>
+      <li><strong>Join a paraprofessional network</strong> for ongoing support</li>
+      <li><strong>Connect with your mentor</strong> for post-certification supervision</li>
+      <li><strong>Identify your practice setting</strong> (online, community, both)</li>
+    </ol>
+
+    <h3>Continuing Professional Development</h3>
+    <h4>1. Join a Paraprofessional Network</h4>
+    <ul>
+      <li>Connect with fellow paraprofessionals</li>
+      <li>Share experiences and resources</li>
+      <li>Stay updated on best practices</li>
+    </ul>
+
+    <h4>2. Volunteer Opportunities</h4>
+    <ul>
+      <li>Barangay MHPSS desks</li>
+      <li>Community health centers</li>
+      <li>Crisis hotlines</li>
+      <li>Online peer support platforms</li>
+    </ul>
+
+    <h4>3. Ongoing Supervision</h4>
+    <ul>
+      <li>Participate in quarterly peer supervision circles</li>
+      <li>Seek individual supervision for complex cases</li>
+      <li>Engage in case consultation</li>
+    </ul>
+
+    <h4>4. Additional Training</h4>
+    <ul>
+      <li>Specialized workshops (trauma, substance use, youth)</li>
+      <li>Advanced communication skills</li>
+      <li>Cultural competency training</li>
+      <li>Digital mental health tools</li>
+    </ul>
+
+    <h3>Career Pathways</h3>
+    <p>As a certified paraprofessional, you can:</p>
+    <ul>
+      <li>Provide peer support in community settings</li>
+      <li>Work with NGOs and mental health organizations</li>
+      <li>Support online mental health platforms</li>
+      <li>Serve as a bridge between communities and professionals</li>
+      <li>Train other paraprofessionals</li>
+      <li>Advocate for mental health policy</li>
+    </ul>
+
+    <h3>Setting Up Your Practice</h3>
+    <ol>
+      <li><strong>Define your scope:</strong> What populations will you serve?</li>
+      <li><strong>Establish boundaries:</strong> Working hours, availability, limits</li>
+      <li><strong>Build your network:</strong> Referral resources and supervisors</li>
+      <li><strong>Create systems:</strong> Documentation, scheduling, self-care</li>
+      <li><strong>Stay connected:</strong> Join professional communities</li>
+    </ol>
+
+    <!-- Observation Rubric -->
+    <div class="rubric-section">
+      <h2>Practicum Observation Rubric for Mental Health Paraprofessionals</h2>
+      <p>
+        <strong>Paraprofessional Name:</strong> ___________________<br>
+        <strong>Date:</strong> ___________________<br>
+        <strong>Observer:</strong> ___________________<br>
+        <strong>Context/Setting:</strong> ___________________
+      </p>
+
+      <div class="rating-scale">
+        <strong>Rating Scale:</strong><br>
+        • <strong>1 – Emerging:</strong> Skill is absent or ineffective; requires significant intervention.<br>
+        • <strong>2 – Developing:</strong> Skill is present but inconsistent; requires some prompting.<br>
+        • <strong>3 – Proficient:</strong> Skill is applied effectively and independently in most situations.<br>
+        • <strong>4 – Advanced:</strong> Skill is applied with high competence, nuance, and adaptability.
+      </div>
+
+      <!-- Section I -->
+      <h3>I. Core Support and Communication Skills</h3>
+      <p><em>Standard: Demonstrates empathy, reflective listening, and rapport-building. (Source: WHO mhGAP, 2023)</em></p>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Indicators</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>Notes/Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Active Listening:</strong> Uses non-verbal cues (eye contact, nodding) and verbal encouragers ("I see," "Go on") to show attention.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Reflective Listening:</strong> Accurately paraphrases and summarizes the client's story to confirm understanding.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Empathy:</strong> Validates feelings without judgment (e.g., "It sounds like you are carrying a heavy burden").</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Rapport:</strong> Establishes a warm, trusting, and safe atmosphere immediately upon engagement.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section II -->
+      <h3>II. Ethics and Confidentiality</h3>
+      <p><em>Standard: Adheres to data privacy and informed consent practices. (Source: WHO QualityRights, RA 10173)</em></p>
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <td><strong>Informed Consent:</strong> Clearly explains the purpose of the session, limits of confidentiality, and obtains consent before proceeding.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Data Privacy:</strong> Handles client information securely; discusses sensitive topics only in private settings (RA 10173 compliance).</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Boundaries:</strong> Maintains professional distance; avoids dual relationships or over-involvement in client's personal life.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Rights-Based Approach:</strong> Respects the client’s autonomy and right to make their own decisions.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section III -->
+      <h3>III. Crisis Response and Referral</h3>
+      <p><em>Standard: Applies Look–Listen–Link in crisis; initiates safe referrals. (Source: WHO PFA Guide)</em></p>
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <td><strong>LOOK (Safety Check):</strong> Quickly assesses for urgent needs and serious distress/safety risks.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>LISTEN (Support):</strong> Approaches people who may need support, asks about needs/concerns, and listens calmly.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>LINK (Connection):</strong> Helps people address basic needs and access services/information.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Referral Protocol:</strong> Identifies when a case exceeds their competency (e.g., suicide risk) and initiates the correct referral pathway immediately.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section IV -->
+      <h3>IV. Cultural and Community Sensitivity</h3>
+      <p><em>Standard: Integrates local and cultural contexts. (Source: PCMH Framework)</em></p>
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <td><strong>Cultural Humility:</strong> Respects local beliefs and practices regarding mental health (e.g., religious coping) without imposing own views.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Language & Tone:</strong> Uses language that is culturally appropriate, non-stigmatizing, and easily understood by the community member.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Contextual Awareness:</strong> Adapts interventions to fit the client's socioeconomic reality and available community resources.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section V -->
+      <h3>V. Personal and Peer Resilience</h3>
+      <p><em>Standard: Practices mindfulness, self-care, and supervision. (Source: DOH–PCMH Workforce Pillar)</em></p>
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <td><strong>Emotional Regulation:</strong> Maintains composure and manages own stress responses during challenging interactions.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Supervision Utilization:</strong> Actively seeks feedback and debriefing from supervisors; admits when they don't know the answer.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td><strong>Self-Correction:</strong> Demonstrates ability to reflect on performance and adjust behavior based on feedback.</td>
+            <td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Summary -->
+      <h3>Summary of Observation</h3>
+      <p><strong>Top Strengths:</strong></p>
+      <p>1. ____________________________________________________</p>
+      <p>2. ____________________________________________________</p>
+      <p><strong>Areas for Improvement:</strong></p>
+      <p>1. ____________________________________________________</p>
+      <p>2. ____________________________________________________</p>
+
+      <p style="margin-top: 30px;">
+        <strong>Observer Signature:</strong><br>
+        <span class="signature-line"></span>
+      </p>
+      <p>
+        <strong>Paraprofessional Signature:</strong><br>
+        <span class="signature-line"></span>
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <a href="module7.html" class="btn">← Module 7</a>
+      <button id="mark-complete-btn" class="btn" style="display: none;" onclick="Module8App.markModuleComplete()">
+        ✅ Mark Module 8 as Complete
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Encapsulated Module 8 logic
+    const Module8App = (function () {
+      const MODULE_8_LESSONS = ['8-1', '8-2', '8-3'];
+
+      function markLessonComplete(lessonId) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+          completed.push(lessonId);
+          localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-    </script>
-    <script>
-                              // In index.html
-let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+        checkAndShowMarkCompleteButton();
+      }
 
-const module8Lessons = ['8-1', '8-12', '8-3'];
+      function checkAndShowMarkCompleteButton() {
+        const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        const allDone = MODULE_8_LESSONS.every(id => completed.includes(id));
+        const btn = document.getElementById('mark-complete-btn');
+        if (btn) btn.style.display = allDone ? 'inline-block' : 'none';
+      }
 
-              </script>
+      function markModuleComplete() {
+        MODULE_8_LESSONS.forEach(markLessonComplete);
+        localStorage.setItem('courseProgress', JSON.stringify({ ...JSON.parse(localStorage.getItem('courseProgress') || '{}'), module8: true }));
+        window.location.href = 'module9.html';
+      }
+
+      // Initialize: auto-mark all lessons complete on load
+      function init() {
+        MODULE_8_LESSONS.forEach(markLessonComplete);
+      }
+
+      return {
+        markModuleComplete,
+        init
+      };
+    })();
+
+    // Run on DOM load
+    document.addEventListener('DOMContentLoaded', Module8App.init);
+  </script>
 </body>
 </html>
