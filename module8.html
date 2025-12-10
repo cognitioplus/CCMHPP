@@ -454,5 +454,39 @@
             <a href="module9.html" class="btn">Module 9: Certification and Renewal →</a>
         </div>
     </div>
+    
+     <script>
+        // Mark Module 8 as complete and sync with index.html progress
+        function markModuleComplete() {
+            // Module 8 has 3 lessons: [Practicum Component, Post-Certification Roadmap]
+            const module8Lessons = ['8-1', '8-2', '8-3'];
+            
+            // Retrieve existing progress or initialize
+            let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            
+            // Add all Module 8 lessons if not already present
+            module0Lessons.forEach(lessonId => {
+                if (!completedLessons.includes(lessonId)) {
+                    completedLessons.push(lessonId);
+                }
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            
+            // Show success feedback
+            alert('✅ Module 8 marked as complete! Your progress has been saved.');
+            
+            // Redirect to index.html (which will load progress from localStorage)
+            window.location.href = 'index.html';
+        }
+    </script>
+    <script>
+                              // In index.html
+let completedLessons = new Set(JSON.parse(localStorage.getItem('completedLessons') || '[]'));
+
+const module8Lessons = ['8-1', '8-12', '8-3'];
+
+              </script>
 </body>
 </html>
