@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificate of Completion</title>
+  <title>Certificate of Completion | MH Paraprofessional</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap"
     rel="stylesheet"
   />
-  <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.0/qrious.min.js"></script>
-  <!-- PDF & Screenshot Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --primary-dark: #b425aa;
+      --primary: #b425aa;
+      --primary-dark: #9f2095;
       --accent: #d4af37;
+      --bg-light: #f5f5f5;
       --text-dark: #333;
+      --text-light: #666;
+      --white: #ffffff;
       --border: #e0e0e0;
+      --success: #4caf50;
+      --error: #f44336;
     }
 
     * {
@@ -31,27 +34,117 @@
 
     body {
       font-family: 'Roboto Condensed', sans-serif;
-      background: #f9f9f9;
+      background: var(--bg-light);
       color: var(--text-dark);
       padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      flex-direction: column;
     }
 
+    /* ================= PAYMENT GATE STYLES ================= */
+    .payment-gate-container {
+      max-width: 600px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      display: none; /* Hidden by default, toggled by JS */
+    }
+
+    .payment-gate-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .payment-gate-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .payment-features {
+      text-align: left;
+      background: #f4f8fb;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 24px 0;
+    }
+
+    .payment-features li {
+      margin-bottom: 10px;
+      list-style: none;
+    }
+
+    /* ================= MODAL STYLES ================= */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    /* ================= CERTIFICATE CORE STYLES ================= */
     .certificate {
       width: 100%;
       max-width: 800px;
       background: white;
       padding: 60px 40px;
-      position: relative;
+      position: relative; /* CRITICAL for corner positioning */
       box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
       page-break-inside: avoid;
       overflow: hidden;
+      display: none; /* Hidden until paid */
     }
 
-    /* Digital Watermark */
+    /* ================= CORNER FRAME IMPLEMENTATION (Concept 2) ================= */
+
+    /* 1. Top-Left Corner Accent (Primary Brand Color) */
+    .certificate::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px; /* Size of the accent block */
+      height: 70px;
+      background: var(--primary); /* Uses #b425aa */
+      opacity: 0.9;
+      z-index: 1;
+      /* Clip Path creates a clean, modern triangular corner */
+      clip-path: polygon(0 0, 100% 0, 0 100%); 
+    }
+
+    /* 2. Bottom-Right Corner Accent (Primary Brand Color) */
+    .certificate::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70px;
+      height: 70px;
+      background: var(--primary); /* Uses #b425aa */
+      opacity: 0.9;
+      z-index: 1;
+      /* Clip Path creates a clean, modern triangular corner */
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+
+    /* ================= WATERMARK AND PRINT STYLES ================= */
     .watermark {
       position: absolute;
       top: 0;
@@ -71,22 +164,16 @@
     }
 
     @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-      .certificate {
-        box-shadow: none;
-        padding: 50px 30px;
-        border: none;
-        position: static;
-      }
-      .no-print, .watermark {
-        display: none !important;
+      body { background: white; padding: 0; }
+      .certificate { box-shadow: none; padding: 50px 30px; border: none; position: static; display: block !important; }
+      .no-print, .watermark, .payment-gate-container, .modal { display: none !important; }
+      /* Hide corner accents when printing */
+      .certificate::before, .certificate::after {
+          display: none !important;
       }
     }
 
-    /* Header Banner */
+    /* ================= CONTENT STYLES ================= */
     .header-banner {
       width: 100%;
       height: 120px;
@@ -171,80 +258,22 @@
       z-index: 1;
     }
 
-    .signature-block {
-      text-align: center;
-      width: 200px;
-    }
-
-    .signature-img {
-      width: 100%;
-      height: auto;
-      max-height: 60px;
-      object-fit: contain;
-      margin-bottom: 8px;
-    }
-
-    .signer-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin: 4px 0;
-    }
-
-    .signer-title {
-      font-size: 0.85rem;
-      color: #555;
-      margin: 2px 0;
-    }
-
-    .seal {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 0 auto;
-      z-index: 2;
-    }
-
-    .seal img {
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .verification-code {
-      font-family: monospace;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #666;
-      margin-bottom: 16px;
-    }
-
-    .qr-container {
-      display: inline-block;
-      margin-top: 12px;
-    }
-
-    .qr-label {
-      font-size: 0.85rem;
-      color: #888;
-      margin-top: 6px;
-    }
-
-    .no-print {
-      text-align: center;
-      margin-top: 24px;
-    }
+    .signature-block { text-align: center; width: 200px; }
+    .signature-img { width: 100%; height: auto; max-height: 60px; object-fit: contain; margin-bottom: 8px; }
+    .signer-name { font-weight: 600; font-size: 0.95rem; margin: 4px 0; }
+    .signer-title { font-size: 0.85rem; color: #555; margin: 2px 0; }
+    .seal { position: relative; width: 120px; height: 120px; margin: 0 auto; z-index: 2; }
+    .seal img { width: 100%; height: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+    .footer { text-align: center; margin-top: 50px; position: relative; z-index: 1; }
+    .verification-code { font-family: monospace; font-size: 1.1rem; font-weight: 600; color: #666; margin-bottom: 16px; }
+    .qr-container { display: inline-block; margin-top: 12px; }
+    .qr-label { font-size: 0.85rem; color: #888; margin-top: 6px; }
+    .no-print { text-align: center; margin-top: 24px; }
 
     .btn {
       display: inline-block;
-      padding: 10px 24px;
-      background: #b425aa;
+      padding: 12px 24px;
+      background: var(--primary);
       color: white;
       text-decoration: none;
       border-radius: 25px;
@@ -252,55 +281,80 @@
       font-weight: 600;
       margin-top: 12px;
       margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
     }
-
-    .btn:hover {
-      background: #9f2095;
-    }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #999; }
+    .btn-secondary:hover { background: #777; }
   </style>
 </head>
 <body>
+
+  <div id="payment-gate" class="payment-gate-container">
+    <div class="payment-gate-icon">🎉</div>
+    <h1 class="payment-gate-title">Coursework Completed!</h1>
+    <p>You have successfully completed Modules 0 through 7 (Free Track).</p>
+    
+    <div class="payment-features">
+      <h3>Get Certified & Continue</h3>
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+      <ul>
+        <li>✅ <strong>Unlock Verified Certificate</strong> (Downloadable PDF)</li>
+        <li>✅ <strong>Official Verification Code</strong> & QR Support</li>
+        <li>✅ <strong>Permanent Record</strong> in our Database</li>
+        <li>✅ <strong>Access to Practicum</strong> (Module 8 & Mentorship)</li>
+      </ul>
+    </div>
+
+    <button class="btn" onclick="openPurchaseModal()">Unlock Certificate - ₱1,500</button>
+    <a href="index.html" class="btn btn-secondary">Return to Dashboard</a>
+  </div>
+
+  <div class="modal" id="purchaseModal">
+    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%;">
+        <h3 style="color: var(--primary); margin-top: 0;">Complete Your Certification</h3>
+        <p>Unlock your verified certificate and practicum access.</p>
+        <div style="margin: 20px 0; padding: 15px; background: var(--bg-light); border-radius: 8px;">
+            <strong>Price: ₱1,500</strong>
+        </div>
+        <button class="btn" style="width: 100%; margin-bottom: 10px;" onclick="processPayment()">Proceed to Payment</button>
+        <button class="btn btn-secondary" style="width: 100%;" onclick="closePurchaseModal()">Cancel</button>
+    </div>
+  </div>
+
   <div class="certificate" id="certificate">
-    <!-- Watermark -->
     <div class="watermark">CERTIFIED</div>
 
-    <!-- Header Banner -->
     <div class="header-banner"></div>
 
-    <!-- Title -->
     <h1 class="title">CERTIFICATE</h1>
     <p class="subtitle">OF COMPLETION</p>
 
-    <!-- Date of Completion -->
     <p class="date-line">Awarded on: <strong id="completion-date">December 10, 2025</strong></p>
 
-    <!-- Recipient Line -->
     <div class="recipient-line">
       <span>is presented to :</span><br><br>
       <span class="recipient-name" id="recipient-name">ALVIN M. SILVA</span>
     </div>
 
-    <!-- Body Text -->
     <div class="body-text">
       For rigorously completing the 40-hour hybrid and blended format of the<br>
       <strong>"Certification Course for Mental Health and Well-Being Paraprofessional"</strong>.
     </div>
 
-    <!-- Signature Section -->
     <div class="signature-section">
-      <!-- Left Signature -->
       <div class="signature-block">
         <img src="https://appimize.app/assets/apps/user_1097/images/b20d1f4b3a69_614_1097.png" alt="Signature of Thelma S. Barrera" class="signature-img">
         <div class="signer-name">Thelma S. Barrera</div>
         <div class="signer-title">PROGRAM DIRECTOR | CHIEF TRAINING OFFICER</div>
       </div>
 
-      <!-- Seal -->
       <div class="seal">
         <img src="https://appimize.app/assets/apps/user_1097/images/612400b438b4_425_1097.png" alt="Cognitio+ Certificate Seal">
       </div>
 
-      <!-- Right Signature -->
       <div class="signature-block">
         <img src="https://appimize.app/assets/apps/user_1097/images/f97f6d546c19_428_1097.png" alt="Signature of Bernardino A. Vicente" class="signature-img">
         <div class="signer-name">Bernardino A. Vicente, MD, MHA, FPPA</div>
@@ -308,7 +362,6 @@
       </div>
     </div>
 
-    <!-- Footer with QR Code -->
     <div class="footer">
       <div class="verification-code" id="verification-code">
         CMHH-36912-2025-00077001
@@ -317,7 +370,6 @@
       <p class="qr-label">Scan to verify this certificate</p>
     </div>
 
-    <!-- Print & Download Buttons -->
     <div class="no-print">
       <button class="btn" onclick="downloadPDF()">📥 Download as PDF</button>
       <button class="btn" onclick="window.print()">🖨️ Print Certificate</button>
@@ -326,39 +378,101 @@
   </div>
 
   <script>
-    // ========== SUPABASE & CORE LOGIC ==========
+    // ========== PAYMENT CONFIGURATION ==========
+    // **IMPORTANT**: REPLACE THIS WITH YOUR ACTUAL XENDIT PAYMENT LINK
+    const XENDIT_PAYMENT_URL = "https://checkout.xendit.co/web/checkout/YOUR_REAL_LINK_HERE";
+
+    // ========== DOM ELEMENTS ==========
+    const paymentGate = document.getElementById('payment-gate');
+    const certificateView = document.getElementById('certificate');
+    const modal = document.getElementById('purchaseModal');
+
+    // ========== PAYMENT & GATEKEEPING LOGIC ==========
+
+    function checkPaymentStatus() {
+        const urlParams = new URLSearchParams(window.location.search);
+        // Check for URL parameter indicating success (configure this in Xendit dashboard as Return URL)
+        const paymentStatus = urlParams.get('payment_status');
+
+        if (paymentStatus === 'success') {
+            // User just returned from successful payment
+            localStorage.setItem('hasPaid', 'true');
+            localStorage.setItem('premiumUnlocked', 'true');
+            
+            // Clean up URL parameters
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        const hasPaid = localStorage.getItem('hasPaid') === 'true';
+
+        if (hasPaid) {
+            paymentGate.style.display = 'none';
+            certificateView.style.display = 'block';
+            generateCertificateData(); 
+        } else {
+            paymentGate.style.display = 'block';
+            certificateView.style.display = 'none';
+        }
+    }
+
+    function openPurchaseModal() {
+        modal.classList.add('active');
+    }
+
+    function closePurchaseModal() {
+        modal.classList.remove('active');
+    }
+
+    function processPayment() {
+        const btn = document.querySelector('#purchaseModal .btn');
+        btn.textContent = "Redirecting to Secure Payment...";
+        btn.disabled = true;
+
+        // PRODUCTION MODE: Redirect to actual Payment Gateway
+        if (XENDIT_PAYMENT_URL && XENDIT_PAYMENT_URL.includes("http")) {
+            window.location.href = XENDIT_PAYMENT_URL;
+        } else {
+            alert("Error: Payment Link not configured. Please contact support and replace XENDIT_PAYMENT_URL in the script.");
+            btn.textContent = "Proceed to Payment";
+            btn.disabled = false;
+        }
+    }
+
+    // Modal close on outside click
+    window.addEventListener('click', e => {
+        if (e.target.classList.contains('modal')) {
+            closePurchaseModal();
+        }
+    });
+
+    // ========== SUPABASE & CERTIFICATE LOGIC ==========
     let supabaseClient;
     let userId = localStorage.getItem('user_id') || `user_${Date.now()}`;
-
-    // Fixed: Removed trailing spaces
     const supabaseUrl = 'https://hzzytpbltwdvnmpmmfvl.supabase.co';
     const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6enl0cGJsdHdkdm5tcG1tZmZ2bCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzU5NTYxNDA0LCJleHAiOjIwNzUxMzc0MDR9.RgqO4CThb9NRYUJ8C0DRULytnephMgvZW2Zz5E312iI';
 
-    // Initialize Supabase client
+    // Initialize Supabase
     supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-    // Generate unique verification code
     function generateVerificationCode(userNumber = '001') {
       const year = new Date().getFullYear();
       return `CMHH-36912-${year}-00077${userNumber}`;
     }
 
-    // Parse URL parameters
     function getUrlParams() {
       const params = new URLSearchParams(window.location.search);
       return {
-        name: params.get('name') || 'Alvin M. Silva',
+        // Fallback to default name if not passed in URL
+        name: params.get('name') || 'ALVIN M. SILVA',
         date: params.get('date') || new Date().toISOString().split('T')[0]
       };
     }
 
-    // Format date as "December 10, 2025"
     function formatDate(isoDate) {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(isoDate).toLocaleDateString('en-US', options);
     }
 
-    // Generate QR Code
     function generateQRCode(verCode) {
       const verifyUrl = `https://verify.mhparaprofessional.ph?code=${encodeURIComponent(verCode)}`;
       const qr = new QRious({
@@ -368,8 +482,11 @@
       });
     }
 
-    // Save certificate record to Supabase
     async function saveCertificateToSupabase(name, date, verCode) {
+      // Check if already saved to avoid duplicates on refresh
+      const isSaved = localStorage.getItem('certSavedToDb');
+      if(isSaved === verCode) return; 
+
       try {
         const { data, error } = await supabaseClient
           .from('certificates')
@@ -386,12 +503,12 @@
 
         if (error) throw error;
         console.log('Certificate saved to Supabase:', data);
+        localStorage.setItem('certSavedToDb', verCode);
       } catch (err) {
         console.error('Supabase save failed:', err.message);
       }
     }
 
-    // Download as PDF
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
       html2canvas(document.getElementById('certificate'), {
@@ -409,31 +526,32 @@
       });
     }
 
-    // Initialize certificate
-    document.addEventListener('DOMContentLoaded', async () => {
+    // Only runs if Payment is validated
+    async function generateCertificateData() {
       const { name, date } = getUrlParams();
       const formattedDate = formatDate(date);
 
-      // Set DOM content
       document.getElementById('recipient-name').textContent = name.toUpperCase();
       document.getElementById('completion-date').textContent = formattedDate;
 
-      // Generate or retrieve verification code
+      // Use a fixed userNumber or logic to increment upon payment completion
       let userNumber = localStorage.getItem('userNumber') || '001';
       const verCode = generateVerificationCode(userNumber);
       document.getElementById('verification-code').textContent = verCode;
 
-      // Generate QR code
       generateQRCode(verCode);
 
-      // Save state
+      // Save state locally
       localStorage.setItem('courseCompleted', 'true');
       localStorage.setItem('certificateGenerated', 'true');
       localStorage.setItem('userNumber', userNumber);
 
-      // Save to Supabase
+      // Save to Database
       await saveCertificateToSupabase(name, date, verCode);
-    });
+    }
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', checkPaymentStatus);
   </script>
 </body>
 </html>
