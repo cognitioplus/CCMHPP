@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certification Course for Mental Health and Well-Being Paraprofessional | Cognitio+</title>
     
+    <link rel="stylesheet" href="style.css" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
     
     <style>
@@ -197,18 +199,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
         
-        /* Modules Banner */
-        .modules-banner {
-            width: 100%;
-            height: 177px; /* adjust height as needed */
-            background-image: url('https://cognitioplus.aiwaapp.live/cache/media_cache/ad5ecb8027d304ccfaef1e1773cae67b.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover; /* ensures the image fills the entire section */
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
         /* Footer */
         .footer {
             background: var(--primary);
@@ -245,7 +235,17 @@
         }
     </style>
 </head>
-<body>
+<body onload="indexApp.init()">
+    <script>
+        const SUPABASE_URL = 'https://hzzytpbltwdvnmpmmfvl.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6enl0cGJsdHdkdm5tcG1tZmZ2bCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzU5NTYxNDA0LCJleHAiOjIwNzUxMzc0MDR9.RgqO4CThb9NRYUJ8C0DRULytnephMgvZW2Zz5E312iI';
+        
+        // NOTE: The Supabase client must be initialized in script.js 
+        // after importing the @supabase/supabase-js library.
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <header class="header">
         <div class="container">
             <div class="header-content">
@@ -404,9 +404,10 @@
     <section class="modules-section" id="modules" style="padding: 60px 0; background: var(--bg-light);">
         <div class="container">
             <h2 style="text-align: center; color: var(--primary); margin-bottom: 40px; font-family: 'Montserrat', sans-serif; font-weight: 700;">V. Course Modules</h2>
-        
+            
             <div class="module-grid" id="module-grid">
-                </div>
+                <p style="text-align: center; grid-column: 1 / -1;">Loading modules...</p>
+            </div>
         </div>
     </section>
 
@@ -627,5 +628,8 @@
         // Run on DOM load
         document.addEventListener('DOMContentLoaded', indexApp.init);
     </script>
+    <script src="script.js"></script>
+    
+    <script src="discussionRoutes.js"></script>
 </body>
 </html>
