@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Paraprofessional Hub | Cognitio+</title>
+    <title>The Paraprofessional Hub | Unified Edition</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cognitio-plus.appimize.app/assets/apps/user_1097/app_3046/draft/icon/app_logo.png?1765530062">
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Supabase Client (This creates a global 'supabase' object) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Use Inter font family -->
     <style>
         :root {
@@ -13,6 +17,7 @@
             --primary-light: #c80ec9;
             --accent: #D4AF37; /* Gold */
             --bg-light: #f5f5f5;
+            --supabase-color: #3ecf8e; /* Supabase Green */
         }
         
         /* Custom Tailwind Configuration */
@@ -24,6 +29,7 @@
                         'primary-light': 'var(--primary-light)',
                         accent: 'var(--accent)',
                         'bg-light': 'var(--bg-light)',
+                        supabase: 'var(--supabase-color)',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -46,162 +52,462 @@
             text-align: center;
         }
 
-        /* Style for the post content to preserve formatting */
         .whitespace-pre-wrap {
             white-space: pre-wrap;
+        }
+        
+        #user-id-display {
+            font-size: 0.7rem; 
+            word-break: break-all; 
+            max-width: 150px; 
+        }
+        @media (max-width: 768px) {
+            #user-id-display {
+                max-width: 100px;
+                font-size: 0.6rem;
+            }
+        }
+        
+        .active-nav {
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        
+        /* Custom styling for high-contrast buttons */
+        .high-contrast-btn {
+            border: 2px solid var(--accent); 
+            transition: all 0.3s ease;
+        }
+        .high-contrast-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5); /* Gold shadow */
+        }
+        
+        #customAlertModal.hidden, #authModal.hidden, #editPostModal.hidden {
+            display: none;
+        }
+        #customAlertModal, #authModal, #editPostModal {
+            display: flex;
         }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
 
-    <!-- Firebase SDK Imports -->
+    <!-- Supabase Logic & Initialization -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, collection, setDoc, serverTimestamp, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // --- IMPORTANT: REPLACE THESE WITH YOUR ACTUAL SUPABASE KEYS ---
+        const SUPABASE_URL = 'https://hzzytpbltwdvnmpmmfvl.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6enl0cGJsdHdkdm5tcG1tZmZ2bCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzU5NTYxNDA0LCJleHAiOjIwNzUxMzc0MDR9.RgqO4CThb9NRYUJ8C0DRULytnephMgvZW2Zz5E312iI';
+        
+        // --- Supabase Client Initialization ---
+        let supabase = null;
+        let isSupabaseConfigured = false;
 
-        setLogLevel('Debug'); // Enable Firestore logging
+        // Access the global 'supabase' object created by the standard script tag
+        const createClient = window.supabase ? window.supabase.createClient : null;
 
-        // Global variables from Canvas environment
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db;
-        let auth;
-        let userId = null;
-
-        // Initialize Firebase and Auth
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-
-            // Authentication Setup
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    document.getElementById('user-id-display').textContent = `User ID: ${userId}`;
-                    document.getElementById('auth-status').textContent = 'Authenticated';
-                    initializeFirestoreListeners();
-                } else {
-                    // Try to sign in with custom token or anonymously
-                    try {
-                        if (initialAuthToken) {
-                            const userCredential = await signInWithCustomToken(auth, initialAuthToken);
-                            userId = userCredential.user.uid;
-                        } else {
-                            const userCredential = await signInAnonymously(auth);
-                            userId = userCredential.user.uid;
-                        }
-                        // Re-run onAuthStateChanged listener to set the final state and call initializeFirestoreListeners
-                    } catch (error) {
-                        console.error("Firebase Auth Error:", error.message);
-                        document.getElementById('auth-status').textContent = 'Auth Failed';
-                        // Fallback user ID for unauthenticated state (not ideal for Hub, but for display)
-                        userId = crypto.randomUUID(); 
-                        document.getElementById('user-id-display').textContent = `User ID: (Anon) ${userId.substring(0, 8)}...`;
-                    }
-                }
-            });
-
-        } catch (e) {
-            console.error("Failed to initialize Firebase:", e);
-            document.getElementById('auth-status').textContent = 'Init Failed';
-        }
-
-        // Firestore Real-time Listeners
-        function initializeFirestoreListeners() {
-            if (!db || !userId) return;
-
-            // 1. Listen for Hub Status Updates (Public Data)
-            const statusRef = doc(db, 'artifacts', appId, 'public', 'data', 'hub_status', 'latest_update');
-            onSnapshot(statusRef, (docSnapshot) => {
-                const statusElement = document.getElementById('hub-status-text');
-                if (docSnapshot.exists()) {
-                    const data = docSnapshot.data();
-                    statusElement.innerHTML = `
-                        <p class="text-sm font-semibold">Active Peers: <span class="text-primary">${data.activeUsers || 0}</span></p>
-                        <p class="text-xs text-gray-500 mt-1">Last Peer Check-in: ${new Date(data.lastCheckIn?.seconds * 1000).toLocaleTimeString()}</p>
-                    `;
-                } else {
-                    statusElement.innerHTML = `<p class="text-sm text-gray-500">No recent community status found.</p>`;
-                    // Initialize or simulate an update if none exists
-                    updateHubStatus();
-                }
-            }, (error) => {
-                console.error("Error fetching hub status:", error);
-                document.getElementById('hub-status-text').innerHTML = `<p class="text-sm text-red-500">Error loading status.</p>`;
-            });
-
-            // 2. Simulate a check-in every 10 seconds (for public data demonstration)
-            setInterval(updateHubStatus, 10000);
-            
-            // 3. Listen for Forum Posts
-            listenForPosts();
+        if (SUPABASE_URL.startsWith('https://hzzytpbltwdvnmpmmfvl.supabase.co') || SUPABASE_ANON_KEY.startsWith('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6enl0cGJsdHdkdm5tcG1tZmZ2bCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzU5NTYxNDA0LCJleHAiOjIwNzUxMzc0MDR9.RgqO4CThb9NRYUJ8C0DRULytnephMgvZW2Zz5E312iI') || !createClient) {
+             console.error("Supabase configuration missing or client library failed to load! Please update SUPABASE_URL and SUPABASE_ANON_KEY.");
+             document.getElementById('auth-status').textContent = 'CONFIG ERROR';
+             document.getElementById('user-id-display').textContent = 'Update Keys!';
+        } else {
+             supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+             isSupabaseConfigured = true;
         }
         
-        // Function to update public hub status
-        async function updateHubStatus() {
-            if (!db || !userId) return;
-            const statusRef = doc(db, 'artifacts', appId, 'public', 'data', 'hub_status', 'latest_update');
+        // --- Global State Variables ---
+        let userId = null; 
+        let personalizedName = 'Guest';
+        let isAuthReady = false;
+        let listenersInitialized = false;
+        let currentPage = 'hub'; 
+        let currentPosts = []; 
+        let deletionConfirmationId = null;
+        let authMode = 'signin'; // 'signin' or 'signup'
+        
+        // --- Name Generation Utility ---
+        const adjectives = ["Wise", "Calm", "Gentle", "Brave", "Kind", "Steady", "Caring", "Focus", "Star", "Gold", "Stellar", "Lunar", "Echo", "Zen"];
+        const nouns = ["Mentor", "Guide", "Ally", "Heart", "Anchor", "Fox", "Panda", "Owl", "Wave", "Stone", "Sage", "Bloom", "Hope", "Peace"];
+
+        function generatePersonalizedName(uid) {
+            if (!uid) return 'Guest';
+            // Use a simple hash of the UID to ensure the name is stable for a user
+            let hash = 0;
+            for (let i = 0; i < uid.length; i++) {
+                hash = uid.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            hash = Math.abs(hash);
+
+            const adjIndex = hash % adjectives.length;
+            const nounIndex = Math.floor(hash / adjectives.length) % nouns.length;
+            
+            return `Agent ${adjectives[adjIndex]}-${nouns[nounIndex]}`;
+        }
+
+
+        // --- Supabase Authentication & Initialization ---
+
+        const initializeSupabaseAuth = async () => {
+            if (!isSupabaseConfigured) {
+                document.getElementById('auth-status').textContent = 'Config Required';
+                return;
+            }
+
             try {
-                // Simulate active users count and update check-in time
-                await setDoc(statusRef, { 
-                    activeUsers: Math.floor(Math.random() * 50) + 10, // Random number between 10 and 59
-                    lastCheckIn: serverTimestamp(),
-                    lastCheckInUserId: userId
-                }, { merge: true });
+                document.getElementById('auth-status').textContent = 'Initializing...';
+                
+                // Supabase Auth Listener
+                supabase.auth.onAuthStateChange((event, session) => {
+                    isAuthReady = true;
+                    const user = session?.user;
+
+                    if (user) {
+                        userId = user.id;
+                        personalizedName = generatePersonalizedName(userId);
+                        
+                        // Update UI with personalized name and actual UID
+                        document.getElementById('auth-status').innerHTML = `${personalizedName} <span class="text-xs text-supabase">(Supabase)</span>`;
+                        document.getElementById('user-id-display').textContent = `UID: ${userId.substring(0, 12)}...`;
+                        document.getElementById('auth-btn-container').innerHTML = `<button onclick="handleSignOut()" class="nav-button px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition duration-150 shadow">Sign Out</button>`;
+                        
+                        if (!listenersInitialized) {
+                            initializeSupabaseListeners();
+                        }
+                        if (currentPage === 'hub') {
+                            refreshHubUI(); 
+                        }
+                    } else {
+                        // Logged out
+                        userId = null;
+                        personalizedName = 'Guest';
+                        document.getElementById('auth-status').innerHTML = `Sign In Required`;
+                        document.getElementById('user-id-display').textContent = `Status: Logged Out`;
+                        document.getElementById('auth-btn-container').innerHTML = `<button onclick="showAuthModalFn('signin')" class="nav-button px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition duration-150 shadow">Sign In</button>`;
+                        
+                        if (currentPage === 'hub') {
+                            renderPosts([]); // Clear posts on sign out
+                            refreshHubUI();
+                        }
+                    }
+                });
+                
+                // Check initial session state manually if listener doesn't fire immediately
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    isAuthReady = true; // Mark as ready even if logged out
+                }
+
+            } catch (e) {
+                console.error("Supabase initialization failed:", e);
+                document.getElementById('auth-status').textContent = 'Auth Error';
+                document.getElementById('user-id-display').textContent = `ERROR: ${e.message}`;
+            }
+        };
+        
+        // --- Core Auth Functions ---
+
+        async function handleAuthForm(event) {
+            event.preventDefault();
+            
+            if (!isSupabaseConfigured) {
+                alertModal('Configuration error: Supabase keys are missing.', 'error');
+                return;
+            }
+            
+            const form = event.target;
+            const email = form.email.value;
+            const password = form.password.value;
+            const submitBtn = document.getElementById('auth-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = (authMode === 'signin' ? 'Signing In...' : 'Registering...');
+            
+            try {
+                let authResponse;
+                if (authMode === 'signin') {
+                    authResponse = await supabase.auth.signInWithPassword({ email, password });
+                } else {
+                    // Supabase signup automatically signs in the user upon successful registration
+                    authResponse = await supabase.auth.signUp({ email, password });
+                }
+                
+                if (authResponse.error) {
+                    throw authResponse.error;
+                }
+
+                alertModal('Authentication successful!', 'success');
+                hideAuthModalFn();
             } catch (error) {
-                console.error("Error updating hub status:", error);
+                console.error("Auth failed:", error.message || error);
+                alertModal(`Authentication Error: ${error.message || 'An unknown error occurred.'}`, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = (authMode === 'signin' ? 'Sign In' : 'Register');
+            }
+        }
+        window.handleAuthForm = handleAuthForm;
+
+        async function handleSignOut() {
+            if (!isSupabaseConfigured) return;
+            try {
+                const { error } = await supabase.auth.signOut();
+                if (error) throw error;
+                alertModal('You have been signed out.', 'success');
+            } catch (error) {
+                console.error("Sign Out failed:", error.message);
+                alertModal(`Sign Out Error: ${error.message}`, 'error');
+            }
+        }
+        window.handleSignOut = handleSignOut;
+        
+        function showAuthModalFn(mode = 'signin') {
+            if (!isSupabaseConfigured) {
+                alertModal('Cannot open auth: Supabase keys are missing.', 'error');
+                return;
+            }
+            authMode = mode;
+            document.getElementById('authModal').classList.remove('hidden');
+            renderAuthForm();
+        }
+        window.showAuthModalFn = showAuthModalFn;
+
+        function hideAuthModalFn() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+        window.hideAuthModalFn = hideAuthModalFn;
+
+        function switchAuthMode(mode) {
+            authMode = mode;
+            renderAuthForm();
+        }
+        window.switchAuthMode = switchAuthMode;
+
+        function renderAuthForm() {
+            const container = document.getElementById('auth-form-container');
+            if (!container) return;
+
+            const isSignIn = authMode === 'signin';
+            const title = isSignIn ? 'Sign In to Your Account' : 'Register a New Account';
+            const submitText = isSignIn ? 'Sign In' : 'Register';
+            const switchLink = isSignIn ? 
+                `<p class="text-sm text-center text-gray-600 mt-4">Don't have an account? <a href="#" onclick="switchAuthMode('signup')" class="text-primary hover:underline font-medium">Register</a></p>` :
+                `<p class="text-sm text-center text-gray-600 mt-4">Already have an account? <a href="#" onclick="switchAuthMode('signin')" class="text-primary hover:underline font-medium">Sign In</a></p>`;
+
+            container.innerHTML = `
+                <div class="bg-primary p-4 rounded-t-xl">
+                    <h3 class="text-xl font-bold text-white">${title}</h3>
+                </div>
+                <form class="p-6" onsubmit="handleAuthForm(event)">
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required autocomplete="email"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition">
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition">
+                        ${!isSignIn ? '<p class="text-xs text-gray-500 mt-1">Password must be at least 6 characters.</p>' : ''}
+                    </div>
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" id="auth-submit-btn" 
+                                class="w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition duration-150 shadow-lg disabled:bg-gray-400">
+                            ${submitText}
+                        </button>
+                        <button type="button" onclick="hideAuthModalFn()" 
+                                class="w-full py-3 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                            Cancel
+                        </button>
+                    </div>
+                    ${switchLink}
+                </form>
+            `;
+        }
+
+        // --- Router Logic (Simplified) ---
+        function setPage(page) {
+            currentPage = page;
+            renderApp();
+            
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                const target = btn.getAttribute('data-target');
+                if (target === page) {
+                    btn.classList.add('active-nav');
+                } else {
+                    btn.classList.remove('active-nav');
+                }
+            });
+            
+            if (page === 'hub' && isAuthReady) {
+                refreshHubUI();
+            }
+        }
+        window.setPage = setPage; 
+        
+        // Helper function for safe HTML attribute insertion
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return '';
+            // Basic escaping to prevent XSS issues in the rendered HTML
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        // --- Data Fetching & UI Functions (Supabase) ---
+
+        function refreshHubUI() {
+            if (!isAuthReady || currentPage !== 'hub') return;
+            
+            updateHubStatus();
+            
+            const forumSection = document.getElementById('forum-section');
+            if (forumSection) {
+                 if (userId) {
+                    forumSection.classList.remove('hidden');
+                 } else {
+                    forumSection.classList.add('hidden');
+                 }
+            }
+            renderPosts(currentPosts); 
+        }
+
+        // Supabase Realtime Listener setup
+        function initializeSupabaseListeners() {
+            if (!userId || listenersInitialized || !isSupabaseConfigured) return;
+            listenersInitialized = true;
+            
+            // Initial fetch
+            fetchPosts();
+
+            // Realtime listener for the 'discussion_posts' table
+            supabase.channel('public:discussion_posts')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'discussion_posts' }, () => {
+                    fetchPosts(); // Re-fetch all data on any change
+                })
+                .subscribe((status) => {
+                    if (status === 'SUBSCRIBED') {
+                        console.log("Supabase Realtime subscription active.");
+                    } else if (status === 'TIMED_OUT' || status === 'CHANNEL_ERROR' ) {
+                         console.error("Supabase Realtime Channel Error: Check connection and RLS policies.");
+                    }
+                });
+        }
+        
+        async function fetchPosts() {
+            if (!isSupabaseConfigured) return;
+            try {
+                // Fetch all posts, sort by created_at descending (assuming RLS allows read access)
+                const { data, error } = await supabase
+                    .from('discussion_posts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                
+                currentPosts = data;
+                renderPosts(currentPosts);
+            } catch (error) {
+                console.error("Error fetching posts from Supabase:", error.message);
+                const feedElement = document.getElementById('forum-feed');
+                if (feedElement) {
+                    feedElement.innerHTML = `<p class="text-center text-red-500 p-8">Error loading forum feed: ${error.message}</p>`;
+                }
             }
         }
         
-        // New function to listen for and display forum posts
-        function listenForPosts() {
-            if (!db) return; // Guard clause
-
-            const postsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'forum_posts');
-            // Query: Order by timestamp descending (newest first)
-            const q = query(postsColRef, orderBy('timestamp', 'desc'), limit(50));
+        // Render Posts function (used by both initial fetch and realtime updates)
+        const renderPosts = (postsArray) => {
             const feedElement = document.getElementById('forum-feed');
+            if (!feedElement || currentPage !== 'hub') return;
+            
+            if (!userId) {
+                feedElement.innerHTML = `
+                    <div class="text-center p-12 bg-gray-100 rounded-lg shadow-inner">
+                        <p class="text-xl font-semibold text-primary mb-4">Forum Locked</p>
+                        <p class="text-gray-600">Please <button onclick="showAuthModalFn('signin')" class="text-green-500 font-bold hover:underline">Sign In</button> or <button onclick="showAuthModalFn('signup')" class="text-green-500 font-bold hover:underline">Register</button> to view and participate in discussions.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (!isSupabaseConfigured) {
+                 feedElement.innerHTML = `<p class="text-center text-red-600 p-8 font-bold">Forum disabled. Supabase configuration is missing or invalid.</p>`;
+                 return;
+            }
 
-            onSnapshot(q, (snapshot) => {
-                let postsHtml = '';
-                snapshot.forEach(doc => {
-                    const post = doc.data();
-                    const date = post.timestamp ? new Date(post.timestamp.seconds * 1000).toLocaleString() : 'Just now';
-                    // Use substring for display as full IDs are long
-                    const displayUserId = post.userId ? `User: ${post.userId.substring(0, 8)}...` : 'Anonymous';
 
-                    postsHtml += `
-                        <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100 mb-4 transition hover:shadow-lg">
-                            <h4 class="text-xl font-bold text-gray-900 mb-2">${post.title}</h4>
-                            <p class="text-gray-700 whitespace-pre-wrap">${post.content}</p>
-                            <div class="mt-3 pt-2 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
-                                <span>Posted by: <span class="font-mono text-primary font-semibold">${displayUserId}</span></span>
+            let postsHtml = '';
+            postsArray.forEach(post => {
+                const date = new Date(post.created_at).toLocaleString('en-US', { 
+                    year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+                });
+                
+                const posterId = post.user_id; // User ID from Supabase
+                const posterName = post.display_name || generatePersonalizedName(posterId); // Use stored name or generate fallback
+                const isOwner = posterId === userId;
+                
+                // Management buttons for the creator of the post
+                const managementButtons = isOwner ? `
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="showEditModal('${post.id}', '${escapeHtml(post.title)}', '${escapeHtml(post.content)}')" 
+                                class="text-xs text-blue-600 hover:text-blue-800 font-semibold focus:outline-none">
+                            Edit
+                        </button>
+                        <button onclick="deletePost('${post.id}')" 
+                                class="text-xs text-red-600 hover:text-red-800 font-semibold focus:outline-none">
+                            Delete
+                        </button>
+                    </div>
+                ` : '';
+
+                postsHtml += `
+                    <div id="post-${post.id}" class="bg-white p-5 rounded-lg shadow-md border border-gray-100 mb-4 transition hover:shadow-lg">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">${escapeHtml(post.title)}</h4>
+                        <p class="text-gray-700 whitespace-pre-wrap">${escapeHtml(post.content)}</p>
+                        <div class="mt-3 pt-2 border-t border-gray-100 flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs text-gray-500">
+                            <span class="pr-4 py-1">
+                                Posted by: 
+                                <span class="font-bold text-primary">${posterName}</span> 
+                                <span class="text-[10px] text-gray-400 break-all">(UID: ${posterId.substring(0, 8)}...)</span>
+                            </span>
+                            <div class="flex items-center space-x-4">
                                 <span>${date}</span>
+                                ${managementButtons}
                             </div>
                         </div>
-                    `;
-                });
-                feedElement.innerHTML = postsHtml || '<p class="text-center text-gray-500 p-8">No posts yet. Be the first to start a discussion!</p>';
-            }, (error) => {
-                console.error("Error fetching forum posts:", error);
-                feedElement.innerHTML = `<p class="text-center text-red-500 p-8">Error loading forum feed.</p>`;
+                    </div>
+                `;
             });
-        }
+            feedElement.innerHTML = postsHtml || '<p class="text-center text-gray-500 p-8">No posts yet. Be the first to start a discussion!</p>';
+        };
 
-        // New function to submit a post
+        
+        // Function to simulate updating public hub status (now a mock status)
+        async function updateHubStatus() {
+            const statusElement = document.getElementById('hub-status-text');
+
+            if (!statusElement || currentPage !== 'hub') return; 
+
+            // Simulate active users and check-in time
+            const activeUsers = Math.floor(Math.random() * 50) + 10;
+            const lastCheckInTime = new Date().toLocaleTimeString('en-US', { timeStyle: 'short' });
+            
+            statusElement.innerHTML = `
+                <p class="text-sm font-semibold">Active Peers: <span class="text-primary">${activeUsers}</span></p>
+                <p class="text-xs text-gray-500 mt-1">Last Peer Activity: ${lastCheckInTime}</p>
+            `;
+        }
+        
+        // Function to submit a post using Supabase insert
         async function submitPost(event) {
             event.preventDefault();
             
-            const postBtn = document.getElementById('post-submit-btn');
-            postBtn.disabled = true; // Disable button immediately
+            if (!isSupabaseConfigured) {
+                alertModal('Configuration error: Supabase keys are missing.', 'error');
+                return;
+            }
 
-            if (!db || !userId) {
-                alertModal('Authentication required to post.', 'error');
+            const postBtn = document.getElementById('post-submit-btn');
+            postBtn.disabled = true;
+
+            if (!userId) {
+                alertModal('You must be signed in to post.', 'error');
                 postBtn.disabled = false;
                 return;
             }
@@ -217,16 +523,20 @@
                 return;
             }
             
-            const postsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'forum_posts');
-
             try {
-                await addDoc(postsColRef, {
+                const newPost = {
                     title: title,
                     content: content,
-                    userId: userId,
-                    timestamp: serverTimestamp(),
-                    commentsCount: 0 
-                });
+                    user_id: userId, // Supabase automatically handles RLS checks
+                    display_name: personalizedName, // Store the personalized name
+                    created_at: new Date().toISOString(),
+                };
+
+                const { error } = await supabase
+                    .from('discussion_posts')
+                    .insert([newPost]);
+
+                if (error) throw error;
 
                 // Clear the form
                 titleInput.value = '';
@@ -234,27 +544,156 @@
                 alertModal('Post submitted successfully!', 'success');
 
             } catch (error) {
-                console.error("Error submitting post:", error);
-                alertModal(`Failed to submit post: ${error.message}`, 'error');
+                console.error("Error submitting post:", error.message);
+                alertModal(`Failed to submit post: ${error.message}. Check RLS and database schema.`, 'error');
             } finally {
-                 postBtn.disabled = false; // Re-enable button
+                 postBtn.disabled = false;
             }
         }
+        window.submitPost = submitPost;
         
-        // Custom Modal UI function (replaces alert() and confirm())
+        // --- Post Management (Edit/Delete - Supabase) ---
+        
+        window.currentEditingPostId = null;
+
+        function showEditModal(id, title, content) {
+            if (!userId) {
+                alertModal('You must be signed in to edit posts.', 'error');
+                return;
+            }
+            window.currentEditingPostId = id;
+            
+            // Decode HTML entities before setting to textarea/input
+            document.getElementById('edit-post-title').value = unescapeHtml(title);
+            document.getElementById('edit-post-content').value = unescapeHtml(content);
+            document.getElementById('editPostModal').classList.remove('hidden');
+        }
+        window.showEditModal = showEditModal;
+        
+        function unescapeHtml(str) {
+            if (typeof str !== 'string') return '';
+            const temp = document.createElement('textarea');
+            temp.innerHTML = str;
+            return temp.textContent;
+        }
+
+        function hideEditModal() {
+            document.getElementById('editPostModal').classList.add('hidden');
+            window.currentEditingPostId = null;
+        }
+        window.hideEditModal = hideEditModal;
+
+        async function saveEditedPost(event) {
+            event.preventDefault();
+            
+            if (!isSupabaseConfigured) {
+                alertModal('Configuration error: Supabase keys are missing.', 'error');
+                return;
+            }
+
+            const postId = window.currentEditingPostId;
+            const title = document.getElementById('edit-post-title').value.trim();
+            const content = document.getElementById('edit-post-content').value.trim();
+            const editBtn = document.getElementById('edit-post-submit-btn');
+            
+            editBtn.disabled = true;
+
+            if (!postId || !userId) {
+                alertModal('System error: Post ID or Auth missing.', 'error');
+                editBtn.disabled = false;
+                return;
+            }
+
+            if (!title || !content) {
+                alertModal('Please fill out both the title and content.', 'error');
+                editBtn.disabled = false;
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('discussion_posts')
+                    .update({ 
+                        title: title, 
+                        content: content, 
+                        updated_at: new Date().toISOString() 
+                    })
+                    .eq('id', postId); // Filter by ID
+                    // RLS on Supabase should ensure only the owning user can update this row
+
+                if (error) throw error;
+                
+                // If update is successful, the realtime listener will fire and re-render the posts.
+                alertModal('Post updated successfully!', 'success');
+                hideEditModal();
+
+            } catch (error) {
+                console.error("Error saving edited post:", error.message);
+                alertModal(`Failed to update post: ${error.message}. Check RLS permissions.`, 'error');
+            } finally {
+                editBtn.disabled = false;
+            }
+        }
+        window.saveEditedPost = saveEditedPost;
+
+        async function deletePost(postId) {
+            if (!isSupabaseConfigured) {
+                alertModal('Configuration error: Supabase keys are missing.', 'error');
+                return;
+            }
+
+            if (!userId) {
+                 alertModal('You must be signed in to delete posts.', 'error');
+                 return;
+            }
+            
+            if (deletionConfirmationId !== postId) {
+                deletionConfirmationId = postId;
+                alertModal("Click 'Delete' again on the same post within 5 seconds to confirm deletion.", 'error');
+                
+                setTimeout(() => {
+                    if (deletionConfirmationId === postId) {
+                        deletionConfirmationId = null;
+                    }
+                }, 5000); 
+                return;
+            }
+            
+            // Confirmation received (user clicked twice)
+            deletionConfirmationId = null;
+
+            try {
+                const { error } = await supabase
+                    .from('discussion_posts')
+                    .delete()
+                    .eq('id', postId); // Filter by ID
+                    // RLS on Supabase should ensure only the owning user can delete this row
+
+                if (error) throw error;
+
+                alertModal('Post deleted successfully!', 'success');
+
+            } catch (error) {
+                console.error("Error deleting post:", error.message);
+                alertModal(`Failed to delete post: ${error.message}. Check RLS permissions.`, 'error');
+            }
+        }
+        window.deletePost = deletePost;
+
+        // Custom Modal UI function
         function alertModal(message, type) {
             const modal = document.getElementById('customAlertModal');
             const messageEl = document.getElementById('alertMessage');
             const headerEl = document.getElementById('alertHeader');
             const iconEl = document.getElementById('alertIcon');
             
+            if (!modal) return; 
+
             messageEl.textContent = message;
             
-            // Reset classes
             const headerDiv = modal.querySelector('.modal-content-header');
             headerDiv.classList.remove('bg-primary', 'bg-green-500', 'bg-red-500');
 
-            // Set styles based on type
             let headerText = 'Notification';
             let colorClass = 'bg-primary';
             let iconSvg = '';
@@ -264,7 +703,7 @@
                 colorClass = 'bg-green-500';
                 iconSvg = `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
             } else if (type === 'error') {
-                headerText = 'Error';
+                headerText = 'Error/Warning';
                 colorClass = 'bg-red-500';
                 iconSvg = `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
             } else {
@@ -279,12 +718,295 @@
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.add('hidden');
-            }, 3000); // Auto-hide after 3 seconds
+            }, 3000); 
+        }
+        window.alertModal = alertModal; 
+        
+        // --- Main App Renderer ---
+        
+        function renderApp() {
+            const container = document.getElementById('app-container');
+            if (!container) return;
+
+            // Display configuration error prominently if keys are missing
+            const configError = !isSupabaseConfigured ? `
+                <div class="max-w-3xl mx-auto mb-8 text-center p-8 bg-red-100 rounded-xl shadow-lg border border-red-500">
+                    <h3 class="text-2xl font-bold text-red-600 mb-3">Supabase Configuration Required!</h3>
+                    <p class="text-gray-700 mb-4">Please update <code>YOUR_SUPABASE_URL</code> and <code>YOUR_SUPABASE_ANON_KEY</code> in the script block to enable authentication and forum functionality.</p>
+                </div>
+            ` : '';
+            
+            const forumLockMessage = !userId && isSupabaseConfigured ? `
+                <div class="max-w-3xl mx-auto mb-8 text-center p-8 bg-white rounded-xl shadow-lg border border-red-200">
+                    <h3 class="text-2xl font-bold text-red-600 mb-3">Authentication Required</h3>
+                    <p class="text-gray-700 mb-4">You must be signed in to post or view the community discussion threads.</p>
+                    <button onclick="showAuthModalFn('signin')" class="py-2 px-6 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition">
+                        Sign In / Register Now
+                    </button>
+                </div>
+            ` : '';
+            
+            const postCreationForm = userId && isSupabaseConfigured ? `
+                <!-- Post Creation Form -->
+                <form id="post-form" class="bg-white p-6 rounded-xl shadow-lg border border-primary-light/30 mb-8" onsubmit="submitPost(event)">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Start a New Discussion Thread as <span class="text-primary">${personalizedName}</span></h3>
+                    <input type="text" id="post-title" placeholder="Thread Title (e.g., Question about PFA Step 3)" 
+                        class="w-full p-3 mb-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition" required>
+                    <textarea id="post-content" rows="4" placeholder="Share your thoughts or ask your question..."
+                            class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition" required></textarea>
+                    <button type="submit" id="post-submit-btn" 
+                            class="w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition duration-150 shadow-lg disabled:bg-gray-400">
+                        Post to Forum
+                    </button>
+                </form>
+            ` : '';
+
+            let content = `
+                <!-- Hero Section / Welcome Banner -->
+                <section class="mb-12 bg-white shadow-xl rounded-2xl p-6 md:p-12 border border-primary-light/20">
+                    <div class="text-center">
+                        <p class="text-xl font-semibold text-gray-600 mb-2">Welcome Back,</p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                            Your Central Hub for Mental Health and Well-Being Paraprofessional Support
+                        </h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-500">
+                            Access continuous professional development, essential references, and real-time community support for your practice.
+                        </p>
+                        <!-- NEW HIGH CONTRAST BUTTONS -->
+                        <div class="mt-8 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                            <a href="https://cognitioplus.github.io/CCMHPP/#course-modules" target="_blank"
+                               class="inline-block px-8 py-3 bg-accent text-gray-900 font-bold rounded-lg hover:bg-yellow-400 high-contrast-btn transition duration-150 shadow-xl text-lg uppercase tracking-wider">
+                                GET STARTED OR CONTINUE WITH PARAPROFESSIONAL CERTIFICATION COURSE
+                            </a>
+                             <a href="#forum"
+                               class="inline-block px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-light transition duration-150 shadow-xl text-lg uppercase tracking-wider">
+                                CONNECT WITH PEERS
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                ${configError}
+
+                <!-- Dashboard Overview: Status & Quick Links -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    
+                    <!-- Community Status (Mocked) -->
+                    <div id="community" class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-primary">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Peers Online Status (Simulated)</h3>
+                        <div id="hub-status-text" class="text-gray-700">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Awaiting Auth...
+                        </div>
+                        <a href="#forum" class="mt-4 block text-xs text-primary-light hover:underline font-medium">Jump to Discussion &rarr;</a>
+                    </div>
+
+                    <!-- Quick Link: Module Review -->
+                    <a href="https://cognitioplus.github.io/CCMHPP/#course-modules" target="_blank" class="block bg-white p-6 rounded-xl shadow-lg border-l-4 border-accent transition card-hover">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Access Certification Modules</h3>
+                        <p class="text-gray-500 text-sm">Review PFA, Ethics, and Crisis Response content.</p>
+                    </a>
+
+                    <!-- Quick Link: Practicum Log -->
+                    <div class="block bg-white p-6 rounded-xl shadow-lg border-l-4 border-gray-400">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Practicum & Supervision</h3>
+                        <p class="text-gray-500 text-sm">Log your required support sessions and check mentor feedback.</p>
+                        <button class="mt-3 text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">Log In (Simulated)</button>
+                    </div>
+
+                </section>
+                
+                <!-- Community Forum / Discussion Feed -->
+                <section id="forum" class="py-12 mb-12">
+                    <div class="px-6 md:px-12">
+                        <h2 class="section-heading text-3xl md:text-4xl text-primary">Community Forum</h2>
+                        <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+                            Engage with peers, ask questions, and share resources. Authentication is required to participate.
+                        </p>
+
+                        <div id="forum-section" class="max-w-3xl mx-auto">
+                            ${forumLockMessage}
+                            ${postCreationForm}
+
+                            <!-- Forum Feed -->
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Latest Threads</h3>
+                            <div id="forum-feed" class="space-y-4">
+                                <p class="text-center text-gray-500 p-8">Awaiting authentication to load posts...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Competencies & Modules -->
+                <section id="modules" class="py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-200">
+                    <div class="px-6 md:px-12">
+                        <h2 class="section-heading text-3xl md:text-4xl text-primary">Competency Domains & Course Access</h2>
+                        <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+                            These domains define the standards of practice for mental health and well-being paraprofessionals.
+                        </p>
+                        
+                        <!-- Competency Domains Table (Updated) -->
+                        <div class="max-w-4xl mx-auto overflow-x-auto shadow-lg rounded-xl mb-10 border border-primary-light/50">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                            Domain
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                            Competency Standard
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                            Source
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Communication and Support</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Demonstrates empathy, reflective listening, and rapport-building</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">WHO mhGAP (2023)</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ethics and Confidentiality</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Adheres to data privacy and informed consent practices</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">WHO QualityRights, RA 10173</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Crisis Response and Referral</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Applies Look–Listen–Link in crisis; initiates safe referrals</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">WHO PFA Guide</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Cultural and Community Sensitivity</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Integrates local and cultural contexts</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">PCMH Framework</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Personal and Peer Resilience</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Practices mindfulness, self-care, and supervision</td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">DOH–PCMH Workforce Pillar</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Course Access Button (Duplicated from Hero as requested) -->
+                        <div class="text-center mt-10">
+                            <a href="https://cognitioplus.github.io/CCMHPP/#course-modules" target="_blank"
+                               class="inline-block px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-light transition duration-150 shadow-xl text-lg uppercase tracking-wider">
+                                GET STARTED OR CONTINUE THE PARAPROFESSIONAL CERTIFICATION COURSE
+                            </a>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Knowledge Base & Required References (Updated Links) -->
+                <section id="resources" class="py-12 mb-12">
+                    <div class="px-6 md:px-12">
+                        <h2 class="section-heading text-3xl md:text-4xl">Knowledge Base & References</h2>
+                        <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+                            Access the core documents, frameworks, and legal references that govern your practice.
+                        </p>
+                        
+                        <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                            <ul class="space-y-4">
+                                <!-- Reference list items with active hyperlinks -->
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">1.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">World Health Organization (2023). mhGAP Intervention Guide: Version 3.0</p>
+                                        <a href="https://iris.who.int/server/api/core/bitstreams/93e56376-0e64-4a08-bdd0-703313be5354/content" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Source (WHO) &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">2.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">World Health Organization (2022). QualityRights Mental Health, Disability and Human Rights Toolkit</p>
+                                        <a href="https://iris.who.int/server/api/core/bitstreams/204df45f-b453-4e86-8954-ca8e6f99fc45/content" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Source (WHO) &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">3.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Philippine Mental Health Act (Republic Act 11036)</p>
+                                        <a href="https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/2/83255" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Law &rarr;</a>
+                                    </div>
+                                </li>
+                                 <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">4.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Data Privacy Act (Republic Act 10173) of 2012</p>
+                                        <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Law &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">5.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">DOH Guidelines on Community-Based Mental Health Services (2021)</p>
+                                        <a href="https://iris.who.int/server/api/core/bitstreams/184ff4ef-9c4c-4aad-b1c5-437b08bc0184/content" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Guidelines &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">6.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Cognitio+ Comprehensive Guidebook for Paraprofessional</p>
+                                        <a href="https://cognitioplus.aiwaapp.live/guidebook" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Open Guidebook &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">7.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Cognitio+ Mental Health Certification Course Manual</p>
+                                        <a href="https://cognitioplus.aiwaapp.live/paraprofessional-course-manual" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Open Course Manual &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">8.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Cognitio+'s Web App (Service Access)</p>
+                                        <a href="https://cognitio-plus.com" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Access Web App &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">9.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Cognitio+'s Digital Resilience Tools</p>
+                                        <a href="https://cognitio-plus.appimize.app/solutions" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Access Tools &rarr;</a>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="text-accent font-bold pt-1">10.</span>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Cognitio+'s Tele-therapy and Online Counseling Services</p>
+                                        <a href="https://cognitio-plus.appimize.app/online-counseling" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Access Counseling &rarr;</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="text-center mt-10 border-t pt-6">
+                                <p class="mb-4 text-gray-700 font-medium">Quick Access: Certification Course</p>
+                                <a href="https://cognitioplus.aiwaapp.live/paraprofessional-course" target="_blank"
+                                   class="inline-block px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition duration-150 shadow-md">
+                                    Access Mental Health Certification Course
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            container.innerHTML = content;
         }
 
-        // Attach submitPost to the global window object for the form
-        window.submitPost = submitPost;
-        window.alertModal = alertModal; 
+        window.onload = () => {
+            initializeSupabaseAuth();
+            setPage(currentPage);
+        };
     </script>
 
     <!-- Header & Navigation -->
@@ -293,7 +1015,7 @@
             <!-- Logo & Title -->
             <div class="flex items-center space-x-3">
                 <img
-                    src="https://placehold.co/50x50/B425AA/ffffff?text=C+"
+                    src="https://cognitio-plus.appimize.app/assets/apps/user_1097/app_3046/draft/icon/app_logo.png?1765530062"
                     alt="Cognitio+ Logo"
                     class="h-10 w-10 rounded-full shadow-md"
                 />
@@ -302,202 +1024,35 @@
             
             <!-- User Status & Action Buttons -->
             <div class="flex items-center space-x-4 text-sm">
-                <div class="hidden md:block text-right">
-                    <p id="auth-status" class="font-medium text-gray-700">Connecting...</p>
-                    <p id="user-id-display" class="text-xs text-gray-500 truncate">Loading User...</p>
+                
+                <!-- Navigation Buttons (Only Hub remains) -->
+                <button data-target="hub" onclick="setPage('hub')" 
+                        class="nav-button active-nav px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition duration-150 shadow">
+                    Hub & Forum
+                </button>
+                
+                <!-- Auth Button Container -->
+                <div id="auth-btn-container">
+                    <button onclick="showAuthModalFn('signin')" class="nav-button px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition duration-150 shadow">Sign In</button>
                 </div>
-                <a href="#resources" class="hidden sm:block px-4 py-2 bg-accent text-gray-900 rounded-lg font-semibold hover:bg-yellow-400 transition duration-150 shadow">
-                    Resources
-                </a>
-                <!-- Updated link to scroll to the new forum section -->
-                <a href="#forum" class="px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary-light transition duration-150 shadow">
-                    Community Forum
-                </a>
+                
+                <div class="hidden md:block text-right">
+                    <!-- Personalized Name Display -->
+                    <p id="auth-status" class="font-medium text-gray-700">Initializing...</p>
+                    <!-- Actual UID Display -->
+                    <p id="user-id-display" class="text-xs text-gray-500 max-w-full truncate">Awaiting Auth...</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content Container (Controlled by JS Router) -->
     <main class="pt-8">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-
-            <!-- Hero Section / Welcome Banner -->
-            <section class="mb-12 bg-white shadow-xl rounded-2xl p-6 md:p-12 border border-primary-light/20">
-                <div class="text-center">
-                    <p class="text-xl font-semibold text-gray-600 mb-2">Welcome Back,</p>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                        Your Central Hub for Mental Health and Well-Being Paraprofessional Support
-                    </h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-500">
-                        Access continuous professional development, essential references, and real-time community support for your practice.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Dashboard Overview: Status & Quick Links -->
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                
-                <!-- Community Status (Firestore Demo) -->
-                <div id="community" class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-primary">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Peers Online Status</h3>
-                    <div id="hub-status-text" class="text-gray-700">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Loading real-time status...
-                    </div>
-                    <a href="#forum" class="mt-4 block text-xs text-primary-light hover:underline font-medium">Jump to Discussion &rarr;</a>
-                </div>
-
-                <!-- Quick Link: Module Review -->
-                <a href="#modules" class="block bg-white p-6 rounded-xl shadow-lg border-l-4 border-accent transition card-hover">
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Review Core Modules</h3>
-                    <p class="text-gray-500 text-sm">Revisit PFA, Ethics, and Crisis Response content.</p>
-                </a>
-
-                <!-- Quick Link: Practicum Log -->
-                <div class="block bg-white p-6 rounded-xl shadow-lg border-l-4 border-gray-400">
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Practicum & Supervision</h3>
-                    <p class="text-gray-500 text-sm">Log your 10 required support sessions and check mentor feedback.</p>
-                    <button class="mt-3 text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">Log In (Simulated)</button>
-                </div>
-
-            </section>
-            
-            <!-- IX. Community Forum / Discussion Feed (NEW SECTION) -->
-            <section id="forum" class="py-12 mb-12">
-                <div class="px-6 md:px-12">
-                    <h2 class="section-heading text-3xl md:text-4xl text-primary">IX. Community Forum</h2>
-                    <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Connect with peers, share insights, and discuss case studies in a private, supportive environment.
-                    </p>
-
-                    <div class="max-w-3xl mx-auto">
-                        <!-- Post Creation Form -->
-                        <form id="post-form" class="bg-white p-6 rounded-xl shadow-lg border border-primary-light/30 mb-8" onsubmit="submitPost(event)">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4">Start a New Discussion Thread</h3>
-                            <input type="text" id="post-title" placeholder="Thread Title (e.g., Question about PFA Step 3)" 
-                                   class="w-full p-3 mb-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition" required>
-                            <textarea id="post-content" rows="4" placeholder="Share your thoughts or ask your question..."
-                                      class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition" required></textarea>
-                            <button type="submit" id="post-submit-btn" 
-                                    class="w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition duration-150 shadow-lg disabled:bg-gray-400">
-                                Post to Forum
-                            </button>
-                        </form>
-
-                        <!-- Forum Feed -->
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Latest Threads</h3>
-                        <div id="forum-feed" class="space-y-4">
-                            <p class="text-center text-gray-500 p-8">Loading posts...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- VII. Core Competencies & Modules (Refined Section V) -->
-            <section id="modules" class="py-12 bg-white rounded-2xl shadow-xl mb-12 border border-gray-200">
-                <div class="px-6 md:px-12">
-                    <h2 class="section-heading text-3xl md:text-4xl text-primary">VII. Core Competencies & Modules</h2>
-                    <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Your foundational training remains your knowledge base. Select a module to review its learning outcomes and key skills.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        
-                        <!-- Module 1: Foundations of Mental Health and Well-Being -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M1: Foundations (3 hrs)</h3>
-                            <p class="text-sm text-gray-500">WHO/RA 11036 Context</p>
-                            <a href="module1.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-        
-                        <!-- Module 2: Ethics, Boundaries, and Digital Confidentiality -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M2: Ethics & Digital (2 hrs)</h3>
-                            <p class="text-sm text-gray-500">Data Privacy & Boundaries</p>
-                            <a href="module2.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-        
-                        <!-- Module 3: Psychological First Aid (Look–Listen–Link) -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M3: PFA (3 hrs)</h3>
-                            <p class="text-sm text-gray-500">Look–Listen–Link Principles</p>
-                            <a href="module3.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-                        
-                        <!-- Module 4: Core Support and Basic Coping Skills -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M4: Core Support (6 hrs)</h3>
-                            <p class="text-sm text-gray-500">Communication & Coping Skills</p>
-                            <a href="module4.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-                        
-                        <!-- Module 5: Recognizing and Responding to Crisis -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M5: Crisis Response (4 hrs)</h3>
-                            <p class="text-sm text-gray-500">Suicide/Acute Distress Signs</p>
-                            <a href="module5.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-                        
-                        <!-- Module 6: Cultural Sensitivity and Community Context -->
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-md transition card-hover">
-                            <h3 class="text-lg font-semibold text-primary mb-1">M6: Cultural Context (2 hrs)</h3>
-                            <p class="text-sm text-gray-500">Inclusivity & Local Adaptation</p>
-                            <a href="module6.html" class="mt-3 inline-block text-sm text-primary-light hover:underline font-medium">Review Module &rarr;</a>
-                        </div>
-                        
-                    </div>
-                </div>
-            </section>
-
-            <!-- VIII. Knowledge Base & Required References (Refined Section IX) -->
-            <section id="resources" class="py-12 mb-12">
-                <div class="px-6 md:px-12">
-                    <h2 class="section-heading text-3xl md:text-4xl">VIII. Knowledge Base & References</h2>
-                    <p class="text-center text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Access the core documents, frameworks, and legal references that govern your practice.
-                    </p>
-                    
-                    <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                        <ul class="space-y-4">
-                            <!-- Reference 1 -->
-                            <li class="flex items-start space-x-3">
-                                <span class="text-accent font-bold pt-1">1.</span>
-                                <div>
-                                    <p class="font-medium text-gray-800">WHO mhGAP Intervention Guide: Version 3.0</p>
-                                    <a href="#" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Source (External Link)</a>
-                                </div>
-                            </li>
-                            <!-- Reference 2 -->
-                            <li class="flex items-start space-x-3">
-                                <span class="text-accent font-bold pt-1">2.</span>
-                                <div>
-                                    <p class="font-medium text-gray-800">Philippine Mental Health Act (RA 11036)</p>
-                                    <a href="#" class="text-sm text-primary hover:text-primary-light transition hover:underline">View Law &rarr;</a>
-                                </div>
-                            </li>
-                            <!-- Reference 3 -->
-                            <li class="flex items-start space-x-3">
-                                <span class="text-accent font-bold pt-1">3.</span>
-                                <div>
-                                    <p class="font-medium text-gray-800">Cognitio+ Comprehensive Guidebook for Paraprofessionals</p>
-                                    <a href="https://cognitioplus.aiwaapp.live/guidebook" target="_blank" class="text-sm text-primary hover:text-primary-light transition hover:underline">Open Guidebook &rarr;</a>
-                                </div>
-                            </li>
-                            <!-- Reference 4 (Data Privacy) -->
-                            <li class="flex items-start space-x-3">
-                                <span class="text-accent font-bold pt-1">4.</span>
-                                <div>
-                                    <p class="font-medium text-gray-800">Data Privacy Act (RA 10173) Summary for Practice</p>
-                                    <a href="#" class="text-sm text-primary hover:text-primary-light transition hover:underline">Read Summary &rarr;</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+            <div id="app-container">
+                <!-- Content will be rendered here by renderApp() -->
+                <p class="text-center text-gray-600 py-12">Starting up application and authenticating...</p>
+            </div>
         </div>
     </main>
 
@@ -506,7 +1061,7 @@
         <div class="container mx-auto px-4 text-center">
             <p>&copy; 2025 Cognitio+ Paraprofessional Hub. All Rights Reserved.</p>
             <p class="mt-2 text-sm text-gray-400">
-                Contact: <a href="mailto:hellot@cognitioplus.com" class="text-accent hover:text-yellow-300 transition">hellot@cognitioplus.com</a>
+                Contact: <a href="mailto:hello@cognitioplus.com" class="text-accent hover:text-yellow-300 transition">hello@cognitioplus.com</a>
             </p>
         </div>
     </footer>
@@ -522,20 +1077,47 @@
             </div>
             <div class="p-4">
                 <p id="alertMessage" class="text-gray-700"></p>
-                <!-- This button is hidden but available if manual closure were needed -->
-                <button onclick="document.getElementById('customAlertModal').classList.add('hidden')" class="hidden">Close</button>
             </div>
         </div>
     </div>
+    
+    <!-- Authentication Modal (Sign In / Sign Up) -->
+    <div id="authModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden z-[100] flex items-center justify-center">
+        <div id="auth-form-container" class="bg-white rounded-xl shadow-2xl max-w-sm w-full m-4">
+            <!-- Form content will be rendered here by renderAuthForm() -->
+        </div>
+    </div>
 
-    <style>
-    /* CSS for the hidden modal (pointer-events-none ensures clicks go through when hidden) */
-    #customAlertModal.hidden {
-        display: none;
-    }
-    #customAlertModal {
-        display: flex; /* Always use flex when visible */
-    }
-    </style>
+    <!-- Post Edit Modal Structure -->
+    <div id="editPostModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden z-[100] flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full m-4">
+            <div class="bg-primary p-4 rounded-t-xl">
+                <h3 class="text-xl font-bold text-white">Edit Discussion Post</h3>
+            </div>
+            <form class="p-6" onsubmit="saveEditedPost(event)">
+                <div class="mb-4">
+                    <label for="edit-post-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text" id="edit-post-title" required 
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition">
+                </div>
+                <div class="mb-6">
+                    <label for="edit-post-content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                    <textarea id="edit-post-content" rows="6" required 
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="hideEditModal()" 
+                            class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                        Cancel
+                    </button>
+                    <button type="submit" id="edit-post-submit-btn" 
+                            class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition disabled:bg-gray-400">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
